@@ -18,7 +18,7 @@ public class BattleManager : MonoBehaviour
     /// <summary>
     /// フロア最大数
     /// </summary>
-    public const int MaxFloor = 3;
+    public const int MaxFloor = 10;
     /// <summary>
     /// 初期フロア
     /// </summary>
@@ -36,9 +36,13 @@ public class BattleManager : MonoBehaviour
     /// </summary>
     private const int FadeInTime = 20;
     /// <summary>
-    /// 敵がスライドインする時間
+    /// 敵がスライドインする時間(フレーム数)
     /// </summary>
     public const int SlideTime = (int)(200.0f / func.FRAMETIME);
+    /// <summary>
+    /// ゲームオーバー時の暗転時間(フレーム数)
+    /// </summary>
+    private const int GOFadeOutTime = (int)(500.0f / func.FRAMETIME);
     /// <summary>
     /// 状態一覧
     /// </summary>
@@ -56,8 +60,10 @@ public class BattleManager : MonoBehaviour
         Change,
         /// <summary>ステージ終了</summary>
         End,
-        /// <summary>ゲームオーバー</summary>
+        /// <summary>ゲームオーバー演出中</summary>
         GameOver,
+        /// <summary>ゲームオーバー表示後セレクト</summary>
+        GameOverSelect,
     };
     /// <summary>
     /// ターン一覧
@@ -92,6 +98,10 @@ public class BattleManager : MonoBehaviour
     /// </summary>
     private GameObject stageInfo;
     /// <summary>
+    /// FloorCounterオブジェクト
+    /// </summary>
+    private GameObject floorCount;
+    /// <summary>
     /// 敵オブジェクトリスト
     /// </summary>
     private GameObject[] enemy;
@@ -111,6 +121,10 @@ public class BattleManager : MonoBehaviour
     /// フロア
     /// </summary>
     private int floor;
+    /// <summary>
+    /// 最終フロア
+    /// </summary>
+    private int lastFloor;
     /// <summary>
     /// 経過時間
     /// </summary>
@@ -134,7 +148,7 @@ public class BattleManager : MonoBehaviour
     /// <summary>
     /// オブジェクトの生成が済んでいるか
     /// </summary>
-    private bool preparated;
+    private bool prepared;
     /// <summary>
     /// 現在の状態を取得する
     /// </summary>
@@ -192,6 +206,12 @@ public class BattleManager : MonoBehaviour
             if(!doContinue) state = State.Change;
             if(wait) state = State.EndWait;
         }
+        if(GameObject.Find("Player").GetComponent<Player>().isDead())
+        {
+            GameObject.Find("Player").GetComponent<Player>().SetState(Player.State.NoInput);
+            state = State.GameOver;
+            time = 0;
+        }
     }
     /// <summary>
     /// 敵の数を取得する
@@ -216,9 +236,10 @@ public class BattleManager : MonoBehaviour
         turn = Turn.Player;
         fader = GameObject.Find("Fader");
         stageInfo = GameObject.Find("StageInfo");
+        floorCount = GameObject.Find("FloorCount");
         floor = InitialFloor;
         time = 0;
-        preparated = false;
+        prepared = false;
 
         r = 0.0f;
         g = 0.0f;
@@ -240,7 +261,7 @@ public class BattleManager : MonoBehaviour
             if(Fader.IsEnd())
             {
                 time = 0;
-                if(!preparated)
+                if(!prepared)
                 {
                     StageInfo.ObjInfo info = stageInfo.GetComponent<StageInfo>().GetStageInfo(floor);
                     for(int i = 0; i < info.loaderIndex; i++)
@@ -283,7 +304,6 @@ public class BattleManager : MonoBehaviour
                             break;
                         }
                         obj = Instantiate(obj);
-                        Debug.Log(new Vector2(i, info.loaderIndex));
                         obj.transform.position = new Vector2(info.x[i], info.y[i]);
                         if(isEnemy)
                         {
@@ -299,14 +319,17 @@ public class BattleManager : MonoBehaviour
                             obj.GetComponent<Item>().element = info.element[i];
                             obj.GetComponent<Item>().InitialPower = info.atk[i];
                             obj.GetComponent<Item>().turnCount = info.turn[i];
+                            obj.GetComponent<Item>().sizePattern = info.size[i];
                         }
                     }
-                    preparated = true;
+                    lastFloor = stageInfo.GetComponent<StageInfo>().GetLastFloorNumber();
+                    prepared = true;
                 }
                 enemy = GameObject.FindGameObjectsWithTag("Enemy");
                 item = GameObject.FindGameObjectsWithTag("Item");
                 enemyCount = enemy.Length;
                 itemCount = item.Length;
+                floorCount.GetComponent<FloorCount>().SetText(floor, lastFloor);
                 state = State.StartWait;
             }
             break;
@@ -318,6 +341,7 @@ public class BattleManager : MonoBehaviour
                 {
                     alpha = 0;
                     time = 0;
+                    floorCount.GetComponent<FloorCount>().DeleteText();
                     GameObject.Find("Player").GetComponent<Player>().SetState(Player.State.Wait);
                     state = State.Process;
                 }
@@ -374,13 +398,25 @@ public class BattleManager : MonoBehaviour
                 {
                     Destroy(item[i]);
                 }
-                preparated = false;
+                prepared = false;
                 GameObject.Find("Player").GetComponent<Player>().MoveFloor();
             }
             break;
         case State.End:
             break;
         case State.GameOver:
+            if(time < GOFadeOutTime)
+            {
+                alpha += InitialAlpha / FadeInTime;
+                SpriteRenderer sr = GetComponent<SpriteRenderer>();
+                sr.color = new Color(r, g, b, alpha);
+            }
+            else if(time == GOFadeOutTime)
+            {
+                GameObject.Find("GameOverTx").GetComponent<GameOverTx>().SetText();
+            }
+            break;
+        case State.GameOverSelect:
             break;
         }
     }

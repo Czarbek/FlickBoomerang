@@ -66,7 +66,7 @@ public class EnemyBullet : MonoBehaviour
 
         if(func.CircleCollision(transform.position, Collisionr, targetPoint, PlayerGauge.Collisionr))
         {
-            gauge.GetComponent<PlayerGauge>().hit(atk);
+            gauge.GetComponent<PlayerGauge>().Hit(atk);
             parent.GetComponent<Enemy>().SetChange();
             parent.GetComponent<Enemy>().ResetTurn();
             Destroy(gameObject);

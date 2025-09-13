@@ -55,9 +55,9 @@ public class DiffButton : TitleManager
         manager = GameObject.Find("TitleManager");
         stageInfo = GameObject.Find("StageInfo");
 
-        sp_diff[0] = Resources.Load<Sprite>("button_select1");
-        sp_diff[1] = Resources.Load<Sprite>("button_select2");
-        sp_diff[2] = Resources.Load<Sprite>("button_select3");
+        sp_diff[0] = Resources.Load<Sprite>("button_stage01");
+        sp_diff[1] = Resources.Load<Sprite>("button_stage02");
+        sp_diff[2] = Resources.Load<Sprite>("button_stage03");
         sp_diff[3] = Resources.Load<Sprite>("button_close");
         GetComponent<SpriteRenderer>().sprite = sp_diff[index];
 
@@ -93,14 +93,10 @@ public class DiffButton : TitleManager
                     switch(index)
                     {
                     case 0:
-                        stageInfo.GetComponent<StageInfo>().LoadStageInfo(0);
-                        Fader.SetFader(20, true, "Stage");
-                        break;
                     case 1:
-                        Fader.SetFader(20, true, "Stage2");
-                        break;
                     case 2:
-                        Fader.SetFader(20, true, "Stage3");
+                        stageInfo.GetComponent<StageInfo>().LoadStageInfo(index);
+                        Fader.SetFader(20, true, "Stage");
                         break;
                     case 3:
                         manager.GetComponent<TitleManager>().SetState(State.Title);

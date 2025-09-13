@@ -24,13 +24,9 @@ public class Enemy : MonoBehaviour
     /// </summary>
     private const float ResistRate = 1;
     /// <summary>
-    /// “–‚½‚è”»’è‚Ì”¼Œa‚ÌŠî€’l
+    /// “–‚½‚è”»’è‚Ì”¼Œa
     /// </summary>
-    private const float CollisionRadius = 0.3f;
-    /// <summary>
-    /// “–‚½‚è”»’è‚Ì”¼Œa‚Ì”{—¦
-    /// </summary>
-    private readonly float[] CollisionRadiusRate = new float[4] { 1.0f, 1.6f, 2.0f, 3.0f };
+    private readonly float[] CollisionRadius = new float[4] { func.metrecalc(15), func.metrecalc(10), func.metrecalc(8), func.metrecalc(5) };
     public const float ScreenOutY = func.camHeight*2 + 0.5f;
     /// <summary>
     /// ‘®«ˆê——
@@ -147,15 +143,6 @@ public class Enemy : MonoBehaviour
     public float GetCollision()
     {
         return collisionr;
-    }
-    /// <summary>
-    /// “–‚½‚è”»’è‚Ì”¼Œa‚ğŒvZ‚·‚é
-    /// </summary>
-    /// <param name="sizePattern">ƒTƒCƒY‚Ìƒpƒ^[ƒ“</param>
-    /// <returns>“–‚½‚è”»’è‚Ì”¼Œa</returns>
-    public float CalcCollision(int sizePattern)
-    {
-        return CollisionRadius * CollisionRadiusRate[sizePattern];
     }
     /// <summary>
     /// ‘®«‘Š«‚©‚çƒ_ƒ[ƒW”{—¦‚ğŒvZ‚·‚é
@@ -299,7 +286,7 @@ public class Enemy : MonoBehaviour
         {
             GameObject mask = (GameObject)Resources.Load("EnemyMask");
             mask = Instantiate(mask);
-            mask.transform.position = new Vector2(transform.position.x+i, transform.position.y);
+            mask.transform.position = new Vector2(transform.position.x+i*func.pxcalc((int)(1024*transform.localScale.x)), transform.position.y);
             mask.transform.localScale = this.transform.localScale;
             mask.GetComponent<EnemyMask>().SetDirection(i);
             mask.GetComponent<EnemyMask>().parent = this.gameObject;
@@ -310,10 +297,10 @@ public class Enemy : MonoBehaviour
     /// <summary>
     /// €–S”»’è‚ğXV‚·‚é
     /// </summary>
-    public void DestroyThis()
+    public void Inactivate()
     {
         alive = false;
-        //Destroy(gameObject);
+        GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);
     }
     // Start is called before the first frame update
     void Start()
@@ -323,12 +310,75 @@ public class Enemy : MonoBehaviour
         transform.position = new Vector2(startX, ScreenOutY);
 
         turnCount = maxCount;
-        collisionr = CalcCollision(sizePattern);
+        collisionr = CollisionRadius[sizePattern];
         hit = false;
         changeTurn = false;
         turnProcess = false;
         dying = false;
         alive = true;
+
+        switch(sizePattern)
+        {
+        case 0:
+            if(element == Element.Fire)
+            {
+                GetComponent<SpriteRenderer>().sprite = (Sprite)Resources.Load<Sprite>("eA_fire");
+            }
+            else if(element == Element.Aqua)
+            {
+                GetComponent<SpriteRenderer>().sprite = (Sprite)Resources.Load<Sprite>("eA_aqua");
+            }
+            else if(element == Element.Leaf)
+            {
+                GetComponent<SpriteRenderer>().sprite = (Sprite)Resources.Load<Sprite>("eA_leaf");
+            }
+            break;
+        case 1:
+            if(element == Element.Fire)
+            {
+                GetComponent<SpriteRenderer>().sprite = (Sprite)Resources.Load<Sprite>("eB_fire");
+            }
+            else if(element == Element.Aqua)
+            {
+                GetComponent<SpriteRenderer>().sprite = (Sprite)Resources.Load<Sprite>("eB_aqua");
+            }
+            else if(element == Element.Leaf)
+            {
+                GetComponent<SpriteRenderer>().sprite = (Sprite)Resources.Load<Sprite>("eB_leaf");
+            }
+            break;
+        case 2:
+            if(element == Element.Fire)
+            {
+                GetComponent<SpriteRenderer>().sprite = (Sprite)Resources.Load<Sprite>("eC_fire");
+            }
+            else if(element == Element.Aqua)
+            {
+                GetComponent<SpriteRenderer>().sprite = (Sprite)Resources.Load<Sprite>("eC_aqua");
+            }
+            else if(element == Element.Leaf)
+            {
+                GetComponent<SpriteRenderer>().sprite = (Sprite)Resources.Load<Sprite>("eC_leaf");
+            }
+            break;
+        case 3:
+            if(element == Element.Fire)
+            {
+                GetComponent<SpriteRenderer>().sprite = (Sprite)Resources.Load<Sprite>("eD_fire");
+            }
+            else if(element == Element.Aqua)
+            {
+                GetComponent<SpriteRenderer>().sprite = (Sprite)Resources.Load<Sprite>("eD_aqua");
+            }
+            else if(element == Element.Leaf)
+            {
+                GetComponent<SpriteRenderer>().sprite = (Sprite)Resources.Load<Sprite>("eD_leaf");
+            }
+            break;
+        default:
+            break;
+        }
+        transform.localScale = new Vector3((collisionr * 2) / func.pxcalc(1024), (collisionr * 2) / func.pxcalc(1024));
 
         manager = GameObject.Find("BattleManager");
 

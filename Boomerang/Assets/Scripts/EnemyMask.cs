@@ -47,7 +47,11 @@ public class EnemyMask : MonoBehaviour
         }
         if(distance <= 0 && direction == 1)
         {
-            parent.GetComponent<Enemy>().DestroyThis();
+            parent.GetComponent<Enemy>().Inactivate();
+
+        }
+        if(!parent.GetComponent<Enemy>().isAlive())
+        {
             Destroy(gameObject);
         }
     }

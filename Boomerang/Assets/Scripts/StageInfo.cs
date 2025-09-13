@@ -69,6 +69,10 @@ public class StageInfo : MonoBehaviour
     /// </summary>
     public ObjInfo[] objInfo;
     /// <summary>
+    /// 最後のフロア
+    /// </summary>
+    private int lastFloor;
+    /// <summary>
     /// 種類を割り当てる
     /// </summary>
     /// <param name="s">文字列</param>
@@ -134,19 +138,19 @@ public class StageInfo : MonoBehaviour
         int res;
         if(s == "A")
         {
-            res = 3;
+            res = 0;
         }
         else if(s == "B")
         {
-            res = 2;
+            res = 1;
         }
         else if(s == "C")
         {
-            res = 1;
+            res = 2;
         }
         else if(s == "D")
         {
-            res = 0;
+            res = 3;
         }
         else
         {
@@ -160,8 +164,24 @@ public class StageInfo : MonoBehaviour
     /// <param name="stagenum">ステージ番号</param>
     public void LoadStageInfo(int stagenum)
     {
+        string path = Application.streamingAssetsPath;
         // 読み込みたいCSVファイルのパスを指定して開く
-        StreamReader reader = new StreamReader(@"Assets/Scripts/testdata.csv");
+        StreamReader reader;
+        switch(stagenum)
+        {
+        case 0:
+            reader = new StreamReader(path+"/stagedata_01.csv");
+            break;
+        case 1:
+            reader = new StreamReader(path + "/stagedata_02.csv");
+            break;
+        case 2:
+            reader = new StreamReader(path + "/stagedata_03.csv");
+            break;
+        default:
+            reader = new StreamReader("Assets/Resources/stagedata_01.csv");
+            break;
+        }
         bool header = true;
         
         // 末尾まで繰り返す
@@ -183,7 +203,6 @@ public class StageInfo : MonoBehaviour
                 {
                     int nbuffer;
                     float fbuffer;
-                    Debug.Log(objInfo[floor].loaderIndex);
                     objInfo[floor].sort.Add(AssignSort(values[1]));
                     if(int.TryParse(values[2], out nbuffer))
                     {
@@ -212,6 +231,7 @@ public class StageInfo : MonoBehaviour
                     }
                     if(float.TryParse(values[6], out fbuffer))
                     {
+                        fbuffer = (fbuffer) / 45 * func.SCW / func.SCH * func.camHeight * 2 - func.SCW / func.SCH * func.camHeight;
                         objInfo[floor].x.Add(fbuffer);
                     }
                     else
@@ -220,6 +240,7 @@ public class StageInfo : MonoBehaviour
                     }
                     if(float.TryParse(values[7], out fbuffer))
                     {
+                        fbuffer = (fbuffer - 80) / 80 * func.camHeight * 2 + func.metrecalc(10);
                         objInfo[floor].y.Add(fbuffer);
                     }
                     else
@@ -231,6 +252,11 @@ public class StageInfo : MonoBehaviour
                 }
             }
         }
+        lastFloor = 0;
+        for(int i = 1; i < BattleManager.MaxFloor; i++)
+        {
+            if(lastFloor < i && objInfo[i].loaderIndex > 0) lastFloor = i;
+        }
     }
     /// <summary>
     /// 該当フロアのオブジェクト情報を取得する
@@ -240,6 +266,14 @@ public class StageInfo : MonoBehaviour
     public ObjInfo GetStageInfo(int floor)
     {
         return objInfo[floor];
+    }
+    /// <summary>
+    /// 最後のフロアの番号を取得する
+    /// </summary>
+    /// <returns>最後のフロアの番号</returns>
+    public int GetLastFloorNumber()
+    {
+        return lastFloor;
     }
     /// <summary>
     /// 読み込んだオブジェクト情報を破棄する
