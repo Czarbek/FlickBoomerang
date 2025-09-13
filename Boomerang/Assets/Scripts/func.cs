@@ -62,6 +62,11 @@ public class func
     static private int[] keystate = new int[255];
 
     /// <summary>
+    /// タッチの状態
+    /// </summary>
+    static private int touchstate;
+
+    /// <summary>
     /// 画面端の方向
     /// </summary>
     public enum edge
@@ -98,6 +103,7 @@ public class func
         {
             keystate[i] = 0;
         }
+        touchstate = -1;
         return 1;
     }
     /// <summary>
@@ -165,6 +171,26 @@ public class func
         {
             keystate[87]++;
         }
+        if(Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+            if(touch.phase == TouchPhase.Began)
+            {
+                touchstate = 1;
+            }
+            else if(touch.phase == TouchPhase.Moved)
+            {
+                touchstate++;
+            }
+            else if(touch.phase == TouchPhase.Ended)
+            {
+                touchstate = -1;
+            }
+        }
+        else
+        {
+            touchstate = 0;
+        }
     }
     /// <summary>
     /// キー入力状態を取得
@@ -174,6 +200,40 @@ public class func
     public static int getkey(int i)
     {
         return keystate[i];
+    }
+    /// <summary>
+    /// タッチの状態を取得
+    /// </summary>
+    /// <returns></returns>
+    public static int getTouch()
+    {
+        return touchstate;
+    }
+    /// <summary>
+    /// タッチの空間上の2D座標を取得する
+    /// </summary>
+    /// <returns>マウスの2D座標</returns>
+    public static Vector2 getTouchPosition()
+    {
+        return Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
+    }
+    /// <summary>
+    /// スケールの再計算を行う
+    /// </summary>
+    /// <param name="a">メートル単位</param>
+    /// <returns>Unity空間スケール</returns>
+    public static float metrecalc(float a)
+    {
+        return a / 160 * camHeight * 4;
+    }
+    /// <summary>
+    /// ピクセル単位のスケールをUnityの空間スケールに変換する
+    /// </summary>
+    /// <param name="a">ピクセル単位</param>
+    /// <returns>Unity空間スケール</returns>
+    public static float pxcalc(int a)
+    {
+        return (float)a / SCH * camHeight * 4;
     }
     /// <summary>
     /// マウスの空間上の2D座標を取得する
@@ -380,6 +440,38 @@ public class func
         else
         {
             return CircleCollision(mouse().x, mouse().y, 0.01f, pos.x, pos.y, xr);
+        }
+    }
+    /// <summary>
+    /// タッチ位置とオブジェクトの衝突を判定する
+    /// </summary>
+    /// <param name="x">オブジェクトのx座標</param>
+    /// <param name="y">オブジェクトのy座標</param>
+    /// <param name="xr">オブジェクトの横の半径</param>
+    /// <param name="yr">オブジェクトの縦の半径</param>
+    /// <param name="isRect">オブジェクトを矩形とみなすかどうか</param>
+    /// <returns>衝突しているときtrueを返す</returns>
+    public static bool TouchCollision(float x, float y, float xr, float yr = 0, bool isRect = false)
+    {
+        if(touchstate == 0) return false;
+        if(isRect)
+        {
+            return RectCollision(getTouchPosition().x, getTouchPosition().y, 0.01f, 0.01f, x, y, xr, yr);
+        }
+        else
+        {
+            return CircleCollision(getTouchPosition().x, getTouchPosition().y, 0.01f, x, y, xr);
+        }
+    }
+    public static bool TouchCollision(Vector2 pos, float xr, float yr = 0, bool isRect = false)
+    {
+        if(isRect)
+        {
+            return RectCollision(getTouchPosition().x, getTouchPosition().y, 0.01f, 0.01f, pos.x, pos.y, xr, yr);
+        }
+        else
+        {
+            return CircleCollision(getTouchPosition().x, getTouchPosition().y, 0.01f, pos.x, pos.y, xr);
         }
     }
     /// <summary>

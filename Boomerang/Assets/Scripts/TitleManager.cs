@@ -83,6 +83,8 @@ public class TitleManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        bool touchOnObj = Application.isEditor ? func.MouseCollision(transform.position, BSizeX, BSizeY, true) : func.TouchCollision(transform.position, BSizeX, BSizeY, true);
+        bool touched = Application.isEditor ? Input.GetMouseButtonDown(0) : func.getTouch() == 1;
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
         Color col = sr.color;
         if(Input.GetMouseButtonDown(0))
@@ -93,7 +95,7 @@ public class TitleManager : MonoBehaviour
         {
         case State.Title:
             sr.color = new Color(col.r, col.g, col.b, 1);
-            if(func.MouseCollision(transform.position, BSizeX, BSizeY, true) && Input.GetMouseButtonDown(0) && Fader.IsEnd())
+            if(touchOnObj && touched && Fader.IsEnd())
             {
                 state = State.Select;
                 if(!selected)

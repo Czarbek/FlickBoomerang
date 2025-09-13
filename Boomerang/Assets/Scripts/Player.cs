@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     /// <summary>
     /// プレイヤーの初期y座標
     /// </summary>
-    public const float StartY = -4;
+    private static float StartY = -func.camHeight * 2 + func.metrecalc(10);
     /// <summary>
     /// 待機状態のz軸回転
     /// </summary>
@@ -46,11 +46,11 @@ public class Player : MonoBehaviour
     /// <summary>
     /// パターンごとの楕円軌道の横径リスト
     /// </summary>
-    public readonly float[,] HorizontalRadius = new float[WidthPatternNum, HeightPatternNum] { { 4.0f, 3.6f, 3.0f }, { 3.0f, 2.8f, 2.3f }, { 2.0f, 1.8f, 1.5f }, { 1.2f, 1.0f, 0.8f } };
+    public readonly float[,] HorizontalRadius = new float[WidthPatternNum, HeightPatternNum] { { func.metrecalc(80), func.metrecalc(72), func.metrecalc(60) }, { func.metrecalc(60), func.metrecalc(56), func.metrecalc(46) }, { func.metrecalc(40), func.metrecalc(36), func.metrecalc(30) }, { func.metrecalc(24), func.metrecalc(20), func.metrecalc(16) } };
     /// <summary>
     /// パターンごとの楕円軌道の縦径リスト
     /// </summary>
-    public readonly float[] VerticalRadius = new float[HeightPatternNum] { 4.0f, 6.0f, 8.0f };
+    public readonly float[] VerticalRadius = new float[HeightPatternNum] { func.metrecalc(80), func.metrecalc(120), func.metrecalc(160) };
     /// <summary>
     /// 楕円軌道の中心x座標
     /// </summary>
@@ -58,7 +58,7 @@ public class Player : MonoBehaviour
     /// <summary>
     /// 楕円軌道の中心y座標
     /// </summary>
-    public readonly float[] OvalCenterY = new float[HeightPatternNum] { StartY+2.0f, StartY+3.0f, StartY+4.0f };
+    public readonly float[] OvalCenterY = new float[HeightPatternNum] { StartY+ func.metrecalc(40), StartY+ func.metrecalc(60), StartY+ func.metrecalc(80) };
     /// <summary>
     /// フリック角度のパターンリスト
     /// </summary>
@@ -66,11 +66,11 @@ public class Player : MonoBehaviour
     /// <summary>
     /// フリック距離のパターンリスト
     /// </summary>
-    public readonly float[] FlickDistance = new float[HeightPatternNum] { 1.0f, 2.0f, 3.0f };
+    public readonly float[] FlickDistance = new float[HeightPatternNum] { func.metrecalc(10), func.metrecalc(20), func.metrecalc(30) };
     /// <summary>
     /// 当たり判定の半径
     /// </summary>
-    public float Collisionr = 0.3f;
+    public float Collisionr = func.metrecalc(5);
     /// <summary>
     /// プレイヤーの状態一覧
     /// </summary>
@@ -129,6 +129,14 @@ public class Player : MonoBehaviour
     /// BattleManager
     /// </summary>
     private GameObject bm;
+    /// <summary>
+    /// ヒットポイント最大値
+    /// </summary>
+    public int MaxHP = 100;
+    /// <summary>
+    /// ヒットポイント
+    /// </summary>
+    private int hp;
     /// <summary>
     /// パワー
     /// </summary>
@@ -231,6 +239,32 @@ public class Player : MonoBehaviour
         }
     }
     /// <summary>
+    /// 現在のヒットポイントを取得する
+    /// </summary>
+    /// <returns>現在のヒットポイント</returns>
+    public int GetHP()
+    {
+        return hp;
+    }
+    /// <summary>
+    /// 敵の攻撃が当たった時の処理
+    /// </summary>
+    /// <param name="atk">敵の攻撃力</param>
+    public void Hit(int atk)
+    {
+        hp -= atk;
+        if(hp < 0) hp = 0;
+    }
+    /// <summary>
+    /// HPを回復する
+    /// </summary>
+    /// <param name="rate">最大HPに対する割合</param>
+    public void HPCure(float rate)
+    {
+        hp += (int)(MaxHP * rate);
+        if(hp > MaxHP) hp = MaxHP;
+    }
+    /// <summary>
     /// パワーの加算
     /// </summary>
     /// <param name="power">加算するパワーの値</param>
@@ -260,6 +294,14 @@ public class Player : MonoBehaviour
     {
         power = InitialPower;
     }
+    /// <summary>
+    /// 生死判定
+    /// </summary>
+    /// <returns>HPが0以下の場合、true</returns>
+    public bool isDead()
+    {
+        return hp <= 0;
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -288,12 +330,15 @@ public class Player : MonoBehaviour
 
 
         //プレイヤーパラメータセット
+        hp = MaxHP;
         power = InitialPower;
         state = State.NoInput;
     }
     // Update is called once per frame
     void Update()
     {
+        bool touchBegin = Application.isEditor ? Input.GetMouseButtonDown(0) : func.getTouch() == 1;
+        bool touchEnd = Application.isEditor ? Input.GetMouseButtonUp(0) : func.getTouch() == -1;
         Vector2 pos = transform.position;
         if(bm.GetComponent<BattleManager>().GetTurn() == BattleManager.Turn.Player)
         {
@@ -302,10 +347,10 @@ public class Player : MonoBehaviour
             case State.Wait:
                 pos.x = StartX;
                 pos.y = StartY;
-                if(Input.GetMouseButtonDown(0))
+                if(touchBegin)
                 {
-                    touchedx = func.mouse().x;
-                    touchedy = func.mouse().y;
+                    touchedx = Application.isEditor ? func.mouse().x : func.getTouchPosition().x;
+                    touchedy = Application.isEditor ? func.mouse().y : func.getTouchPosition().y;
                     flickTime = 0;
                     flyingTime = 0;
                     state = State.Touched;
@@ -313,10 +358,10 @@ public class Player : MonoBehaviour
                 break;
             case State.Touched:
                 flickTime++;
-                if(Input.GetMouseButtonUp(0))
+                if(touchEnd)
                 {
-                    releasedx = func.mouse().x;
-                    releasedy = func.mouse().y;
+                    releasedx = Application.isEditor ? func.mouse().x : func.getTouchPosition().x;
+                    releasedy = Application.isEditor ? func.mouse().y : func.getTouchPosition().y;
                     float flickDistance = func.dist(touchedx, touchedy, releasedx, releasedy);
                     float flickAngle = func.getAngle(touchedx, touchedy, releasedx, releasedy);
                     Debug.Log(flickAngle / Mathf.PI * 180);

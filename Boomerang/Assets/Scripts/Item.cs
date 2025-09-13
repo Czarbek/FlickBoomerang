@@ -36,6 +36,10 @@ public class Item : MonoBehaviour
     /// </summary>
     public float CollisionRadius;
     /// <summary>
+    /// サイズ
+    /// </summary>
+    public int sizePattern;
+    /// <summary>
     /// パワーの最大値
     /// </summary>
     private const int MaxPower = 10;
@@ -95,7 +99,7 @@ public class Item : MonoBehaviour
             GameObject.Find("Player").GetComponent<Player>().SetElement(element);
             break;
         case ItemSort.Fruit:
-            GameObject.Find("PlayerGauge").GetComponent<PlayerGauge>().HPCure(cureRate);
+            GameObject.Find("Player").GetComponent<Player>().HPCure(cureRate);
             break;
         }
         turnCount = 0;
@@ -149,12 +153,26 @@ public class Item : MonoBehaviour
         {
         case ItemSort.Ring:
             validationTurn = RingValidationTurn;
+            if(sizePattern == 1)
+            {
+                CollisionRadius = func.metrecalc(10);
+            }
+            else if(sizePattern == 2)
+            {
+                CollisionRadius = func.metrecalc(8);
+            }
+            else if(sizePattern == 3)
+            {
+                CollisionRadius = func.metrecalc(5);
+            }
             break;
         case ItemSort.Crystal:
             validationTurn = CrystalValidationTurn;
+            CollisionRadius = func.metrecalc(5);
             break;
         case ItemSort.Fruit:
             validationTurn = FruitValidationTurn;
+            CollisionRadius = func.metrecalc(5);
             break;
         }
         valid = true;
