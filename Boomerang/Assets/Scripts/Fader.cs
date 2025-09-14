@@ -63,10 +63,15 @@ public class Fader : MonoBehaviour
     /// フェードにかかる時間(フレーム数)
     /// </summary>
     public int FadeTime = 45;
+    /// <summary>
+    /// フェードアウトしてからフェードイン開始までのデフォルト待機時間
+    /// </summary>
+    static public int FadeWaitTime = 30;
 
     // Start is called before the first frame update
     void Start()
     {
+        
         DontDestroyOnLoad(this);
         state = State.Wait;
         r = 0.0f;

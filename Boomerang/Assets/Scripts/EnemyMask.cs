@@ -45,14 +45,20 @@ public class EnemyMask : MonoBehaviour
             distance -= spd;
             transform.position = new Vector2(transform.position.x - spd * direction, transform.position.y);
         }
-        if(distance <= 0 && direction == 1)
+        if(distance <= 0)
         {
-            parent.GetComponent<Enemy>().Inactivate();
-
-        }
-        if(!parent.GetComponent<Enemy>().isAlive())
-        {
-            Destroy(gameObject);
+            if(direction == 1)
+            {
+                if(parent != null)
+                {
+                    parent.GetComponent<Enemy>().Inactivate();
+                }
+                Destroy(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

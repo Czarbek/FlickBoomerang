@@ -14,7 +14,7 @@ public class Enemy : MonoBehaviour
     /// <summary>
     /// ボスHPゲージの本数
     /// </summary>
-    public int gaugeNum;
+    private int gaugeNum;
     /// <summary>
     /// 弱点属性へのダメージ倍率
     /// </summary>
@@ -42,6 +42,28 @@ public class Enemy : MonoBehaviour
         /// <summary>なし</summary>
         None,
     };
+    /// <summary>
+    /// ボス演出段階一覧
+    /// </summary>
+    public enum BossEffect
+    {
+        /// <summary>波紋</summary>
+        Wave,
+        /// <summary>ぼかし解除</summary>
+        Blur,
+        /// <summary>ゲージ出現</summary>
+        Gauge,
+        /// <summary>終了</summary>
+        End,
+        /// <summary>撃破演出</summary>
+        Defeat,
+        /// <summary>死亡</summary>
+        Invalid,
+    };
+    /// <summary>
+    /// ボス演出段階
+    /// </summary>
+    private BossEffect bossEffect;
     /// <summary>
     /// 登場フロア
     /// </summary>
@@ -99,6 +121,10 @@ public class Enemy : MonoBehaviour
     /// </summary>
     private bool turnProcess;
     /// <summary>
+    /// 死亡演出へ移行するかどうか
+    /// </summary>
+    private bool goDying;
+    /// <summary>
     /// 死亡処理中かどうか
     /// </summary>
     private bool dying;
@@ -106,6 +132,54 @@ public class Enemy : MonoBehaviour
     /// 生きているか
     /// </summary>
     private bool alive;
+    /// <summary>
+    /// SpriteRenderer
+    /// </summary>
+    private SpriteRenderer sr;
+    /// <summary>
+    /// ボスの画像リスト
+    /// </summary>
+    private List<Sprite> spriteList;
+    /// <summary>
+    /// ボスの画像枚数
+    /// </summary>
+    private const int SpriteNum = 6;
+    /// <summary>
+    /// ボスの画像リストインデックス
+    /// </summary>
+    private int spriteIndex;
+    /// <summary>
+    /// 波紋の数
+    /// </summary>
+    public const int WaveNum = 3;
+    /// <summary>
+    /// 波紋出現から次の波紋までの時間
+    /// </summary>
+    private const int WaveGapTime = (int)(500.0f / func.FRAMETIME);
+    /// <summary>
+    /// 段階ごとのぼかし解除の時間
+    /// </summary>
+    private const int BlurTime = (int)(500.0f / (SpriteNum-1) / func.FRAMETIME);
+    /// <summary>
+    /// ボスの撃破演出の時間
+    /// </summary>
+    private const int BossDefeatTime = (int)(2000.0f / func.FRAMETIME);
+    /// <summary>
+    /// ボス撃破時、下降開始までの時間
+    /// </summary>
+    private const int BossDescendTime = (int)(1000.0f / func.FRAMETIME);
+    /// <summary>
+    /// ボス撃破時の下降の深さ
+    /// </summary>
+    private const float BossDescendDepth = 0.4f;
+    /// <summary>
+    /// ボス撃破時の振動の振幅(片側)
+    /// </summary>
+    private const float BossOscillation = 0.3f;
+    /// <summary>
+    /// ボス演出時間
+    /// </summary>
+    private int time;
     /// <summary>
     /// バトルマネージャーオブジェクト
     /// </summary>
@@ -122,7 +196,7 @@ public class Enemy : MonoBehaviour
     /// このターン攻撃を受けたかどうかを判定する
     /// </summary>
     /// <returns>hit</returns>
-    public bool isHit()
+    public bool IsHit()
     {
         return hit;
     }
@@ -132,6 +206,14 @@ public class Enemy : MonoBehaviour
     /// <param name="atk"></param>
     public void SetHit(int atk)
     {
+        if(boss)
+        {
+            gauge.GetComponent<BossGauge>().SetDecrease(atk);
+        }
+        else
+        {
+            gauge.GetComponent<EnemyGauge>().SetDecrease(atk);
+        }
         hp -= atk;
         if(hp<0) hp = 0;
         hit = true;
@@ -263,24 +345,34 @@ public class Enemy : MonoBehaviour
     /// 死亡処理中かどうかを判定する
     /// </summary>
     /// <returns>処理中ならtrue</returns>
-    public bool isDying()
+    public bool IsDying()
     {
-        return dying;
+        return goDying;
     }
     /// <summary>
     /// 生死判定
     /// </summary>
     /// <returns>生きているか</returns>
-    public bool isAlive()
+    public bool IsAlive()
     {
         return alive;
     }
     /// <summary>
+    /// 死亡処理への移行をセットする
+    /// </summary>
+    public void SetDie()
+    {
+        goDying = true;
+        if(boss)
+        {
+            bossEffect = BossEffect.Defeat;
+        }
+    }
+    /// <summary>
     /// 死亡処理を開始する
     /// </summary>
-    public void Die()
+    private void Die()
     {
-        Debug.Log("die");
         GetComponent<SpriteRenderer>().maskInteraction = SpriteMaskInteraction.VisibleOutsideMask;
         for(int i = 1; i > -2; i -= 2)
         {
@@ -292,7 +384,7 @@ public class Enemy : MonoBehaviour
             mask.GetComponent<EnemyMask>().parent = this.gameObject;
         }
         gauge.GetComponent<EnemyGauge>().Die();
-        Destroy(turnCounter.gameObject);
+        turnCounter.GetComponent<TurnCounter>().Die();
     }
     /// <summary>
     /// 死亡判定を更新する
@@ -301,10 +393,29 @@ public class Enemy : MonoBehaviour
     {
         alive = false;
         GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);
+        manager.GetComponent<BattleManager>().AllowChangeFloor();
+    }
+    /// <summary>
+    /// 波紋演出を終了する
+    /// </summary>
+    public void EndWave()
+    {
+        time = 0;
+        bossEffect = BossEffect.Blur;
+    }
+    /// <summary>
+    /// ゲージ演出を終了する
+    /// </summary>
+    public void EndGauge()
+    {
+        time = 0;
+        bossEffect = BossEffect.End;
     }
     // Start is called before the first frame update
     void Start()
     {
+        sr = GetComponent<SpriteRenderer>();
+
         startX = transform.position.x;
         startY = transform.position.y;
         transform.position = new Vector2(startX, ScreenOutY);
@@ -314,65 +425,89 @@ public class Enemy : MonoBehaviour
         hit = false;
         changeTurn = false;
         turnProcess = false;
+        goDying = false;
         dying = false;
         alive = true;
+
+        bossEffect = BossEffect.Wave;
+        spriteIndex = 0;
+        time = 0;
 
         switch(sizePattern)
         {
         case 0:
+            spriteList = new List<Sprite>();
             if(element == Element.Fire)
             {
-                GetComponent<SpriteRenderer>().sprite = (Sprite)Resources.Load<Sprite>("eA_fire");
+                spriteList.Add(Resources.Load<Sprite>("BossFireBlur1"));
+                spriteList.Add(Resources.Load<Sprite>("BossFireBlur2"));
+                spriteList.Add(Resources.Load<Sprite>("BossFireBlur3"));
+                spriteList.Add(Resources.Load<Sprite>("BossFireBlur4"));
+                spriteList.Add(Resources.Load<Sprite>("BossFireBlur5"));
+                spriteList.Add(Resources.Load<Sprite>("eA_fire"));
             }
             else if(element == Element.Aqua)
             {
-                GetComponent<SpriteRenderer>().sprite = (Sprite)Resources.Load<Sprite>("eA_aqua");
+                spriteList.Add(Resources.Load<Sprite>("BossAquaBlur1"));
+                spriteList.Add(Resources.Load<Sprite>("BossAquaBlur2"));
+                spriteList.Add(Resources.Load<Sprite>("BossAquaBlur3"));
+                spriteList.Add(Resources.Load<Sprite>("BossAquaBlur4"));
+                spriteList.Add(Resources.Load<Sprite>("BossAquaBlur5"));
+                spriteList.Add(Resources.Load<Sprite>("eA_aqua"));
             }
             else if(element == Element.Leaf)
             {
-                GetComponent<SpriteRenderer>().sprite = (Sprite)Resources.Load<Sprite>("eA_leaf");
+                spriteList.Add(Resources.Load<Sprite>("BossLeafBlur1"));
+                spriteList.Add(Resources.Load<Sprite>("BossLeafBlur2"));
+                spriteList.Add(Resources.Load<Sprite>("BossLeafBlur3"));
+                spriteList.Add(Resources.Load<Sprite>("BossLeafBlur4"));
+                spriteList.Add(Resources.Load<Sprite>("BossLeafBlur5"));
+                spriteList.Add(Resources.Load<Sprite>("eA_leaf"));
             }
+            sr.sprite = spriteList[spriteIndex];
+            sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0);
+            transform.position = new Vector2(startX, startY);
             break;
         case 1:
             if(element == Element.Fire)
             {
-                GetComponent<SpriteRenderer>().sprite = (Sprite)Resources.Load<Sprite>("eB_fire");
+                sr.sprite = Resources.Load<Sprite>("eB_fire");
             }
             else if(element == Element.Aqua)
             {
-                GetComponent<SpriteRenderer>().sprite = (Sprite)Resources.Load<Sprite>("eB_aqua");
+                sr.sprite = Resources.Load<Sprite>("eB_aqua");
             }
             else if(element == Element.Leaf)
             {
-                GetComponent<SpriteRenderer>().sprite = (Sprite)Resources.Load<Sprite>("eB_leaf");
+                sr.sprite = Resources.Load<Sprite>("eB_leaf");
             }
             break;
         case 2:
             if(element == Element.Fire)
             {
-                GetComponent<SpriteRenderer>().sprite = (Sprite)Resources.Load<Sprite>("eC_fire");
+                sr.sprite = Resources.Load<Sprite>("eC_fire");
             }
             else if(element == Element.Aqua)
             {
-                GetComponent<SpriteRenderer>().sprite = (Sprite)Resources.Load<Sprite>("eC_aqua");
+                sr.sprite = Resources.Load<Sprite>("eC_aqua");
             }
             else if(element == Element.Leaf)
             {
-                GetComponent<SpriteRenderer>().sprite = (Sprite)Resources.Load<Sprite>("eC_leaf");
+                sr.sprite = Resources.Load<Sprite>("eC_leaf");
             }
             break;
         case 3:
             if(element == Element.Fire)
             {
-                GetComponent<SpriteRenderer>().sprite = (Sprite)Resources.Load<Sprite>("eD_fire");
+                sr.sprite = Resources.Load<Sprite>("eD_fire");
             }
             else if(element == Element.Aqua)
             {
-                GetComponent<SpriteRenderer>().sprite = (Sprite)Resources.Load<Sprite>("eD_aqua");
+                sr.sprite = Resources.Load<Sprite>("eD_aqua");
             }
             else if(element == Element.Leaf)
             {
-                GetComponent<SpriteRenderer>().sprite = (Sprite)Resources.Load<Sprite>("eD_leaf");
+                sr.sprite = Resources.Load<Sprite>("eD_leaf");
             }
             break;
         default:
@@ -382,12 +517,25 @@ public class Enemy : MonoBehaviour
 
         manager = GameObject.Find("BattleManager");
 
-        gauge = (GameObject)Resources.Load("EnemyGauge");
-        gauge = Instantiate(gauge);
-        gauge.transform.position = new Vector2(transform.position.x, transform.position.y + gaugeOffsetY);
-        gauge.GetComponent<EnemyGauge>().parent = this;
-        gauge.GetComponent<EnemyGauge>().hp = this.hp;
-        gauge.GetComponent<EnemyGauge>().maxhp = this.hp;
+        if(boss)
+        {
+            gauge = (GameObject)Resources.Load("BossGauge");
+            gauge = Instantiate(gauge);
+            gauge.transform.position = new Vector2(transform.position.x, transform.position.y);
+            gauge.GetComponent<BossGauge>().parent = this;
+            gauge.GetComponent<BossGauge>().hp = this.hp;
+            gauge.GetComponent<BossGauge>().maxhp = this.hp;
+            gauge.GetComponent<BossGauge>().SetGaugeNum(manager.GetComponent<BattleManager>().GetLastFloor() - manager.GetComponent<BattleManager>().GetFloor());
+        }
+        else
+        {
+            gauge = (GameObject)Resources.Load("EnemyGauge");
+            gauge = Instantiate(gauge);
+            gauge.transform.position = new Vector2(transform.position.x, transform.position.y + gaugeOffsetY);
+            gauge.GetComponent<EnemyGauge>().parent = this;
+            gauge.GetComponent<EnemyGauge>().hp = this.hp;
+            gauge.GetComponent<EnemyGauge>().maxhp = this.hp;
+        }
 
         turnCounter = (GameObject)Resources.Load("TurnCounter");
         turnCounter = Instantiate(turnCounter);
@@ -397,16 +545,91 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(manager.GetComponent<BattleManager>().GetState() == BattleManager.State.StartWait)
+        if(boss)
         {
-            int time = manager.GetComponent<BattleManager>().GetTime();
-            if(time > 20 && time - 20 <= BattleManager.SlideTime)
+            if(manager.GetComponent<BattleManager>().GetState() == BattleManager.State.BossAppear)
             {
-                float y = ScreenOutY - (ScreenOutY - startY) * (float)(time - 20) / BattleManager.SlideTime;
-                transform.position = new Vector2(transform.position.x, y);
-                if(time - 20 == BattleManager.SlideTime)
+                time++;
+                switch(bossEffect)
                 {
-                    gauge.GetComponent<EnemyGauge>().SetVisibility();
+                case BossEffect.Wave:
+                    if(time % WaveGapTime == 0 && time <= WaveGapTime * WaveNum)
+                    {
+                        GameObject wave = Instantiate((GameObject)Resources.Load("BossAppearEffect"));
+                        wave.transform.position = transform.position;
+                        wave.GetComponent<BossAppearEffect>().SetIndex((int)(time / WaveGapTime) - 1, gameObject);
+                    }
+                    break;
+                case BossEffect.Blur:
+                    if(time <= BlurTime && spriteIndex == 0)
+                    {
+                        sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, (float)time / BlurTime);
+                    }
+                    if(time == BlurTime)
+                    {
+                        time = 0;
+                        spriteIndex++;
+                        sr.sprite = spriteList[spriteIndex];
+                        if(spriteIndex == SpriteNum - 1)
+                        {
+                            time = 0;
+                            gauge.GetComponent<BossGauge>().SetVisibility();
+                            turnCounter.GetComponent<TurnCounter>().SetVisibility();
+                            bossEffect = BossEffect.Gauge;
+                        }
+                    }
+                    break;
+                case BossEffect.Gauge:
+                    break;
+                case BossEffect.End:
+                    manager.GetComponent<BattleManager>().EndBossAppear();
+                    break;
+                default:
+                    break;
+                }
+            }
+            else
+            {
+                if(bossEffect == BossEffect.Defeat)
+                {
+                    time++;
+                    sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 1.0f - (float)time / BossDefeatTime);
+                    float descendY = 0.0f;
+                    if(time > BossDescendTime)
+                    {
+                        descendY = BossDescendDepth * ((float)(time - BossDescendTime) / (BossDefeatTime - BossDescendTime));
+                    }
+                    transform.position = new Vector2(startX + func.sin(time * 36) * BossOscillation, startY - descendY);
+                    if(time == BossDefeatTime)
+                    {
+                        gauge.GetComponent<BossGauge>().Die();
+                        turnCounter.GetComponent<TurnCounter>().Die();
+                        bossEffect = BossEffect.Invalid;
+                    }
+                }
+            }
+        }
+        else
+        {
+            if(manager.GetComponent<BattleManager>().GetState() == BattleManager.State.StartWait)
+            {
+                int time = manager.GetComponent<BattleManager>().GetTime();
+                if(time > 20 && time - 20 <= BattleManager.SlideTime)
+                {
+                    float y = ScreenOutY - (ScreenOutY - startY) * (float)(time - 20) / BattleManager.SlideTime;
+                    transform.position = new Vector2(transform.position.x, y);
+                    if(time - 20 == BattleManager.SlideTime)
+                    {
+                        gauge.GetComponent<EnemyGauge>().SetVisibility();
+                        turnCounter.GetComponent<TurnCounter>().SetVisibility();
+                    }
+                }
+            }
+            if(goDying && !dying && gauge != null)
+            {
+                if(gauge.GetComponent<EnemyGauge>().IsProcessing())
+                {
+                    Die();
                 }
             }
         }

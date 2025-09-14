@@ -93,6 +93,7 @@ public class Item : MonoBehaviour
         {
         case ItemSort.Ring:
             GameObject.Find("Player").GetComponent<Player>().AddPower(power);
+            RingEffect.SetDsp();
             power = 0;
             break;
         case ItemSort.Crystal:

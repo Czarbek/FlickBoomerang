@@ -132,7 +132,7 @@ public class Player : MonoBehaviour
     /// <summary>
     /// ヒットポイント最大値
     /// </summary>
-    public int MaxHP = 100;
+    public int MaxHP;
     /// <summary>
     /// ヒットポイント
     /// </summary>
@@ -220,7 +220,7 @@ public class Player : MonoBehaviour
         int itemCount = bm.GetComponent<BattleManager>().GetItemCount();
         for(int i = 0; i < enemyCount; i++)
         {
-            if(!enemy[i].GetComponent<Enemy>().isHit())
+            if(!enemy[i].GetComponent<Enemy>().IsHit()&&enemy[i].GetComponent<Enemy>().IsAlive())
             {
                 if(func.CircleCollision(transform.position, Collisionr, enemy[i].transform.position, enemy[i].GetComponent<Enemy>().GetCollision())){
                     enemy[i].GetComponent<Enemy>().SetHit(power);
@@ -250,7 +250,7 @@ public class Player : MonoBehaviour
     /// 敵の攻撃が当たった時の処理
     /// </summary>
     /// <param name="atk">敵の攻撃力</param>
-    public void Hit(int atk)
+    public void DamageFromEnemy(int atk)
     {
         hp -= atk;
         if(hp < 0) hp = 0;
@@ -337,8 +337,8 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        bool touchBegin = Application.isEditor ? Input.GetMouseButtonDown(0) : func.getTouch() == 1;
-        bool touchEnd = Application.isEditor ? Input.GetMouseButtonUp(0) : func.getTouch() == -1;
+        bool touchBegin = Application.isEditor ? Input.GetMouseButtonDown(0) : Input.GetMouseButtonDown(0)||func.getTouch() == 1;
+        bool touchEnd = Application.isEditor ? Input.GetMouseButtonUp(0) : Input.GetMouseButtonUp(0)||func.getTouch() == -1;
         Vector2 pos = transform.position;
         if(bm.GetComponent<BattleManager>().GetTurn() == BattleManager.Turn.Player)
         {
@@ -349,8 +349,13 @@ public class Player : MonoBehaviour
                 pos.y = StartY;
                 if(touchBegin)
                 {
+                    /* リリース時にこちらに変更
                     touchedx = Application.isEditor ? func.mouse().x : func.getTouchPosition().x;
                     touchedy = Application.isEditor ? func.mouse().y : func.getTouchPosition().y;
+                    */
+                    touchedx = func.mouse().x;
+                    touchedy = func.mouse().y;
+
                     flickTime = 0;
                     flyingTime = 0;
                     state = State.Touched;
@@ -360,8 +365,13 @@ public class Player : MonoBehaviour
                 flickTime++;
                 if(touchEnd)
                 {
+                    /* リリース時にこちらに変更
                     releasedx = Application.isEditor ? func.mouse().x : func.getTouchPosition().x;
                     releasedy = Application.isEditor ? func.mouse().y : func.getTouchPosition().y;
+                    */
+                    releasedx = func.mouse().x;
+                    releasedy = func.mouse().y;
+
                     float flickDistance = func.dist(touchedx, touchedy, releasedx, releasedy);
                     float flickAngle = func.getAngle(touchedx, touchedy, releasedx, releasedy);
                     Debug.Log(flickAngle / Mathf.PI * 180);

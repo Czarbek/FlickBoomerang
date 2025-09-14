@@ -35,8 +35,8 @@ public class HelpButton : TitleManager
         sp_help = Resources.Load<Sprite>("button_help");
         sp_close = Resources.Load<Sprite>("button_cross");
 
-        BSizeX = (float)ButtonPxSizeX / func.SCW * func.camWidth * 4 * transform.localScale.x;
-        BSizeY = (float)ButtonPxSizeY / func.SCH * func.camHeight * 4 * transform.localScale.y;
+        BSizeX = func.pxcalc(ButtonPxSizeX) / 2;
+        BSizeY = func.pxcalc(ButtonPxSizeY) / 2;
     }
 
     // Update is called once per frame

@@ -16,11 +16,11 @@ public class TitleManager : MonoBehaviour
     /// </summary>
     private const int ButtonPxSizeY = 190;
     /// <summary>
-    /// â°ïù
+    /// â°ïù(îºï™)
     /// </summary>
     public float BSizeX;
     /// <summary>
-    /// ècïù
+    /// ècïù(îºï™)
     /// </summary>
     public float BSizeY;
     /// <summary>
@@ -51,10 +51,8 @@ public class TitleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Application.targetFrameRate = func.FRAMERATE;
-
-        BSizeX = (float)ButtonPxSizeX / func.SCW * func.camWidth * 4 * transform.localScale.x;
-        BSizeY = (float)ButtonPxSizeY / func.SCH * func.camHeight * 4 * transform.localScale.y;
+        BSizeX = func.pxcalc(ButtonPxSizeX) / 2;
+        BSizeY = func.pxcalc(ButtonPxSizeY) / 2;
         DiffButtonY[0] = 2.0f;
         DiffButtonY[1] = 0.5f;
         DiffButtonY[2] = -1.0f;
@@ -83,8 +81,8 @@ public class TitleManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        bool touchOnObj = Application.isEditor ? func.MouseCollision(transform.position, BSizeX, BSizeY, true) : func.TouchCollision(transform.position, BSizeX, BSizeY, true);
-        bool touched = Application.isEditor ? Input.GetMouseButtonDown(0) : func.getTouch() == 1;
+        bool touchOnObj = Application.isEditor ? func.MouseCollision(transform.position, BSizeX, BSizeY, true) : func.MouseCollision(transform.position, BSizeX, BSizeY, true)||func.TouchCollision(transform.position, BSizeX, BSizeY, true);
+        bool touched = Application.isEditor ? Input.GetMouseButtonDown(0) : Input.GetMouseButtonDown(0)||func.getTouch() == 1;
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
         Color col = sr.color;
         if(Input.GetMouseButtonDown(0))

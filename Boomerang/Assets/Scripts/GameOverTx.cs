@@ -6,6 +6,11 @@ using TMPro;
 public class GameOverTx : MonoBehaviour
 {
     /// <summary>
+    /// 同種オブジェクト管理用：GAME OVERと表示するなら0
+    /// </summary>
+    public int index;
+
+    /// <summary>
     /// 表示状態一覧
     /// </summary>
     private enum State {
@@ -19,15 +24,15 @@ public class GameOverTx : MonoBehaviour
     /// <summary>
     /// 文字のr値
     /// </summary>
-    private const float Red = 1.0f;
+    private float r;
     /// <summary>
     /// 文字のg値
     /// </summary>
-    private const float Green = 0.0f;
+    private float g;
     /// <summary>
     /// 文字のb値
     /// </summary>
-    private const float Blue = 0.0f;
+    private float b;
     /// <summary>
     /// 文字のalpha値
     /// </summary>
@@ -60,7 +65,12 @@ public class GameOverTx : MonoBehaviour
     {
         state = State.Wait;
         alpha = 0;
-        GetComponent<TextMeshProUGUI>().color = new Color(Red, Green, Blue, alpha);
+        TextMeshProUGUI tmpro = GetComponent<TextMeshProUGUI>();
+        Color col = tmpro.color;
+        r = col.r;
+        g = col.g;
+        b = col.b;
+        tmpro.color = new Color(r, g, b, alpha);
     }
 
     // Update is called once per frame
@@ -73,10 +83,10 @@ public class GameOverTx : MonoBehaviour
             break;
         case State.FadeIn:
             alpha = 1.0f * time / FadeInTime;
-            GetComponent<TextMeshProUGUI>().color = new Color(Red, Green, Blue, alpha);
+            GetComponent<TextMeshProUGUI>().color = new Color(r, g, b, alpha);
             if(time == FadeInTime)
             {
-                GetComponent<TextMeshProUGUI>().color = new Color(Red, Green, Blue, 1.0f);
+                GetComponent<TextMeshProUGUI>().color = new Color(r, g, b, 1.0f);
                 time = 0;
                 state = State.Display;
             }
@@ -84,7 +94,16 @@ public class GameOverTx : MonoBehaviour
         case State.Display:
             if(time == DisplayWaitTime)
             {
-
+                if(index == 0)
+                {
+                    GameObject.Find("ContinueTx").GetComponent<GameOverTx>().SetText();
+                    GameObject continueButtonYes = Instantiate((GameObject)Resources.Load("ContinueButton"));
+                    continueButtonYes.GetComponent<ContinueButton>().SetButton(ContinueButton.ButtonSort.Continue_Yes);
+                    GameObject continueButtonNo = Instantiate((GameObject)Resources.Load("ContinueButton"));
+                    continueButtonNo.GetComponent<ContinueButton>().SetButton(ContinueButton.ButtonSort.Continue_No);
+                    continueButtonYes.GetComponent<ContinueButton>().SetPartner(continueButtonNo);
+                    continueButtonNo.GetComponent<ContinueButton>().SetPartner(continueButtonYes);
+                }
             }
             break;
         }

@@ -18,6 +18,8 @@ public class EnemyGauge : MonoBehaviour
         FadeIn,
         /// <summary>表示中</summary>
         Process,
+        /// <summary>減少中</summary>
+        Decrease,
         /// <summary>フェードアウト</summary>
         FadeOut,
         /// <summary>非アクティブ</summary>
@@ -30,11 +32,11 @@ public class EnemyGauge : MonoBehaviour
     /// <summary>
     /// 横幅
     /// </summary>
-    public float scaleX = 1.6f;
+    public float ScaleX = 1.6f;
     /// <summary>
     /// 縦幅
     /// </summary>
-    public float scaleY = 0.15f;
+    public float ScaleY = 0.15f;
     /// <summary>
     /// 枠の横幅
     /// </summary>
@@ -61,11 +63,11 @@ public class EnemyGauge : MonoBehaviour
     private float centerX;
     private float centerY;
     /// <summary>
-    /// フェードインにかかる時間(ミリ秒)
+    /// フェードにかかる時間(ミリ秒)
     /// </summary>
     public int FadeMiliSec;
     /// <summary>
-    /// フェードインにかかる時間(フレーム)
+    /// フェードにかかる時間(フレーム)
     /// </summary>
     private int FadeTime;
     /// <summary>
@@ -73,9 +75,29 @@ public class EnemyGauge : MonoBehaviour
     /// </summary>
     private int time;
     /// <summary>
+    /// ゲージ減少にかかる時間(ミリ秒)
+    /// </summary>
+    public int DecMiliSec;
+    /// <summary>
+    /// ゲージ減少にかかる時間(フレーム)
+    /// </summary>
+    private int DecTime;
+    /// <summary>
+    /// ゲージ表示中のHP数値
+    /// </summary>
+    private float dspHP;
+    /// <summary>
+    /// ゲージ減少前のHP数値
+    /// </summary>
+    private int dspMaxHP;
+    /// <summary>
     /// 枠オブジェクト
     /// </summary>
     GameObject frame;
+    /// <summary>
+    /// 減少線オブジェクト
+    /// </summary>
+    GameObject gaugeLine;
     /// <summary>
     /// 表示を開始する
     /// </summary>
@@ -85,7 +107,7 @@ public class EnemyGauge : MonoBehaviour
         transform.position = new Vector2(parent.transform.position.x, parent.transform.position.y + parent.GetComponent<Enemy>().gaugeOffsetY);
         centerX = transform.position.x;
         centerY = transform.position.y;
-        transform.localScale = new Vector2(scaleX, scaleY);
+        transform.localScale = new Vector2(ScaleX, ScaleY);
         frame = (GameObject)Resources.Load("GaugeFrame");
         frame = Instantiate(frame);
         frame.transform.position = transform.position;
@@ -95,12 +117,38 @@ public class EnemyGauge : MonoBehaviour
         sr.color = new Color(col.r, col.g, col.b, 0);
     }
     /// <summary>
+    /// ゲージ減少状態にする
+    /// </summary>
+    /// <param name="damage">ダメージ値</param>
+    public void SetDecrease(int damage)
+    {
+        state = State.Decrease;
+        dspMaxHP = hp;
+        int dspMinHP = hp - damage;
+        if(dspMinHP < 0)
+        {
+            dspMinHP = 0;
+        }
+        time = 0;
+
+        gaugeLine = Instantiate((GameObject)Resources.Load("GaugeLine"));
+        gaugeLine.transform.position = new Vector2((float)dspMinHP / maxhp * ScaleX + (centerX - ScaleX / 2), centerY);
+    }
+    /// <summary>
     /// 非表示にする
     /// </summary>
     public void Die()
     {
         state = State.FadeOut;
         time = 0;
+    }
+    /// <summary>
+    /// 演出中でないかを判定する
+    /// </summary>
+    /// <returns>演出中でないならtrue</returns>
+    public bool IsProcessing()
+    {
+        return state == State.Process;
     }
     // Start is called before the first frame update
     void Start()
@@ -109,6 +157,7 @@ public class EnemyGauge : MonoBehaviour
 
         time = 0;
         FadeTime = (int)(FadeMiliSec / func.FRAMETIME);
+        DecTime = (int)(DecMiliSec / func.FRAMETIME);
     }
 
     // Update is called once per frame
@@ -116,6 +165,11 @@ public class EnemyGauge : MonoBehaviour
     {
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
         Color col = sr.color;
+
+        //HP同期
+        hp = parent.hp;
+        if(state != State.Decrease) dspHP = hp;
+
         switch(state)
         {
         case State.Wait:
@@ -134,6 +188,15 @@ public class EnemyGauge : MonoBehaviour
         case State.Process:
             sr.color = new Color(col.r, col.g, col.b, 1);
             break;
+        case State.Decrease:
+            dspHP = hp + (float)(dspMaxHP - hp) / DecTime * (DecTime - time);
+            time++;
+            if(time == DecTime)
+            {
+                Destroy(gaugeLine);
+                state = State.Process;
+            }
+            break;
         case State.FadeOut:
             time++;
             sr.color = new Color(col.r, col.g, col.b, 1.0f - (float)time / FadeTime);
@@ -148,12 +211,12 @@ public class EnemyGauge : MonoBehaviour
         case State.Invalid:
             break;
         }
-        hp = parent.hp;
-        float posx = (float)hp / maxhp * scaleX / 2 + (centerX - scaleX / 2);
+
+        float posx = dspHP / maxhp * ScaleX / 2 + (centerX - ScaleX / 2);
         float posy = centerY;
-        float scalex = (float)hp / maxhp * scaleX;
+        float scalex = dspHP / maxhp * ScaleX;
 
         transform.position = new Vector2(posx, posy);
-        transform.localScale = new Vector2(scalex, scaleY);
+        transform.localScale = new Vector2(scalex, ScaleY);
     }
 }

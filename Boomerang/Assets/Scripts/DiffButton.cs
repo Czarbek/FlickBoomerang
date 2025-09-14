@@ -16,6 +16,18 @@ public class DiffButton : TitleManager
     /// </summary>
     private const int ButtonPxSizeY = 270;
     /// <summary>
+    /// 閉じるボタンのピクセル単位の横幅
+    /// </summary>
+    private const int ButtonPxSizeX_close = 600;
+    /// <summary>
+    /// 閉じるボタンのピクセル単位の縦幅
+    /// </summary>
+    private const int ButtonPxSizeY_close = 240;
+    /// <summary>
+    /// ステージ数
+    /// </summary>
+    public const int StageNum = 3;
+    /// <summary>
     /// TitleManagerオブジェクト(状態同期用)
     /// </summary>
     private GameObject manager;
@@ -26,7 +38,7 @@ public class DiffButton : TitleManager
     /// <summary>
     /// 各難易度ボタンのスプライト
     /// </summary>
-    private Sprite[] sp_diff = new Sprite[4];
+    private Sprite[] sp_diff = new Sprite[6];
     /// <summary>
     /// ボタンの番号
     /// </summary>
@@ -59,15 +71,33 @@ public class DiffButton : TitleManager
         sp_diff[1] = Resources.Load<Sprite>("button_stage02");
         sp_diff[2] = Resources.Load<Sprite>("button_stage03");
         sp_diff[3] = Resources.Load<Sprite>("button_close");
+        sp_diff[4] = Resources.Load<Sprite>("button_stage02_locked");
+        sp_diff[5] = Resources.Load<Sprite>("button_stage03_locked");
         GetComponent<SpriteRenderer>().sprite = sp_diff[index];
-
-        BSizeX = (float)ButtonPxSizeX / func.SCW * func.camWidth * 4 * transform.localScale.x;
-        BSizeY = (float)ButtonPxSizeY / func.SCH * func.camHeight * 4 * transform.localScale.y;
+        if(index > 0 && index < 3)
+        {
+            if(!ClearData.IsCleared(index - 1))
+            {
+                GetComponent<SpriteRenderer>().sprite = sp_diff[index+3];
+            }
+        }
+        if(index == 3)
+        {
+            BSizeX = func.pxcalc(ButtonPxSizeX_close) / 2;
+            BSizeY = func.pxcalc(ButtonPxSizeY_close) / 2;
+        }
+        else
+        {
+            BSizeX = func.pxcalc(ButtonPxSizeX) / 2;
+            BSizeY = func.pxcalc(ButtonPxSizeY) / 2;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        bool touchOnObj = Application.isEditor ? func.MouseCollision(transform.position, BSizeX, BSizeY, true) : func.MouseCollision(transform.position, BSizeX, BSizeY, true)||func.TouchCollision(transform.position, BSizeX, BSizeY, true);
+        bool touched = Application.isEditor ? Input.GetMouseButtonDown(0) : Input.GetMouseButtonDown(0)||func.getTouch() == 1;
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
         Color col = sr.color;
         state = manager.GetComponent<TitleManager>().GetState();
@@ -86,17 +116,23 @@ public class DiffButton : TitleManager
             break;
         case State.Select:
             sr.color = new Color(col.r, col.g, col.b, 1);
-            if(func.MouseCollision(transform.position, BSizeX, BSizeY, true))
+            if(touchOnObj)
             {
-                if(Input.GetMouseButtonDown(0) && Fader.IsEnd() && lagt == 0)
+                if(touched && Fader.IsEnd() && lagt == 0)
                 {
                     switch(index)
                     {
                     case 0:
-                    case 1:
-                    case 2:
                         stageInfo.GetComponent<StageInfo>().LoadStageInfo(index);
                         Fader.SetFader(20, true, "Stage");
+                        break;
+                    case 1:
+                    case 2:
+                        if(ClearData.IsCleared(index - 1))
+                        {
+                            stageInfo.GetComponent<StageInfo>().LoadStageInfo(index);
+                            Fader.SetFader(20, true, "Stage");
+                        }
                         break;
                     case 3:
                         manager.GetComponent<TitleManager>().SetState(State.Title);

@@ -3,28 +3,80 @@
   "WorkspaceRootPath": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|C:\\Users\\Czarbek\\Desktop\\Boomerang\\assets\\scripts\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|c:\\users\\czarbek\\desktop\\boomerang\\assets\\scripts\\continuebutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\continuebutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|c:\\users\\czarbek\\desktop\\boomerang\\assets\\scripts\\gameovertx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gameovertx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|C:\\Users\\Czarbek\\Desktop\\Boomerang\\assets\\scripts\\diffbutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\diffbutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|C:\\Users\\Czarbek\\Desktop\\Boomerang\\assets\\scripts\\titlemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\titlemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|C:\\Users\\Czarbek\\Desktop\\Boomerang\\assets\\scripts\\battlemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\battlemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|C:\\Users\\Czarbek\\Desktop\\Boomerang\\assets\\scripts\\helpbutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\helpbutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|C:\\Users\\Czarbek\\Desktop\\Boomerang\\assets\\scripts\\ringeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ringeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|C:\\Users\\Czarbek\\Desktop\\Boomerang\\assets\\scripts\\initializer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\initializer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|C:\\Users\\Czarbek\\Desktop\\Boomerang\\assets\\scripts\\item.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\item.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|C:\\Users\\Czarbek\\Desktop\\Boomerang\\assets\\scripts\\battlemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\battlemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|C:\\Users\\Czarbek\\Desktop\\Boomerang\\assets\\scripts\\cleartx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\cleartx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|C:\\Users\\Czarbek\\Desktop\\Boomerang\\assets\\scripts\\enemygauge.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enemygauge.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|C:\\Users\\Czarbek\\Desktop\\Boomerang\\assets\\scripts\\bossgauge.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\bossgauge.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|C:\\Users\\Czarbek\\Desktop\\Boomerang\\assets\\scripts\\enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|C:\\Users\\Czarbek\\Desktop\\Boomerang\\assets\\scripts\\fader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\fader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|C:\\Users\\Czarbek\\Desktop\\Boomerang\\assets\\scripts\\enemymask.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enemymask.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|C:\\Users\\Czarbek\\Desktop\\Boomerang\\assets\\scripts\\turncounter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\turncounter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|C:\\Users\\Czarbek\\Desktop\\Boomerang\\assets\\scripts\\stageinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\stageinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|C:\\Users\\Czarbek\\Desktop\\Boomerang\\assets\\scripts\\powercounter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\powercounter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|C:\\Users\\Czarbek\\Desktop\\Boomerang\\assets\\scripts\\gameovertx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gameovertx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|C:\\Users\\Czarbek\\Desktop\\Boomerang\\assets\\scripts\\playergauge.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -35,56 +87,12 @@
       "RelativeMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\func.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|C:\\Users\\Czarbek\\Desktop\\Boomerang\\assets\\scripts\\enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|C:\\Users\\Czarbek\\Desktop\\Boomerang\\assets\\scripts\\enemymask.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enemymask.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|C:\\Users\\Czarbek\\Desktop\\Boomerang\\assets\\scripts\\floorcount.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\floorcount.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|C:\\Users\\Czarbek\\Desktop\\Boomerang\\assets\\scripts\\diffbutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\diffbutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|C:\\Users\\Czarbek\\Desktop\\Boomerang\\assets\\scripts\\enemybullet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enemybullet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|C:\\Users\\Czarbek\\Desktop\\Boomerang\\assets\\scripts\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|C:\\Users\\Czarbek\\Desktop\\Boomerang\\assets\\scripts\\powercounter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\powercounter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|C:\\Users\\Czarbek\\Desktop\\Boomerang\\assets\\scripts\\turncounter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\turncounter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|C:\\Users\\Czarbek\\Desktop\\Boomerang\\assets\\scripts\\helpbutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\helpbutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|C:\\Users\\Czarbek\\Desktop\\Boomerang\\assets\\scripts\\fader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\fader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|C:\\Users\\Czarbek\\Desktop\\Boomerang\\assets\\scripts\\bossgauge.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\bossgauge.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|C:\\Users\\Czarbek\\Desktop\\Boomerang\\assets\\scripts\\powercounter2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\powercounter2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|C:\\Users\\Czarbek\\Desktop\\Boomerang\\assets\\scripts\\enemygauge.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enemygauge.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5A5B8FD8-D6E0-8651-6B7F-1C514D394CE4}|Assembly-CSharp.csproj|C:\\Users\\Czarbek\\Desktop\\Boomerang\\assets\\scripts\\font.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -98,7 +106,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 10,
           "Children": [
             {
               "$type": "Bookmark",
@@ -106,20 +114,80 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
+              "Title": "RingEffect.cs",
+              "DocumentMoniker": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\RingEffect.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\RingEffect.cs",
+              "ToolTip": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\RingEffect.cs",
+              "RelativeToolTip": "Assets\\Scripts\\RingEffect.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAQwBUAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-14T19:33:02.67Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Initializer.cs",
+              "DocumentMoniker": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\Initializer.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Initializer.cs",
+              "ToolTip": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\Initializer.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Initializer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-14T18:54:34.252Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Enemy.cs",
+              "DocumentMoniker": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\Enemy.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Enemy.cs",
+              "ToolTip": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\Enemy.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Enemy.cs",
+              "ViewState": "AgIAANQBAAAAAAAAAAAcwGACAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-30T07:45:42.425Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "TitleManager.cs",
+              "DocumentMoniker": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\TitleManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\TitleManager.cs",
+              "ToolTip": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\TitleManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\TitleManager.cs",
+              "ViewState": "AgIAAEkAAAAAAAAAAAAQwFMAAACwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-30T08:15:59.972Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "ClearTx.cs",
+              "DocumentMoniker": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\ClearTx.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\ClearTx.cs",
+              "ToolTip": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\ClearTx.cs",
+              "RelativeToolTip": "Assets\\Scripts\\ClearTx.cs",
+              "ViewState": "AgIAAF8AAAAAAAAAAAAqwG4AAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-14T07:53:27.346Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "ContinueButton.cs",
               "DocumentMoniker": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\ContinueButton.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\ContinueButton.cs",
               "ToolTip": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\ContinueButton.cs",
               "RelativeToolTip": "Assets\\Scripts\\ContinueButton.cs",
-              "ViewState": "AgIAAC0AAAAAAAAAAAAowB8AAAAcAAAAAAAAAA==",
+              "ViewState": "AgIAAJ8AAAAAAAAAAAAmwKgAAACwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-10T19:42:32.909Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 20,
               "Title": "func.cs",
               "DocumentMoniker": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\func.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\func.cs",
@@ -131,52 +199,40 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 18,
               "Title": "GameOverTx.cs",
               "DocumentMoniker": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\GameOverTx.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\GameOverTx.cs",
               "ToolTip": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\GameOverTx.cs",
               "RelativeToolTip": "Assets\\Scripts\\GameOverTx.cs",
-              "ViewState": "AgIAAEcAAAAAAAAAAAAIwFYAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAE4AAAAAAAAAAAAAAFQAAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-10T15:41:06.775Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-10T15:41:06.775Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "FloorCount.cs",
-              "DocumentMoniker": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\FloorCount.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\FloorCount.cs",
-              "ToolTip": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\FloorCount.cs",
-              "RelativeToolTip": "Assets\\Scripts\\FloorCount.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAYAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-10T13:40:06.647Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 13,
               "Title": "Fader.cs",
               "DocumentMoniker": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\Fader.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Fader.cs",
               "ToolTip": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\Fader.cs",
               "RelativeToolTip": "Assets\\Scripts\\Fader.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAG0AAAAAAAAAAAA0wE8AAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-10T04:31:47.637Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 0,
               "Title": "Player.cs",
               "DocumentMoniker": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\Player.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Player.cs",
               "ToolTip": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\Player.cs",
               "RelativeToolTip": "Assets\\Scripts\\Player.cs",
-              "ViewState": "AgIAAOkAAAAAAAAAAAAIwPwAAAARAAAAAAAAAA==",
+              "ViewState": "AgIAAHIBAAAAAAAAAAAWwHQBAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-30T08:25:19.614Z"
+              "WhenOpened": "2025-08-30T08:25:19.614Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -186,13 +242,37 @@
               "RelativeDocumentMoniker": "Assets\\Scripts\\TurnCounter.cs",
               "ToolTip": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\TurnCounter.cs",
               "RelativeToolTip": "Assets\\Scripts\\TurnCounter.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAARAAAAAAAAAA==",
+              "ViewState": "AgIAADYAAAAAAAAAAAAawEYAAACBAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-30T08:21:07.876Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 16,
+              "Title": "StageInfo.cs",
+              "DocumentMoniker": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\StageInfo.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\StageInfo.cs",
+              "ToolTip": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\StageInfo.cs",
+              "RelativeToolTip": "Assets\\Scripts\\StageInfo.cs",
+              "ViewState": "AgIAAPUAAAAAAAAAAAAuwKoAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-30T08:05:12.928Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "BossGauge.cs",
+              "DocumentMoniker": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\BossGauge.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\BossGauge.cs",
+              "ToolTip": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\BossGauge.cs",
+              "RelativeToolTip": "Assets\\Scripts\\BossGauge.cs",
+              "ViewState": "AgIAAMgAAAAAAAAAAAArwEEBAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-30T08:01:15.332Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
               "Title": "PowerCounter2.cs",
               "DocumentMoniker": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\PowerCounter2.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\PowerCounter2.cs",
@@ -204,7 +284,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 2,
+              "Title": "DiffButton.cs",
+              "DocumentMoniker": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\DiffButton.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\DiffButton.cs",
+              "ToolTip": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\DiffButton.cs",
+              "RelativeToolTip": "Assets\\Scripts\\DiffButton.cs",
+              "ViewState": "AgIAAF0AAAAAAAAAAAAcwGMAAABpAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-30T08:00:07.014Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
               "Title": "PowerCounter.cs",
               "DocumentMoniker": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\PowerCounter.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\PowerCounter.cs",
@@ -216,19 +308,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 19,
               "Title": "PlayerGauge.cs",
               "DocumentMoniker": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\PlayerGauge.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\PlayerGauge.cs",
               "ToolTip": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\PlayerGauge.cs",
               "RelativeToolTip": "Assets\\Scripts\\PlayerGauge.cs",
-              "ViewState": "AgIAABQAAAAAAAAAAAAQwBgAAAAsAAAAAAAAAA==",
+              "ViewState": "AgIAACwAAAAAAAAAAAAEwDcAAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-30T08:20:14.371Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 23,
               "Title": "Font.cs",
               "DocumentMoniker": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\Font.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Font.cs",
@@ -240,7 +332,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 21,
               "Title": "EnemyBullet.cs",
               "DocumentMoniker": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\EnemyBullet.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\EnemyBullet.cs",
@@ -252,121 +344,61 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "TitleManager.cs",
-              "DocumentMoniker": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\TitleManager.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\TitleManager.cs",
-              "ToolTip": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\TitleManager.cs",
-              "RelativeToolTip": "Assets\\Scripts\\TitleManager.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAG4AAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-30T08:15:59.972Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "StageInfo.cs",
-              "DocumentMoniker": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\StageInfo.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\StageInfo.cs",
-              "ToolTip": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\StageInfo.cs",
-              "RelativeToolTip": "Assets\\Scripts\\StageInfo.cs",
-              "ViewState": "AgIAAPIAAAAAAAAAAAAYwPkAAAA0AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-30T08:05:12.928Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "BossGauge.cs",
-              "DocumentMoniker": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\BossGauge.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\BossGauge.cs",
-              "ToolTip": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\BossGauge.cs",
-              "RelativeToolTip": "Assets\\Scripts\\BossGauge.cs",
-              "ViewState": "AgIAAK0AAAAAAAAAAAAAAAUAAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-30T08:01:15.332Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "DiffButton.cs",
-              "DocumentMoniker": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\DiffButton.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\DiffButton.cs",
-              "ToolTip": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\DiffButton.cs",
-              "RelativeToolTip": "Assets\\Scripts\\DiffButton.cs",
-              "ViewState": "AgIAACkAAAAAAAAAAAAQwDsAAAA6AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-30T08:00:07.014Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 10,
               "Title": "EnemyGauge.cs",
               "DocumentMoniker": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\EnemyGauge.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\EnemyGauge.cs",
               "ToolTip": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\EnemyGauge.cs",
               "RelativeToolTip": "Assets\\Scripts\\EnemyGauge.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAASAAAAAAAAAA==",
+              "ViewState": "AgIAAHUAAAAAAAAAAAAowJ4AAAA3AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-30T07:57:06.728Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 7,
               "Title": "Item.cs",
               "DocumentMoniker": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\Item.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Item.cs",
               "ToolTip": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\Item.cs",
               "RelativeToolTip": "Assets\\Scripts\\Item.cs",
-              "ViewState": "AgIAABwAAAAAAAAAAAAgwCgAAAAKAAAAAAAAAA==",
+              "ViewState": "AgIAAE8AAAAAAAAAAAAgwF8AAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-30T07:55:57.463Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 4,
               "Title": "HelpButton.cs",
               "DocumentMoniker": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\HelpButton.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\HelpButton.cs",
               "ToolTip": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\HelpButton.cs",
               "RelativeToolTip": "Assets\\Scripts\\HelpButton.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAUAAAAAAAAAA==",
+              "ViewState": "AgIAACkAAAAAAAAAAAAQwCYAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-30T07:55:30.528Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 14,
               "Title": "EnemyMask.cs",
               "DocumentMoniker": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\EnemyMask.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\EnemyMask.cs",
               "ToolTip": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\EnemyMask.cs",
               "RelativeToolTip": "Assets\\Scripts\\EnemyMask.cs",
-              "ViewState": "AgIAAB8AAAAAAAAAAAAgwDkAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAACUAAAAAAAAAAAAAwDIAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-30T07:46:14.099Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 8,
-              "Title": "Enemy.cs",
-              "DocumentMoniker": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\Enemy.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Enemy.cs",
-              "ToolTip": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\Enemy.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Enemy.cs",
-              "ViewState": "AgIAABEBAAAAAAAAAAAuwCABAABfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-30T07:45:42.425Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
               "Title": "BattleManager.cs",
               "DocumentMoniker": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\BattleManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\BattleManager.cs",
               "ToolTip": "C:\\Users\\Czarbek\\Desktop\\Boomerang\\Assets\\Scripts\\BattleManager.cs",
               "RelativeToolTip": "Assets\\Scripts\\BattleManager.cs",
-              "ViewState": "AgIAACwBAAAAAAAAAAAAAEEBAAAxAAAAAAAAAA==",
+              "ViewState": "AgIAALoBAAAAAAAAAAAAAMQBAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-30T07:43:13.859Z"
             }

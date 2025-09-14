@@ -22,7 +22,7 @@ public class BattleManager : MonoBehaviour
     /// <summary>
     /// 初期フロア
     /// </summary>
-    private const int InitialFloor = 1;
+    public const int InitialFloor = 1;
     /// <summary>
     /// ステージ開始前の暗さ
     /// </summary>
@@ -52,6 +52,8 @@ public class BattleManager : MonoBehaviour
         Load,
         /// <summary>ステージ開始前待機</summary>
         StartWait,
+        /// <summary>ボス登場演出</summary>
+        BossAppear,
         /// <summary>ステージ進行中</summary>
         Process,
         /// <summary>ステージ終了前待機</summary>
@@ -60,10 +62,10 @@ public class BattleManager : MonoBehaviour
         Change,
         /// <summary>ステージ終了</summary>
         End,
-        /// <summary>ゲームオーバー演出中</summary>
+        /// <summary>ゲームオーバー</summary>
         GameOver,
-        /// <summary>ゲームオーバー表示後セレクト</summary>
-        GameOverSelect,
+        /// <summary>クリア</summary>
+        StageClear,
     };
     /// <summary>
     /// ターン一覧
@@ -80,7 +82,11 @@ public class BattleManager : MonoBehaviour
     /// <summary>
     /// 状態
     /// </summary>
-    private State state;
+    public State state;
+    /// <summary>
+    /// 次の状態
+    /// </summary>
+    private State nextState;
     /// <summary>
     /// ターン
     /// </summary>
@@ -174,6 +180,22 @@ public class BattleManager : MonoBehaviour
         return time;
     }
     /// <summary>
+    /// 現在のフロアを取得する
+    /// </summary>
+    /// <returns>現在のフロアの番号</returns>
+    public int GetFloor()
+    {
+        return floor;
+    }
+    /// <summary>
+    /// 最後のフロアを取得する
+    /// </summary>
+    /// <returns>最後のフロアの番号</returns>
+    public int GetLastFloor()
+    {
+        return lastFloor;
+    }
+    /// <summary>
     /// ターンを終了する
     /// </summary>
     /// <param name="currentTurn">現在のターン</param>
@@ -196,21 +218,53 @@ public class BattleManager : MonoBehaviour
         else if(nextTurn == Turn.Enemy)
         {
             bool doContinue = false;
-            bool wait = true;
             for(int i = 0; i < enemyCount; i++)
             {
-                if(enemy[i].GetComponent<Enemy>().hp <= 0 && enemy[i].GetComponent<Enemy>().isAlive()) enemy[i].GetComponent<Enemy>().Die();
-                if(enemy[i].GetComponent<Enemy>().isAlive()) doContinue = true;
-                if(!(enemy[i].GetComponent<Enemy>().isAlive() && enemy[i].GetComponent<Enemy>().isDying())) wait = false;
+                if(enemy[i].GetComponent<Enemy>().hp <= 0 && enemy[i].GetComponent<Enemy>().IsAlive()) enemy[i].GetComponent<Enemy>().SetDie();
+                if(enemy[i].GetComponent<Enemy>().IsAlive())
+                {
+                    if(enemy[i].GetComponent<Enemy>().IsDying())
+                    {
+
+                    }
+                    else
+                    {
+                        doContinue = true;
+                    }
+                }
             }
-            if(!doContinue) state = State.Change;
-            if(wait) state = State.EndWait;
+            if(!doContinue) state = State.EndWait;
         }
         if(GameObject.Find("Player").GetComponent<Player>().isDead())
         {
             GameObject.Find("Player").GetComponent<Player>().SetState(Player.State.NoInput);
             state = State.GameOver;
             time = 0;
+        }
+    }
+    /// <summary>
+    /// ボス登場演出を終了する
+    /// </summary>
+    public void EndBossAppear()
+    {
+        state = State.Process;
+    }
+    /// <summary>
+    /// 演出待ちを終了しフロア移行する
+    /// </summary>
+    public void AllowChangeFloor()
+    {
+        if(state == State.EndWait)
+        {
+            if(floor < lastFloor)
+            {
+                state = State.Change;
+            }
+            else
+            {
+                GameObject.Find("ClearTx").GetComponent<ClearTx>().SetText();
+                state = State.StageClear;
+            }
         }
     }
     /// <summary>
@@ -261,6 +315,7 @@ public class BattleManager : MonoBehaviour
             if(Fader.IsEnd())
             {
                 time = 0;
+                nextState = State.Process;
                 if(!prepared)
                 {
                     StageInfo.ObjInfo info = stageInfo.GetComponent<StageInfo>().GetStageInfo(floor);
@@ -268,7 +323,7 @@ public class BattleManager : MonoBehaviour
                     {
                         GameObject obj;
                         bool isEnemy;
-                        bool boss;
+                        bool boss = false;
                         Item.ItemSort itemSort = Item.ItemSort.Ring;
                         switch(info.sort[i])
                         {
@@ -281,6 +336,7 @@ public class BattleManager : MonoBehaviour
                             obj = (GameObject)Resources.Load("Enemy");
                             isEnemy = true;
                             boss = true;
+                            nextState = State.BossAppear;
                             break;
                         case StageInfo.ObjSort.Ring:
                             obj = (GameObject)Resources.Load("Item");
@@ -307,6 +363,7 @@ public class BattleManager : MonoBehaviour
                         obj.transform.position = new Vector2(info.x[i], info.y[i]);
                         if(isEnemy)
                         {
+                            obj.GetComponent<Enemy>().boss = boss;
                             obj.GetComponent<Enemy>().hp = info.hp[i];
                             obj.GetComponent<Enemy>().element = info.element[i];
                             obj.GetComponent<Enemy>().atk = info.atk[i];
@@ -336,18 +393,20 @@ public class BattleManager : MonoBehaviour
         case State.StartWait:
             if(time >= StartWaitTime)
             {
-                alpha -= InitialAlpha / FadeInTime;
+                alpha = InitialAlpha * (float)(FadeInTime - (time - StartWaitTime)) / FadeInTime;
                 if(alpha <= 0)
                 {
                     alpha = 0;
                     time = 0;
                     floorCount.GetComponent<FloorCount>().DeleteText();
                     GameObject.Find("Player").GetComponent<Player>().SetState(Player.State.Wait);
-                    state = State.Process;
+                    state = nextState;
                 }
                 SpriteRenderer sr = GetComponent<SpriteRenderer>();
                 sr.color = new Color(r, g, b, alpha);
             }
+            break;
+        case State.BossAppear:
             break;
         case State.Process:
             if(turn == Turn.Player)
@@ -387,8 +446,11 @@ public class BattleManager : MonoBehaviour
             if(time > fader.GetComponent<Fader>().FadeTime)
             {
                 time = 0;
+                alpha = InitialAlpha;
+                GetComponent<SpriteRenderer>().color = new Color(r, g, b, alpha);
                 floor++;
                 state = State.Load;
+                turn = Turn.Player;
                 //ここにフロア遷移時のリセット処理
                 for(int i = 0; i < enemyCount; i++)
                 {
@@ -416,7 +478,8 @@ public class BattleManager : MonoBehaviour
                 GameObject.Find("GameOverTx").GetComponent<GameOverTx>().SetText();
             }
             break;
-        case State.GameOverSelect:
+        case State.StageClear:
+
             break;
         }
     }

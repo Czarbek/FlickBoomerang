@@ -53,7 +53,7 @@ public class PlayerGauge : MonoBehaviour
     /// <param name="atk">“G‚ÌUŒ‚—Í</param>
     public void Hit(int atk)
     {
-        player.GetComponent<Player>().Hit(atk);
+        player.GetComponent<Player>().DamageFromEnemy(atk);
     }
     // Start is called before the first frame update
     void Start()

@@ -99,4 +99,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   countOffsetX: 0.5
   countOffsetY: -0.2
+  FadeMiliSec: 100
   parent: {fileID: 0}

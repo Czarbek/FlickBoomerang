@@ -73,6 +73,10 @@ public class StageInfo : MonoBehaviour
     /// </summary>
     private int lastFloor;
     /// <summary>
+    /// 読み込んだステージの番号
+    /// </summary>
+    private int stage;
+    /// <summary>
     /// 種類を割り当てる
     /// </summary>
     /// <param name="s">文字列</param>
@@ -164,13 +168,15 @@ public class StageInfo : MonoBehaviour
     /// <param name="stagenum">ステージ番号</param>
     public void LoadStageInfo(int stagenum)
     {
+        stage = stagenum;
+
         string path = Application.streamingAssetsPath;
         // 読み込みたいCSVファイルのパスを指定して開く
         StreamReader reader;
         switch(stagenum)
         {
         case 0:
-            reader = new StreamReader(path+"/stagedata_01.csv");
+            reader = new StreamReader(path + "/stagedata_01.csv");
             break;
         case 1:
             reader = new StreamReader(path + "/stagedata_02.csv");
@@ -265,6 +271,10 @@ public class StageInfo : MonoBehaviour
     /// <returns>オブジェクト情報</returns>
     public ObjInfo GetStageInfo(int floor)
     {
+        if(floor == BattleManager.InitialFloor)
+        {
+            GameObject.Find("ClearTx").GetComponent<ClearTx>().SetStage(stage);
+        }
         return objInfo[floor];
     }
     /// <summary>
