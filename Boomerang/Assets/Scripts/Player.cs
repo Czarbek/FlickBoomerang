@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
     /// <summary>
     /// 待機状態のz軸回転
     /// </summary>
-    public const float baseAngle = 180;
+    private const float baseAngle = 0;
     /// <summary>
     /// プレイヤー移動の初速度
     /// </summary>
@@ -46,11 +46,11 @@ public class Player : MonoBehaviour
     /// <summary>
     /// パターンごとの楕円軌道の横径リスト
     /// </summary>
-    public readonly float[,] HorizontalRadius = new float[WidthPatternNum, HeightPatternNum] { { func.metrecalc(80), func.metrecalc(72), func.metrecalc(60) }, { func.metrecalc(60), func.metrecalc(56), func.metrecalc(46) }, { func.metrecalc(40), func.metrecalc(36), func.metrecalc(30) }, { func.metrecalc(24), func.metrecalc(20), func.metrecalc(16) } };
+    public readonly float[] HorizontalRadius = new float[WidthPatternNum] {  func.metrecalc(80), func.metrecalc(60), func.metrecalc(40), func.metrecalc(20) };
     /// <summary>
     /// パターンごとの楕円軌道の縦径リスト
     /// </summary>
-    public readonly float[] VerticalRadius = new float[HeightPatternNum] { func.metrecalc(80), func.metrecalc(120), func.metrecalc(160) };
+    public readonly float[] VerticalRadius = new float[HeightPatternNum] { func.metrecalc(70), func.metrecalc(110), func.metrecalc(140) };
     /// <summary>
     /// 楕円軌道の中心x座標
     /// </summary>
@@ -66,7 +66,7 @@ public class Player : MonoBehaviour
     /// <summary>
     /// フリック距離のパターンリスト
     /// </summary>
-    public readonly float[] FlickDistance = new float[HeightPatternNum] { func.metrecalc(10), func.metrecalc(20), func.metrecalc(30) };
+    public readonly float[] FlickDistance = new float[HeightPatternNum] { func.metrecalc(40), func.metrecalc(80), func.metrecalc(120) };
     /// <summary>
     /// 当たり判定の半径
     /// </summary>
@@ -194,7 +194,7 @@ public class Player : MonoBehaviour
 
         float angle = (360.0f * (float)time / (float)FlyingTimeMax - 90.0f);
 
-        resultx = (int)orbitPattern.z * (HorizontalRadius[orbitX, orbitY] / 2 * func.cos(angle)) + OvalCenterX;
+        resultx = (int)orbitPattern.z * (HorizontalRadius[orbitX] / 2 * func.cos(angle)) + OvalCenterX;
         resulty = VerticalRadius[orbitY] / 2 * func.sin(angle) + OvalCenterY[orbitY];
 
         Transform myTransform = this.transform;
@@ -223,7 +223,7 @@ public class Player : MonoBehaviour
             if(!enemy[i].GetComponent<Enemy>().IsHit()&&enemy[i].GetComponent<Enemy>().IsAlive())
             {
                 if(func.CircleCollision(transform.position, Collisionr, enemy[i].transform.position, enemy[i].GetComponent<Enemy>().GetCollision())){
-                    enemy[i].GetComponent<Enemy>().SetHit(power);
+                    enemy[i].GetComponent<Enemy>().SetHit(power, element);
                 }
             }
         }
@@ -263,6 +263,7 @@ public class Player : MonoBehaviour
     {
         hp += (int)(MaxHP * rate);
         if(hp > MaxHP) hp = MaxHP;
+        GameObject.Find("SoundManager").GetComponent<SoundManager>().PlaySound(SoundManager.Se.HPCure);
     }
     /// <summary>
     /// パワーの加算
@@ -293,6 +294,8 @@ public class Player : MonoBehaviour
     public void MoveFloor()
     {
         power = InitialPower;
+        element = Enemy.Element.None;
+        ElementEffect.SetElement(Enemy.Element.None);
     }
     /// <summary>
     /// 生死判定
@@ -310,6 +313,7 @@ public class Player : MonoBehaviour
         //プレイヤー位置セット
         Vector2 pos = new Vector2(StartX, StartY);
         transform.position = pos;
+        transform.localScale = func.scalecalc(10, 858);
 
         Transform myTransform = transform;
         Vector3 vAngle = myTransform.eulerAngles;
@@ -332,6 +336,7 @@ public class Player : MonoBehaviour
         //プレイヤーパラメータセット
         hp = MaxHP;
         power = InitialPower;
+        element = Enemy.Element.None;
         state = State.NoInput;
     }
     // Update is called once per frame
@@ -349,7 +354,7 @@ public class Player : MonoBehaviour
                 pos.y = StartY;
                 if(touchBegin)
                 {
-                    /* リリース時にこちらに変更
+                    /*
                     touchedx = Application.isEditor ? func.mouse().x : func.getTouchPosition().x;
                     touchedy = Application.isEditor ? func.mouse().y : func.getTouchPosition().y;
                     */
@@ -365,7 +370,7 @@ public class Player : MonoBehaviour
                 flickTime++;
                 if(touchEnd)
                 {
-                    /* リリース時にこちらに変更
+                    /*
                     releasedx = Application.isEditor ? func.mouse().x : func.getTouchPosition().x;
                     releasedy = Application.isEditor ? func.mouse().y : func.getTouchPosition().y;
                     */
@@ -378,6 +383,7 @@ public class Player : MonoBehaviour
                     speed = InitialSpeed;
                     orbit = orbitPattern(flickAngle, flickDistance, speed);
                     Debug.Log(orbit);
+                    GameObject.Find("SoundManager").GetComponent<SoundManager>().PlaySound(SoundManager.Se.Flick);
                     state = State.Flying;
                 }
                 break;

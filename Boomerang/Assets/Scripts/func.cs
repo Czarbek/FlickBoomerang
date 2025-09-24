@@ -236,6 +236,16 @@ public class func
         return (float)a / SCH * camHeight * 4;
     }
     /// <summary>
+    /// メートル単位から拡大率を求める
+    /// </summary>
+    /// <param name="radius">半径(メートル単位)</param>
+    /// <param name="pxsize">ピクセル単位の幅</param>
+    /// <returns>localScale</returns>
+    public static Vector2 scalecalc(float radius, int pxsize)
+    {
+        return new Vector2(metrecalc(radius * 2) / pxcalc(pxsize), metrecalc(radius * 2) / pxcalc(pxsize));
+    }
+    /// <summary>
     /// マウスの空間上の2D座標を取得する
     /// </summary>
     /// <returns>マウスの2D座標</returns>

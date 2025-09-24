@@ -39,16 +39,37 @@ public class EnemyBullet : MonoBehaviour
     /// çUåÇóÕ
     /// </summary>
     public int atk;
+    /// <summary>
+    /// É{ÉXÇÃçUåÇÇ©Ç«Ç§Ç©
+    /// </summary>
+    public bool isBoss;
     // Start is called before the first frame update
     void Start()
     {
         gauge = GameObject.Find("PlayerGauge");
-        targetPoint = new Vector2(gauge.GetComponent<PlayerGauge>().defaultx, gauge.GetComponent<PlayerGauge>().defaulty);
+        targetPoint = new Vector2(PlayerGauge.DefaultX, PlayerGauge.DefaultY);
         float sx = transform.position.x;
         float sy = transform.position.y;
         float dx = targetPoint.x;
         float dy = targetPoint.y;
         spd = func.getDecelerationVector(sx, sy, dx, dy, flyingTime);
+        isBoss = parent.GetComponent<Enemy>().boss;
+        transform.localScale = new Vector2(0.3f, 0.3f) * (isBoss ? 2 : 1);
+        transform.rotation = Quaternion.Euler(0, 0, spd.angle);
+
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        switch(parent.GetComponent<Enemy>().element)
+        {
+        case Enemy.Element.Fire:
+            sr.sprite = Resources.Load<Sprite>(isBoss ? "Boss_attack_fire" : "attack_fire");
+            break;
+        case Enemy.Element.Aqua:
+            sr.sprite = Resources.Load<Sprite>(isBoss ? "Boss_attack_aqua" : "attack_aqua");
+            break;
+        case Enemy.Element.Leaf:
+            sr.sprite = Resources.Load<Sprite>(isBoss ? "Boss_attack_leaf" : "attack_leaf");
+            break;
+        }
     }
 
     // Update is called once per frame

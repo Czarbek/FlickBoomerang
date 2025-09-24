@@ -16,6 +16,10 @@ public class Enemy : MonoBehaviour
     /// </summary>
     private int gaugeNum;
     /// <summary>
+    /// ’èí‚ÌŠg‘å—¦
+    /// </summary>
+    private float standardScale;
+    /// <summary>
     /// ã“_‘®«‚Ö‚Ìƒ_ƒ[ƒW”{—¦
     /// </summary>
     private const float WeakRate = 2;
@@ -27,7 +31,10 @@ public class Enemy : MonoBehaviour
     /// “–‚½‚è”»’è‚Ì”¼Œa
     /// </summary>
     private readonly float[] CollisionRadius = new float[4] { func.metrecalc(15), func.metrecalc(10), func.metrecalc(8), func.metrecalc(5) };
-    public const float ScreenOutY = func.camHeight*2 + 0.5f;
+    /// <summary>
+    /// ‰æ–ÊŠO‚É‚¢‚é‚Æ‚«‚ÌyÀ•W
+    /// </summary>
+    public const float ScreenOutY = func.camHeight*2 + 1.0f;
     /// <summary>
     /// ‘®«ˆê——
     /// </summary>
@@ -55,6 +62,20 @@ public class Enemy : MonoBehaviour
         Gauge,
         /// <summary>I—¹</summary>
         End,
+        /// <summary>UŒ‚k¬</summary>
+        AttackShrink,
+        /// <summary>UŒ‚U“®</summary>
+        AttackOscillation,
+        /// <summary>UŒ‚Šgk</summary>
+        AttackExpand,
+        /// <summary>“P‘Ş‘OU“®</summary>
+        AscendOscillation,
+        /// <summary>“P‘Ş‘O‘Ò‹@</summary>
+        AscendWait,
+        /// <summary>“P‘Ş@‰æ–ÊŠO‘Ş”ğ</summary>
+        Ascend,
+        /// <summary>ƒeƒLƒXƒg•\¦’†</summary>
+        TextWait,
         /// <summary>Œ‚”j‰‰o</summary>
         Defeat,
         /// <summary>€–S</summary>
@@ -177,6 +198,50 @@ public class Enemy : MonoBehaviour
     /// </summary>
     private const float BossOscillation = 0.3f;
     /// <summary>
+    /// ƒ{ƒX“P‘Ş‚ÌU“®ŠÔ
+    /// </summary>
+    private const int BossOscillationTime = (int)(1000.0f / func.FRAMETIME);
+    /// <summary>
+    /// ƒ{ƒX“P‘Ş‚Ì‘Ò‹@ŠÔ
+    /// </summary>
+    private const int BossWaitTime = (int)(200.0f / func.FRAMETIME);
+    /// <summary>
+    /// ƒ{ƒX“P‘Ş‚Ì‰æ–ÊŠO‘Ş”ğ‚ÌŠÔ
+    /// </summary>
+    private const int BossAscendTime = (int)(500.0f / func.FRAMETIME);
+    /// <summary>
+    /// ƒ{ƒXUŒ‚‚Ìk¬ŠÔ
+    /// </summary>
+    private const int BossAttackShrinkTime = (int)(500.0f / func.FRAMETIME);
+    /// <summary>
+    /// ƒ{ƒXUŒ‚‚Ì‘Ò‹@ŠÔ
+    /// </summary>
+    private const int BossAttackWaitTime = (int)(300.0f / func.FRAMETIME);
+    /// <summary>
+    /// ƒ{ƒXUŒ‚‚ÌU“®ŠÔ(‘Œv)
+    /// </summary>
+    private const int BossAttackOscillationTime = (int)(450.0f / func.FRAMETIME);
+    /// <summary>
+    /// ƒ{ƒXUŒ‚‚ÌŠgkŠÔ(Šg‘å‚Ü‚½‚Ík¬1‰ñ‚ ‚½‚è)
+    /// </summary>
+    private const int BossAttackScaleTime = (int)(300.0f / func.FRAMETIME);
+    /// <summary>
+    /// ƒ{ƒXUŒ‚‚ÌU“®‰ñ”
+    /// </summary>
+    private const int BossAttackOscillationNum = 3;
+    /// <summary>
+    /// ƒ{ƒXUŒ‚‚ÌŠgk‰ñ”(Šg‘åk¬‚»‚ê‚¼‚ê)
+    /// </summary>
+    private const int BossAttackScaleNum = 3;
+    /// <summary>
+    /// ƒ{ƒXUŒ‚AÅ‰‚Ìk¬—¦
+    /// </summary>
+    private const float BossAttackFirstScale = 0.8f;
+    /// <summary>
+    /// ƒ{ƒXUŒ‚‚ÌŠg‘å—¦
+    /// </summary>
+    private const float BossAttackExpandScale = 1.4f;
+    /// <summary>
     /// ƒ{ƒX‰‰oŠÔ
     /// </summary>
     private int time;
@@ -192,6 +257,15 @@ public class Enemy : MonoBehaviour
     /// ƒ^[ƒ“ƒJƒEƒ“ƒ^[
     /// </summary>
     GameObject turnCounter;
+
+    /// <summary>
+    /// ƒ{ƒX‚ÌUŒ‚‰‰o‚ğŠJn‚·‚é
+    /// </summary>
+    public void StartAttack()
+    {
+        time = 0;
+        bossEffect = BossEffect.AttackShrink;
+    }
     /// <summary>
     /// ‚±‚Ìƒ^[ƒ“UŒ‚‚ğó‚¯‚½‚©‚Ç‚¤‚©‚ğ”»’è‚·‚é
     /// </summary>
@@ -204,17 +278,19 @@ public class Enemy : MonoBehaviour
     /// UŒ‚‚ğó‚¯‚½‚Æ‚«‚Ìˆ—
     /// </summary>
     /// <param name="atk"></param>
-    public void SetHit(int atk)
+    public void SetHit(int atk, Element element)
     {
+        int damage = (int)(atk * CalcDamageRate(element, this.element));
         if(boss)
         {
-            gauge.GetComponent<BossGauge>().SetDecrease(atk);
+            gauge.GetComponent<BossGauge>().SetDecrease(damage);
         }
         else
         {
-            gauge.GetComponent<EnemyGauge>().SetDecrease(atk);
+            gauge.GetComponent<EnemyGauge>().SetDecrease(damage);
         }
-        hp -= atk;
+        GameObject.Find("SoundManager").GetComponent<SoundManager>().PlaySound(SoundManager.Se.BoomerangHit);
+        hp -= damage;
         if(hp<0) hp = 0;
         hit = true;
     }
@@ -294,11 +370,20 @@ public class Enemy : MonoBehaviour
                 turnCount--;
                 if(turnCount == 0)
                 {
-                    GameObject bullet = (GameObject)Resources.Load("EnemyBullet");
-                    bullet = Instantiate(bullet);
-                    bullet.transform.position = this.transform.position;
-                    bullet.GetComponent<EnemyBullet>().atk = atk;
-                    bullet.GetComponent<EnemyBullet>().parent = this.gameObject;
+                    if(boss)
+                    {
+                        time = 0;
+                        bossEffect = BossEffect.AttackShrink;
+                    }
+                    else
+                    {
+                        GameObject bullet = (GameObject)Resources.Load("EnemyBullet");
+                        bullet = Instantiate(bullet);
+                        bullet.transform.position = this.transform.position;
+                        bullet.GetComponent<EnemyBullet>().atk = atk;
+                        bullet.GetComponent<EnemyBullet>().parent = this.gameObject;
+                        GameObject.Find("SoundManager").GetComponent<SoundManager>().PlaySound(SoundManager.Se.EnemyAttack);
+                    }
                 }
                 else
                 {
@@ -365,7 +450,16 @@ public class Enemy : MonoBehaviour
         goDying = true;
         if(boss)
         {
-            bossEffect = BossEffect.Defeat;
+            time = 0;
+            manager.GetComponent<BattleManager>().SetWait();
+            if(manager.GetComponent<BattleManager>().GetLastFloor() == manager.GetComponent<BattleManager>().GetFloor())
+            {
+                bossEffect = BossEffect.Defeat;
+            }
+            else
+            {
+                bossEffect = BossEffect.AscendOscillation;
+            }
         }
     }
     /// <summary>
@@ -394,6 +488,10 @@ public class Enemy : MonoBehaviour
         alive = false;
         GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);
         manager.GetComponent<BattleManager>().AllowChangeFloor();
+        if(boss)
+        {
+            manager.GetComponent<BattleManager>().EndWait();
+        }
     }
     /// <summary>
     /// ”g–ä‰‰o‚ğI—¹‚·‚é
@@ -422,6 +520,7 @@ public class Enemy : MonoBehaviour
 
         turnCount = maxCount;
         collisionr = CollisionRadius[sizePattern];
+        gaugeOffsetY = -(collisionr + func.metrecalc(3));
         hit = false;
         changeTurn = false;
         turnProcess = false;
@@ -464,8 +563,15 @@ public class Enemy : MonoBehaviour
                 spriteList.Add(Resources.Load<Sprite>("BossLeafBlur5"));
                 spriteList.Add(Resources.Load<Sprite>("eA_leaf"));
             }
-            sr.sprite = spriteList[spriteIndex];
-            sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0);
+            if(boss)
+            {
+                sr.sprite = spriteList[spriteIndex];
+                sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0);
+            }
+            else
+            {
+                sr.sprite = spriteList[5];
+            }
             transform.position = new Vector2(startX, startY);
             break;
         case 1:
@@ -513,12 +619,15 @@ public class Enemy : MonoBehaviour
         default:
             break;
         }
-        transform.localScale = new Vector3((collisionr * 2) / func.pxcalc(1024), (collisionr * 2) / func.pxcalc(1024));
+        standardScale = (collisionr * 2) / func.pxcalc(1024);
+        transform.localScale = new Vector3(standardScale, standardScale);
 
         manager = GameObject.Find("BattleManager");
 
         if(boss)
         {
+            GameObject.Find("SoundManager").GetComponent<SoundManager>().PlaySound(SoundManager.Se.BossAppear);
+
             gauge = (GameObject)Resources.Load("BossGauge");
             gauge = Instantiate(gauge);
             gauge.transform.position = new Vector2(transform.position.x, transform.position.y);
@@ -584,14 +693,13 @@ public class Enemy : MonoBehaviour
                 case BossEffect.End:
                     manager.GetComponent<BattleManager>().EndBossAppear();
                     break;
-                default:
-                    break;
                 }
             }
             else
             {
-                if(bossEffect == BossEffect.Defeat)
+                switch(bossEffect)
                 {
+                case BossEffect.Defeat:
                     time++;
                     sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 1.0f - (float)time / BossDefeatTime);
                     float descendY = 0.0f;
@@ -606,6 +714,117 @@ public class Enemy : MonoBehaviour
                         turnCounter.GetComponent<TurnCounter>().Die();
                         bossEffect = BossEffect.Invalid;
                     }
+                    break;
+                case BossEffect.AscendOscillation:
+                    time++;
+                    transform.position = new Vector2(startX + func.sin((float)time / BossOscillationTime * 360 * 3) * BossOscillation, startY);
+                    if(time == BossOscillationTime)
+                    {
+                        time = 0;
+                        bossEffect = BossEffect.AscendWait;
+                    }
+                    break;
+                case BossEffect.AscendWait:
+                    time++;
+                    if(time == BossWaitTime)
+                    {
+                        time = 0;
+                        bossEffect = BossEffect.Ascend;
+                    }
+                    break;
+                case BossEffect.Ascend:
+                    time++;
+                    transform.position = new Vector2(startX, startY + (ScreenOutY - startY) * time / BossAscendTime);
+                    if(time == BossAscendTime)
+                    {
+                        time = 0;
+                        gauge.GetComponent<BossGauge>().Die();
+                        turnCounter.GetComponent<TurnCounter>().Die();
+                        GameObject.Find("AscendTx").GetComponent<AscendTx>().SetText();
+                        bossEffect = BossEffect.TextWait;
+                    }
+                    break;
+                case BossEffect.TextWait:
+                    time++;
+                    if(GameObject.Find("AscendTx").GetComponent<AscendTx>().EndText())
+                    {
+                        //manager.GetComponent<BattleManager>().EndWait();
+                        Inactivate();
+                        bossEffect = BossEffect.Invalid;
+                    }
+                    break;
+                case BossEffect.AttackShrink:
+                    time++;
+                    float scale = 1.0f - (1.0f - BossAttackFirstScale) * (float)time / BossAttackShrinkTime;
+                    if(time >= BossAttackShrinkTime)
+                    {
+                        scale = BossAttackFirstScale;
+                    }
+                    transform.localScale = new Vector2(standardScale * scale, standardScale * scale);
+                    if(time == BossAttackShrinkTime + BossAttackWaitTime)
+                    {
+                        time = 0;
+                        bossEffect = BossEffect.AttackOscillation;
+                    }
+                    break;
+                case BossEffect.AttackOscillation:
+                    time++;
+                    transform.position = new Vector2(startX + func.sin((float)time / BossAttackOscillationTime * 360 * BossAttackOscillationNum) * BossOscillation, startY);
+                    if(time == BossAttackOscillationTime)
+                    {
+                        time = 0;
+                        bossEffect = BossEffect.AttackExpand;
+                    }
+                    break;
+                case BossEffect.AttackExpand:
+                    time++;
+                    int currentTime = time % (BossAttackScaleTime*2);
+                    float scale_ = 1.0f;
+                    if(time < BossAttackScaleTime)
+                    {
+                        scale_ = BossAttackFirstScale + (BossAttackExpandScale - BossAttackFirstScale) * (float)currentTime / BossAttackScaleTime;
+                    }
+                    else if(time < BossAttackScaleTime * BossAttackScaleNum * 2)
+                    {
+                        if(currentTime < BossAttackScaleTime)
+                        {
+                            scale_ = 1.0f + (BossAttackExpandScale - 1.0f) * (float)currentTime / BossAttackScaleTime;
+                        }
+                        else
+                        {
+                            scale_ = BossAttackExpandScale - (BossAttackExpandScale - 1.0f) * (float)(currentTime-BossAttackScaleTime) / BossAttackScaleTime;
+                        }
+                    }
+                    else
+                    {
+                        scale_ = 1.0f;
+                        if(time == BossAttackScaleTime * BossAttackScaleNum * 2 + BossAttackWaitTime)
+                        {
+                            time = 0;
+                            GameObject bullet = (GameObject)Resources.Load("EnemyBullet");
+                            bullet = Instantiate(bullet);
+                            bullet.transform.position = this.transform.position;
+                            bullet.GetComponent<EnemyBullet>().atk = atk;
+                            bullet.GetComponent<EnemyBullet>().parent = this.gameObject;
+                            if(element == Element.Fire)
+                            {
+                                GameObject.Find("SoundManager").GetComponent<SoundManager>().PlaySound(SoundManager.Se.BossAttackFire);
+                            }
+                            else if(element == Element.Aqua)
+                            {
+                                GameObject.Find("SoundManager").GetComponent<SoundManager>().PlaySound(SoundManager.Se.BossAttackAqua);
+                            }
+                            else if(element == Element.Leaf)
+                            {
+                                GameObject.Find("SoundManager").GetComponent<SoundManager>().PlaySound(SoundManager.Se.BossAttackLeaf);
+                            }
+                            bossEffect = BossEffect.End;
+                        }
+                    }
+                    transform.localScale = new Vector2(standardScale * scale_, standardScale * scale_);
+                    break;
+                default:
+                    break;
                 }
             }
         }

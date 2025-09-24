@@ -148,5 +148,14 @@ public class Fader : MonoBehaviour
             break;
         }
         sr.color = new Color(r, g, b, alpha);
+
+        bool touch = Application.isEditor ? Input.GetMouseButtonDown(0) : Input.GetMouseButtonDown(0) || func.getTouch() == 1;
+        Vector2 touchLoc = func.mouse();
+        if(touch)
+        {
+            GameObject tapEffect = Instantiate((GameObject)Resources.Load("TapEffect"));
+            tapEffect.transform.position = touchLoc;
+            Debug.Log("touch");
+        }
     }
 }

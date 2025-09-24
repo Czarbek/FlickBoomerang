@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Enemy;
 
 /// <summary>
 /// ボスのHPゲージ
@@ -126,6 +127,10 @@ public class BossGauge : MonoBehaviour
     /// </summary>
     private int dspMaxHP;
     /// <summary>
+    /// 下敷きかどうか
+    /// </summary>
+    public bool isUnder;
+    /// <summary>
     /// 枠オブジェクト
     /// </summary>
     GameObject frame;
@@ -137,6 +142,10 @@ public class BossGauge : MonoBehaviour
     /// 減少線オブジェクト
     /// </summary>
     GameObject gaugeLine;
+    /// <summary>
+    /// ElementDsp
+    /// </summary>
+    GameObject elem;
     /// <summary>
     /// SpriteRenderer
     /// </summary>
@@ -163,6 +172,16 @@ public class BossGauge : MonoBehaviour
         default:
             break;
         }
+    }
+    /// <summary>
+    /// ゲージの下敷きをセットする
+    /// </summary>
+    public void SetUnderGauge()
+    {
+        underGauge = Instantiate((GameObject)Resources.Load("BossGauge"));
+        underGauge.transform.position = transform.position;
+        underGauge.GetComponent<BossGauge>().isUnder = true;
+        underGauge.GetComponent<SpriteRenderer>().sortingOrder = this.GetComponent<SpriteRenderer>().sortingOrder - 1;
     }
     /// <summary>
     /// ゲージの表示を開始する
@@ -209,6 +228,7 @@ public class BossGauge : MonoBehaviour
     public void Die()
     {
         state = State.FadeOut;
+        elem.GetComponent<ElementDsp>().Die();
         time = 0;
     }
     /// <summary>
@@ -265,6 +285,13 @@ public class BossGauge : MonoBehaviour
                 angle = 0;
                 transform.eulerAngles = new Vector3(angle, 0, 0);
                 frame.transform.eulerAngles = new Vector3(angle, 0, 0);
+
+                elem = (GameObject)Resources.Load("ElementDsp");
+                elem = Instantiate(elem);
+                elem.transform.position = new Vector2(centerX - frameScaleX / 2 - func.metrecalc(ElementDsp.MetreSize), centerY);
+                elem.GetComponent<ElementDsp>().SetElement(parent.element);
+                elem.GetComponent<ElementDsp>().SetExpand(2);
+
                 parent.GetComponent<Enemy>().EndGauge();
                 state = State.Process;
                 sr.color = new Color(col.r, col.g, col.b, 1);
@@ -278,10 +305,10 @@ public class BossGauge : MonoBehaviour
                 switch(gaugeNum)
                 {
                 case 2:
-                    underGauge.GetComponent<SpriteRenderer>().color = new Color(GreenColr, GreenColg, GreenColb);
+                    underGauge.GetComponent<SpriteRenderer>().color = new Color((float)GreenColr / 255, (float)GreenColg / 255, (float)GreenColb / 255);
                     break;
                 case 1:
-                    underGauge.GetComponent<SpriteRenderer>().color = new Color(YellowColr, YellowColg, YellowColb);
+                    underGauge.GetComponent<SpriteRenderer>().color = new Color((float)YellowColr / 255, (float)YellowColg / 255, (float)YellowColb / 255);
                     break;
                 default:
                     break;
@@ -304,11 +331,16 @@ public class BossGauge : MonoBehaviour
             sr.color = new Color(col.r, col.g, col.b, 1.0f - (float)time / FadeTime);
             framecol = frame.GetComponent<SpriteRenderer>().color;
             frame.GetComponent<SpriteRenderer>().color = new Color(framecol.r, framecol.g, framecol.b, 1.0f - (float)time / FadeTime);
+            if(underGauge != null)
+            {
+                Color ucol = underGauge.GetComponent<SpriteRenderer>().color;
+                underGauge.GetComponent<SpriteRenderer>().color = new Color(ucol.r, ucol.g, ucol.b, 1.0f - (float)time / FadeTime);
+            }
             if(time == FadeTime)
             {
-                Debug.Log("boss defeated");
                 parent.GetComponent<Enemy>().Inactivate();
                 Destroy(frame);
+                if(underGauge != null) Destroy(underGauge);
                 Destroy(gameObject);
             }
             break;
