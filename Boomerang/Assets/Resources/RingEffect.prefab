@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5602743599793220075}
   - component: {fileID: 131020221994401544}
-  - component: {fileID: 6113673176941056477}
   - component: {fileID: 7704857457228952419}
   m_Layer: 0
   m_Name: RingEffect
@@ -74,8 +73,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 30
-  m_Sprite: {fileID: 21300000, guid: ec92ffed07a68b64182cf4d66ec8bd11, type: 3}
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 7e3408e63db3c4e438a013bbb58753a1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -86,18 +85,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6113673176941056477
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3703203770020707605}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5e1ae40d20cfe74b8044dcbbb0ac512, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7704857457228952419
 MonoBehaviour:
   m_ObjectHideFlags: 0

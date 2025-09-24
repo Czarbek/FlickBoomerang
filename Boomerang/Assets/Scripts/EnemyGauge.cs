@@ -95,6 +95,10 @@ public class EnemyGauge : MonoBehaviour
     /// </summary>
     GameObject frame;
     /// <summary>
+    /// 属性表示オブジェクト
+    /// </summary>
+    GameObject elem;
+    /// <summary>
     /// 減少線オブジェクト
     /// </summary>
     GameObject gaugeLine;
@@ -112,6 +116,11 @@ public class EnemyGauge : MonoBehaviour
         frame = Instantiate(frame);
         frame.transform.position = transform.position;
         frame.transform.localScale = new Vector2(frameScaleX, frameScaleY);
+        elem = (GameObject)Resources.Load("ElementDsp");
+        elem = Instantiate(elem);
+        elem.transform.position = new Vector2(centerX - frameScaleX / 2 - func.metrecalc(ElementDsp.MetreSize), centerY);
+        elem.GetComponent<ElementDsp>().SetElement(parent.element);
+        elem.GetComponent<ElementDsp>().SetExpand(1);
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
         Color col = sr.color;
         sr.color = new Color(col.r, col.g, col.b, 0);
@@ -140,6 +149,7 @@ public class EnemyGauge : MonoBehaviour
     public void Die()
     {
         state = State.FadeOut;
+        elem.GetComponent<ElementDsp>().Die();
         time = 0;
     }
     /// <summary>

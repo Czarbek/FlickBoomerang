@@ -7,6 +7,17 @@ using UnityEngine;
 /// </summary>
 public class Item : MonoBehaviour
 {
+    public enum State
+    {
+        /// <summary>フェードイン</summary>
+        FadeIn,
+        /// <summary>表示中</summary>
+        Process,
+        /// <summary>フェードアウト</summary>
+        FadeOut,
+        /// <summary>非表示</summary>
+        Invalid,
+    }
     /// <summary>
     /// アイテムの種類一覧
     /// </summary>
@@ -20,9 +31,25 @@ public class Item : MonoBehaviour
         Fruit,
     };
     /// <summary>
+    /// 状態
+    /// </summary>
+    private State state;
+    /// <summary>
     /// アイテムの種類
     /// </summary>
     public ItemSort sort;
+    /// <summary>
+    /// リングの画像のピクセル単位の縦幅
+    /// </summary>
+    private const int RingPx = 363;
+    /// <summary>
+    /// クリスタルのの画像のピクセル単位の縦幅
+    /// </summary>
+    private const int CrystalPx = 112;
+    /// <summary>
+    /// 黄金の果実の画像のピクセル単位の縦幅
+    /// </summary>
+    private const int FruitPx = 122;
     /// <summary>
     /// x座標
     /// </summary>
@@ -80,10 +107,22 @@ public class Item : MonoBehaviour
     /// </summary>
     private const int FruitValidationTurn = 3;
     /// <summary>
+    /// フェードインにかかる時間(フレーム)
+    /// </summary>
+    private const int FadeTime = (int)(300.0f / func.FRAMETIME);
+    /// <summary>
+    /// フェード時の時間カウント(フレーム)
+    /// </summary>
+    private int time;
+    /// <summary>
     /// <summary>
     /// 取得可能かどうか
     /// </summary>
     public bool valid;
+    /// <summary>
+    /// SpriteRenderer
+    /// </summary>
+    private SpriteRenderer sr;
     /// <summary>
     /// プレイヤーにヒットしたときの処理
     /// </summary>
@@ -94,17 +133,23 @@ public class Item : MonoBehaviour
         case ItemSort.Ring:
             GameObject.Find("Player").GetComponent<Player>().AddPower(power);
             RingEffect.SetDsp();
+            Instantiate((GameObject)Resources.Load("ArrowEffect"));
+            GameObject.Find("SoundManager").GetComponent<SoundManager>().PlaySound(SoundManager.Se.Ring);
             power = 0;
             break;
         case ItemSort.Crystal:
             GameObject.Find("Player").GetComponent<Player>().SetElement(element);
+            ElementEffect.SetElement(element);
+            GameObject.Find("SoundManager").GetComponent<SoundManager>().PlaySound(SoundManager.Se.Crystal);
             break;
         case ItemSort.Fruit:
             GameObject.Find("Player").GetComponent<Player>().HPCure(cureRate);
+            GameObject.Find("SoundManager").GetComponent<SoundManager>().PlaySound(SoundManager.Se.Fruit);
             break;
         }
         turnCount = 0;
         valid = false;
+        state = State.FadeOut;
     }
     /// <summary>
     /// 敵ターン終了時処理
@@ -115,7 +160,11 @@ public class Item : MonoBehaviour
         {
             if(sort == ItemSort.Ring)
             {
-                if(power<MaxPower) power++;
+                if(power < MaxPower)
+                {
+                    power++;
+                    sr.sprite = Initializer.GetRingImg(power);
+                }
             }
         }
         else
@@ -124,8 +173,13 @@ public class Item : MonoBehaviour
             if(turnCount == validationTurn)
             {
                 power = 1;
+                if(sort == ItemSort.Ring)
+                {
+                    sr.sprite = Initializer.GetRingImg(power);
+                }
                 turnCount = 0;
                 valid = true;
+                state = State.FadeIn;
             }
         }
     }
@@ -148,6 +202,8 @@ public class Item : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        sr = GetComponent<SpriteRenderer>();
+
         power = InitialPower;
         turnCount = 0;
         switch(sort)
@@ -157,31 +213,76 @@ public class Item : MonoBehaviour
             if(sizePattern == 1)
             {
                 CollisionRadius = func.metrecalc(10);
+                transform.localScale = func.scalecalc(10, RingPx);
             }
             else if(sizePattern == 2)
             {
                 CollisionRadius = func.metrecalc(8);
+                transform.localScale = func.scalecalc(8, RingPx);
             }
             else if(sizePattern == 3)
             {
                 CollisionRadius = func.metrecalc(5);
+                transform.localScale = func.scalecalc(5, RingPx);
             }
+            sr.sprite = Initializer.GetRingImg(power);
             break;
         case ItemSort.Crystal:
             validationTurn = CrystalValidationTurn;
             CollisionRadius = func.metrecalc(5);
+            transform.localScale = func.scalecalc(5, CrystalPx);
+            if(element == Enemy.Element.Fire)
+            {
+                sr.sprite = Resources.Load<Sprite>("Crystal_fire");
+            }
+            else if(element == Enemy.Element.Aqua)
+            {
+                sr.sprite = Resources.Load<Sprite>("Crystal_aqua");
+            }
+            else if(element == Enemy.Element.Leaf)
+            {
+                sr.sprite = Resources.Load<Sprite>("Crystal_leaf");
+            }
             break;
         case ItemSort.Fruit:
             validationTurn = FruitValidationTurn;
             CollisionRadius = func.metrecalc(5);
+            transform.localScale = func.scalecalc(5, FruitPx);
+            sr.sprite = Resources.Load<Sprite>("Fruit");
             break;
         }
+        time = 0;
         valid = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        switch(state)
+        {
+        case State.FadeIn:
+            time++;
+            sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, (float)time / FadeTime);
+            if(time == FadeTime)
+            {
+                state = State.Process;
+                time = 0;
+            }
+            break;
+        case State.Process:
+            break;
+        case State.FadeOut:
+            time++;
+            sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 1.0f - (float)time / FadeTime);
+            if(time == FadeTime)
+            {
+                state = State.Invalid;
+                time = 0;
+                sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0);
+            }
+            break;
+        case State.Invalid:
+            break;
+        }
     }
 }

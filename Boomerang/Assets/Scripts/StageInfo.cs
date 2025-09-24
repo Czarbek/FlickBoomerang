@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -76,6 +77,15 @@ public class StageInfo : MonoBehaviour
     /// 読み込んだステージの番号
     /// </summary>
     private int stage;
+
+    static public float xcalc(float a)
+    {
+        return (a) / 45 * func.SCW / func.SCH * func.camHeight * 2 - func.SCW / func.SCH * func.camHeight;
+    }
+    static public float ycalc(float a)
+    {
+        return (a - 80) / 80 * func.camHeight * 2 + func.metrecalc(10);
+    }
     /// <summary>
     /// 種類を割り当てる
     /// </summary>
@@ -168,6 +178,7 @@ public class StageInfo : MonoBehaviour
     /// <param name="stagenum">ステージ番号</param>
     public void LoadStageInfo(int stagenum)
     {
+        DeleteInfo();
         stage = stagenum;
 
         string path = Application.streamingAssetsPath;
@@ -237,7 +248,7 @@ public class StageInfo : MonoBehaviour
                     }
                     if(float.TryParse(values[6], out fbuffer))
                     {
-                        fbuffer = (fbuffer) / 45 * func.SCW / func.SCH * func.camHeight * 2 - func.SCW / func.SCH * func.camHeight;
+                        fbuffer = xcalc(fbuffer);
                         objInfo[floor].x.Add(fbuffer);
                     }
                     else
@@ -246,7 +257,7 @@ public class StageInfo : MonoBehaviour
                     }
                     if(float.TryParse(values[7], out fbuffer))
                     {
-                        fbuffer = (fbuffer - 80) / 80 * func.camHeight * 2 + func.metrecalc(10);
+                        fbuffer = ycalc(fbuffer);
                         objInfo[floor].y.Add(fbuffer);
                     }
                     else
@@ -294,7 +305,7 @@ public class StageInfo : MonoBehaviour
         objInfo = new ObjInfo[BattleManager.MaxFloor];
         for(int i = 0; i < BattleManager.MaxFloor; i++)
         {
-            objInfo[i] = new ObjInfo();
+            objInfo[i] = new ObjInfo(true);
         }
     }
     // Start is called before the first frame update

@@ -166,8 +166,13 @@ public class ContinueButton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
         bool touchOnObj = Application.isEditor ? func.MouseCollision(transform.position, BSizeX, BSizeY, true) : func.MouseCollision(transform.position, BSizeX, BSizeY, true)||func.TouchCollision(transform.position, BSizeX, BSizeY, true);
         bool touched = Application.isEditor ? Input.GetMouseButtonDown(0) : Input.GetMouseButtonDown(0) || func.getTouch() == 1;
+        */
+        bool touchOnObj = func.MouseCollision(transform.position, BSizeX, BSizeY, true);
+        bool touched = Input.GetMouseButtonDown(0);
+
         switch(state)
         {
         case State.Invalid:
@@ -186,20 +191,25 @@ public class ContinueButton : MonoBehaviour
             {
                 if(touched && Fader.IsEnd())
                 {
+                    GameObject.Find("SoundManager").GetComponent<SoundManager>().PlaySound(SoundManager.Se.Button);
                     partner.GetComponent<ContinueButton>().SetState(State.NotPushed);
                     state = State.Pushed;
                     switch(buttonSort)
                     {
                     case ButtonSort.Continue_Yes:
+                        Initializer.SetRetry(true);
                         Fader.SetFader(Fader.FadeWaitTime, true, "Title");
                         break;
                     case ButtonSort.Continue_No:
+                        Initializer.SetRetry(false);
                         Fader.SetFader(Fader.FadeWaitTime, true, "Title");
                         break;
                     case ButtonSort.Clear_Next:
+                        Initializer.SetRetry(true);
                         Fader.SetFader(Fader.FadeWaitTime, true, "Title");
                         break;
                     case ButtonSort.Clear_Quit:
+                        Initializer.SetRetry(false);
                         Fader.SetFader(Fader.FadeWaitTime, true, "Title");
                         break;
                     }

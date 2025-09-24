@@ -5,14 +5,6 @@ using UnityEngine;
 public class RingEffect : MonoBehaviour
 {
     /// <summary>
-    /// 表示位置x座標
-    /// </summary>
-    private const float CenterX = 0;
-    /// <summary>
-    /// 表示位置y座標
-    /// </summary>
-    private const float CenterY = 0;
-    /// <summary>
     /// 開始時アルファ値
     /// </summary>
     private const float InitialAlpha = 0;
@@ -31,13 +23,20 @@ public class RingEffect : MonoBehaviour
     /// <summary>
     /// SpriteRenderer
     /// </summary>
-    private SpriteRenderer sr;
-    
+    static private SpriteRenderer sr;
+    /// <summary>
+    /// プレイヤーオブジェクト
+    /// </summary>
+    private GameObject player;
+
     /// <summary>
     /// 表示を開始する
     /// </summary>
+    /// <param name="sort">アイテムの種類</param>
+    /// <param name="element">クリスタルの属性</param>
     static public void SetDsp()
     {
+        sr.sprite = Resources.Load<Sprite>("RingEffect_");
         time = 0;
         dsp = true;
     }
@@ -45,11 +44,12 @@ public class RingEffect : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        transform.position = new Vector2(CenterX, CenterY);
+        player = GameObject.Find("Player");
         sr = GetComponent<SpriteRenderer>();
         Color c = sr.color;
         sr.color = new Color(c.r, c.g, c.b, InitialAlpha);
 
+        transform.position = player.transform.position;
         time = 0;
         dsp = false;
     }
@@ -60,6 +60,7 @@ public class RingEffect : MonoBehaviour
         if(dsp)
         {
             time++;
+            transform.position = player.transform.position;
             Color c = sr.color;
             sr.color = new Color(c.r, c.g, c.b, 1.0f - ((float)time / DspTime));
             if(time == DspTime)
