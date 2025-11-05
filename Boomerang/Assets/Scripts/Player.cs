@@ -36,41 +36,41 @@ public class Player : MonoBehaviour
     /// </summary>
     public const int HeightPatternNum = 3;
     /// <summary>
-    /// 飛行時間
-    /// </summary>
-    public int FlyingTimeMax = 60;
-    /// <summary>
-    /// 飛行中の回転回数
-    /// </summary>
-    public int FlyingRotationNum = 3;
-    /// <summary>
     /// パターンごとの楕円軌道の横径リスト
     /// </summary>
-    public readonly float[] HorizontalRadius = new float[WidthPatternNum] {  func.metrecalc(80), func.metrecalc(60), func.metrecalc(40), func.metrecalc(20) };
+    private float[] HorizontalRadius = new float[WidthPatternNum] { func.metrecalc(80), func.metrecalc(60), func.metrecalc(40), func.metrecalc(20) };
     /// <summary>
     /// パターンごとの楕円軌道の縦径リスト
     /// </summary>
-    public readonly float[] VerticalRadius = new float[HeightPatternNum] { func.metrecalc(70), func.metrecalc(110), func.metrecalc(140) };
+    private float[] VerticalRadius = new float[HeightPatternNum] { func.metrecalc(70), func.metrecalc(110), func.metrecalc(140) };
     /// <summary>
     /// 楕円軌道の中心x座標
     /// </summary>
-    public const float OvalCenterX = 0.0f;
+    private const float OvalCenterX = 0.0f;
     /// <summary>
     /// 楕円軌道の中心y座標
     /// </summary>
-    public readonly float[] OvalCenterY = new float[HeightPatternNum] { StartY+ func.metrecalc(40), StartY+ func.metrecalc(60), StartY+ func.metrecalc(80) };
+    private readonly float[] OvalCenterY = new float[HeightPatternNum] { StartY + func.metrecalc(40), StartY + func.metrecalc(60), StartY + func.metrecalc(80) };
     /// <summary>
     /// フリック角度のパターンリスト
     /// </summary>
-    public readonly float[] AnglePattern = new float[WidthPatternNum + 1] { 0.0f, 22.5f, 45.0f, 67.5f, 90.0f };
+    private float[] AnglePattern = new float[WidthPatternNum + 1] { 0.0f, 22.5f, 45.0f, 67.5f, 90.0f };
     /// <summary>
     /// フリック距離のパターンリスト
     /// </summary>
-    public readonly float[] FlickDistance = new float[HeightPatternNum] { func.metrecalc(40), func.metrecalc(80), func.metrecalc(120) };
+    private float[] FlickDistance = new float[HeightPatternNum] { func.metrecalc(20), func.metrecalc(40), func.metrecalc(60) };
+    /// <summary>
+    /// フリック速度のパターンリスト
+    /// </summary>
+    private float[] FlickVelocity = new float[HeightPatternNum] { func.metrecalc(20), func.metrecalc(40), func.metrecalc(60) };
     /// <summary>
     /// 当たり判定の半径
     /// </summary>
     public float Collisionr = func.metrecalc(5);
+    /// <summary>
+    /// 属性付与されていない場合の持続ターン
+    /// </summary>
+    private const int NoElementSustainTurn = -1;
     /// <summary>
     /// プレイヤーの状態一覧
     /// </summary>
@@ -142,9 +142,21 @@ public class Player : MonoBehaviour
     /// </summary>
     public int power;
     /// <summary>
+    /// 飛行時間
+    /// </summary>
+    private int FlyingTimeMax;
+    /// <summary>
+    /// 飛行中の回転回数
+    /// </summary>
+    private int FlyingRotationNum;
+    /// <summary>
     /// 属性
     /// </summary>
     private Enemy.Element element;
+    /// <summary>
+    /// 属性の持続ターン
+    /// </summary>
+    private int sustainTurn;
     
     /// <summary>
     /// 楕円軌道のパターンを求める
@@ -281,6 +293,30 @@ public class Player : MonoBehaviour
         this.element = element;
     }
     /// <summary>
+    /// 属性持続ターンを設定する
+    /// </summary>
+    /// <param name="turn">持続ターン</param>
+    public void SetElementTurn(int turn)
+    {
+        sustainTurn = turn;
+    }
+    /// <summary>
+    /// ターン切り替え時の処理
+    /// </summary>
+    public void ChangeTurn()
+    {
+        if(sustainTurn != NoElementSustainTurn)
+        {
+            sustainTurn--;
+            if(sustainTurn == 0)
+            {
+                sustainTurn = NoElementSustainTurn;
+                SetElement(Enemy.Element.None);
+            }
+        }
+        SetState(State.Wait);
+    }
+    /// <summary>
     /// 状態を書き換える
     /// </summary>
     /// <param name="newstate">変更先の状態</param>
@@ -295,6 +331,7 @@ public class Player : MonoBehaviour
     {
         power = InitialPower;
         element = Enemy.Element.None;
+        sustainTurn = NoElementSustainTurn;
         ElementEffect.SetElement(Enemy.Element.None);
     }
     /// <summary>
@@ -304,6 +341,88 @@ public class Player : MonoBehaviour
     public bool isDead()
     {
         return hp <= 0;
+    }
+    private async void LoadParameter()
+    {
+        string path = Application.streamingAssetsPath;
+        // 読み込みたいCSVファイルのパスを指定して開く
+        path = "PlayerData.csv";
+        string[][] values = await CsvReader.LoadCsvData(path);
+
+        //データがNULLなら処理やめる
+        if(values == null)
+        {
+            return;
+        }
+
+        int nbuffer;
+        float fbuffer;
+        //HP
+        if(int.TryParse(values[0][1], out nbuffer))
+        {
+            MaxHP = nbuffer;
+            hp = MaxHP;
+        }
+        //power
+        if(int.TryParse(values[1][1], out nbuffer))
+        {
+            power = nbuffer;
+        }
+        //flyingtime
+        if(int.TryParse(values[2][1], out nbuffer))
+        {
+            FlyingTimeMax = nbuffer;
+        }
+        //flyingrotationnum
+        if(int.TryParse(values[3][1], out nbuffer))
+        {
+            FlyingRotationNum = nbuffer;
+        }
+        //collisionradius
+        if(int.TryParse(values[4][1], out nbuffer))
+        {
+            Collisionr = func.metrecalc(nbuffer);
+        }
+        //ovalhorizontalradius
+        for(int i = 0; i < WidthPatternNum; i++)
+        {
+            if(int.TryParse(values[5][i+1], out nbuffer))
+            {
+                HorizontalRadius[i] = func.metrecalc(nbuffer);
+            }
+        }
+        //ovalverticalradius
+        for(int i = 0; i < HeightPatternNum; i++)
+        {
+            if(int.TryParse(values[6][i+1], out nbuffer))
+            {
+                VerticalRadius[i] = func.metrecalc(nbuffer);
+            }
+        }
+        //flickangle
+        for(int i = 0; i < WidthPatternNum+1; i++)
+        {
+            if(float.TryParse(values[7][i+1], out fbuffer))
+            {
+                AnglePattern[i] = fbuffer;
+            }
+        }
+        //flicklength
+        for(int i = 0; i < HeightPatternNum; i++)
+        {
+            if(int.TryParse(values[8][i+1], out nbuffer))
+            {
+                FlickDistance[i] = func.metrecalc(nbuffer);
+            }
+        }
+        //flickvelocity
+        for(int i = 0; i < HeightPatternNum; i++)
+        {
+            if(int.TryParse(values[9][i+1], out nbuffer))
+            {
+                FlickVelocity[i] = nbuffer;
+            }
+        }
     }
     // Start is called before the first frame update
     void Start()
@@ -334,9 +453,9 @@ public class Player : MonoBehaviour
 
 
         //プレイヤーパラメータセット
-        hp = MaxHP;
-        power = InitialPower;
+        LoadParameter();
         element = Enemy.Element.None;
+        sustainTurn = -1;
         state = State.NoInput;
     }
     // Update is called once per frame

@@ -101,11 +101,15 @@ public class Item : MonoBehaviour
     /// <summary>
     /// クリスタル復活にかかるターン
     /// </summary>
-    private const int CrystalValidationTurn = 3;
+    private const int CrystalValidationTurn = 4;
     /// <summary>
     /// 黄金の果実復活にかかるターン
     /// </summary>
     private const int FruitValidationTurn = 3;
+    /// <summary>
+    /// クリスタル効果持続ターン
+    /// </summary>
+    private const int CrystalSustainTurn = 2;
     /// <summary>
     /// フェードインにかかる時間(フレーム)
     /// </summary>
@@ -139,6 +143,7 @@ public class Item : MonoBehaviour
             break;
         case ItemSort.Crystal:
             GameObject.Find("Player").GetComponent<Player>().SetElement(element);
+            GameObject.Find("Player").GetComponent<Player>().SetElementTurn(CrystalSustainTurn);
             ElementEffect.SetElement(element);
             GameObject.Find("SoundManager").GetComponent<SoundManager>().PlaySound(SoundManager.Se.Crystal);
             break;

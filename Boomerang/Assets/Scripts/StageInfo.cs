@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -176,45 +177,53 @@ public class StageInfo : MonoBehaviour
     /// ステージのオブジェクト情報をcsvファイルから読み込む
     /// </summary>
     /// <param name="stagenum">ステージ番号</param>
-    public void LoadStageInfo(int stagenum)
+    public async void LoadStageInfo(int stagenum)
     {
         DeleteInfo();
         stage = stagenum;
 
         string path = Application.streamingAssetsPath;
         // 読み込みたいCSVファイルのパスを指定して開く
-        StreamReader reader;
         switch(stagenum)
         {
         case 0:
-            reader = new StreamReader(path + "/stagedata_01.csv");
+            //reader = new StreamReader(path + "/stagedata_01.csv");
+            path = "stagedata_01.csv";
             break;
         case 1:
-            reader = new StreamReader(path + "/stagedata_02.csv");
+            path = "stagedata_02.csv";
+            //reader = new StreamReader(path + "/stagedata_02.csv");
             break;
         case 2:
-            reader = new StreamReader(path + "/stagedata_03.csv");
+            path = "stagedata_03.csv";
+            //reader = new StreamReader(path + "/stagedata_03.csv");
             break;
         default:
-            reader = new StreamReader("Assets/Resources/stagedata_01.csv");
+            //reader = new StreamReader("Assets/Resources/stagedata_01.csv");
+            path = "Assets/Resources/stagedata_01.csv";
             break;
         }
         bool header = true;
-        
-        // 末尾まで繰り返す
-        while(!reader.EndOfStream)
+        //
+        string[][] csvData = await CsvReader.LoadCsvData(path);
+
+        //データがNULLなら処理やめる
+        if(csvData == null)
         {
-            // CSVファイルの一行を読み込む
-            string line = reader.ReadLine();
+            return;
+        }
+
+        foreach(var values in csvData)
+        {
             if(header)
             {
-                string[] values = line.Split(',');
-                if(values[0] == "EndOfHeader") header = false;
+                if(values[0] == "EndOfHeader")
+                {
+                    header = false;
+                }
             }
             else
             {
-                // 読み込んだ一行をカンマ毎に分けて配列に格納する
-                string[] values = line.Split(',');
                 int floor;
                 if(int.TryParse(values[0], out floor))
                 {
@@ -268,13 +277,84 @@ public class StageInfo : MonoBehaviour
                     objInfo[floor].loaderIndex++;
                 }
             }
+            }
+            /*
+            // 末尾まで繰り返す
+            while(!reader.EndOfStream)
+            {
+                // CSVファイルの一行を読み込む
+                string line = reader.ReadLine();
+                if(header)
+                {
+                    string[] values = line.Split(',');
+                    if(values[0] == "EndOfHeader") header = false;
+                }
+                else
+                {
+                    // 読み込んだ一行をカンマ毎に分けて配列に格納する
+                    string[] values = line.Split(',');
+                    int floor;
+                    if(int.TryParse(values[0], out floor))
+                    {
+                        int nbuffer;
+                        float fbuffer;
+                        objInfo[floor].sort.Add(AssignSort(values[1]));
+                        if(int.TryParse(values[2], out nbuffer))
+                        {
+                            objInfo[floor].hp.Add(nbuffer);
+                        }
+                        else
+                        {
+                            objInfo[floor].hp.Add(0);
+                        }
+                        objInfo[floor].element.Add(AssignElement(values[3]));
+                        if(int.TryParse(values[4], out nbuffer))
+                        {
+                            objInfo[floor].atk.Add(nbuffer);
+                        }
+                        else
+                        {
+                            objInfo[floor].atk.Add(0);
+                        }
+                        if(int.TryParse(values[5], out nbuffer))
+                        {
+                            objInfo[floor].turn.Add(nbuffer);
+                        }
+                        else
+                        {
+                            objInfo[floor].turn.Add(0);
+                        }
+                        if(float.TryParse(values[6], out fbuffer))
+                        {
+                            fbuffer = xcalc(fbuffer);
+                            objInfo[floor].x.Add(fbuffer);
+                        }
+                        else
+                        {
+                            objInfo[floor].x.Add(0);
+                        }
+                        if(float.TryParse(values[7], out fbuffer))
+                        {
+                            fbuffer = ycalc(fbuffer);
+                            objInfo[floor].y.Add(fbuffer);
+                        }
+                        else
+                        {
+                            objInfo[floor].y.Add(0);
+                        }
+                        objInfo[floor].size.Add(AssignSize(values[8]));
+                        objInfo[floor].loaderIndex++;
+                    }
+                }
+            }
+            */
+            lastFloor = 0;
+            for(int i = 1; i < BattleManager.MaxFloor; i++)
+            {
+                if(lastFloor < i && objInfo[i].loaderIndex > 0) lastFloor = i;
+            }
         }
-        lastFloor = 0;
-        for(int i = 1; i < BattleManager.MaxFloor; i++)
-        {
-            if(lastFloor < i && objInfo[i].loaderIndex > 0) lastFloor = i;
-        }
-    }
+    
     /// <summary>
     /// 該当フロアのオブジェクト情報を取得する
     /// </summary>

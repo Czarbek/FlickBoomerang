@@ -221,7 +221,7 @@ public class BattleManager : MonoBehaviour
         nextTurn = currentTurn == Turn.Player ? Turn.Enemy : Turn.Player;
         if(nextTurn == Turn.Player)
         {
-            GameObject.Find("Player").GetComponent<Player>().SetState(Player.State.Wait);
+            GameObject.Find("Player").GetComponent<Player>().ChangeTurn();
             GameObject.Find("SoundManager").GetComponent<SoundManager>().PlaySound(SoundManager.Se.StartTurn);
             for(int i = 0; i < enemyCount; i++)
             {
