@@ -27,6 +27,10 @@ public class Font : MonoBehaviour
         font[3] = Resources.Load<Sprite>("Font/n_3");
         font[4] = Resources.Load<Sprite>("Font/n_4");
         font[5] = Resources.Load<Sprite>("Font/n_5");
+        font[6] = Resources.Load<Sprite>("Font/n_6");
+        font[7] = Resources.Load<Sprite>("Font/n_7");
+        font[8] = Resources.Load<Sprite>("Font/n_8");
+        font[9] = Resources.Load<Sprite>("Font/n_9");
 
         fontW[0] = Resources.Load<Sprite>("Font/nwhite_0");
         fontW[1] = Resources.Load<Sprite>("Font/nwhite_1");

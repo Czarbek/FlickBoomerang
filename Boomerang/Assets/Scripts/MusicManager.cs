@@ -42,6 +42,7 @@ public class MusicManager : MonoBehaviour
     /// ââëtíÜÇÃBGMî‘çÜ
     /// </summary>
     private int playing;
+    private AudioSource audioSource;
 
     /// <summary>
     /// BGMÇñ¬ÇÁÇ∑
@@ -51,10 +52,11 @@ public class MusicManager : MonoBehaviour
     {
         if(playing >= 0)
         {
-            GetComponent<AudioSource>().Stop();
+            audioSource.Stop();
         }
         playing = (int)bgm;
-        GetComponent<AudioSource>().PlayOneShot(bgmList[playing]);
+        audioSource.clip = bgmList[playing];
+        audioSource.Play();
     }
 
     // Start is called before the first frame update
@@ -62,10 +64,12 @@ public class MusicManager : MonoBehaviour
     {
         DontDestroyOnLoad(this);
 
+        audioSource = GetComponent<AudioSource>();
+
         bgmList = new List<AudioClip>
         {
-            (AudioClip)Resources.Load("bgm_01"),
-            (AudioClip)Resources.Load("bgm_02"),
+            (AudioClip)Resources.Load("bgm_01ogg"),
+            (AudioClip)Resources.Load("bgm_02ogg"),
             (AudioClip)Resources.Load("bgm_03"),
             (AudioClip)Resources.Load("bgm_04")
         };
@@ -78,8 +82,7 @@ public class MusicManager : MonoBehaviour
         };
         LoopEnd = new List<int>
         {
-            //26292222,
-            1000000,
+            26292222,
             4324816,
             0,
             0,
@@ -101,11 +104,10 @@ public class MusicManager : MonoBehaviour
     {
         if(playing >= 0)
         {
-            Debug.Log(GetComponent<AudioSource>().timeSamples);
-            if(GetComponent<AudioSource>().timeSamples >= LoopEnd[playing] && bgmLoop[playing])
+            if(audioSource.timeSamples >= LoopEnd[playing] && bgmLoop[playing])
             {
                 Debug.Log("loop");
-                GetComponent<AudioSource>().timeSamples -= LoopEnd[playing] - LoopStart[playing];
+                audioSource.timeSamples -= LoopEnd[playing] - LoopStart[playing];
             }
         }
     }

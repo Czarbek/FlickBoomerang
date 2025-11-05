@@ -76,9 +76,12 @@ public class TitleLogo : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //float scale = (float)func.SCW / 2048;
+        float scale = 0.4f;
         sr = GetComponent<SpriteRenderer>();
-        sr.sprite = Resources.Load<Sprite>("testLogo");
+        sr.sprite = Resources.Load<Sprite>("title");
         transform.position = new Vector2(StartX, CenterY);
+        transform.localScale = new Vector2(scale, scale);
 
         SetState(State.Wait);
 
