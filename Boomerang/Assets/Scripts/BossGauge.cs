@@ -33,23 +33,27 @@ public class BossGauge : MonoBehaviour
     /// <summary>
     /// 横幅
     /// </summary>
-    public float MaxScaleX = func.metrecalc(70);
+    private float MaxScaleX = func.metrecalc(70);
     /// <summary>
     /// 縦幅
     /// </summary>
-    public float MaxScaleY = 0.3f;
+    private float MaxScaleY = func.metrecalc(2);
     /// <summary>
     /// 枠の横幅
     /// </summary>
-    public float FrameScaleX = func.metrecalc(74);
+    private float FrameScaleX = func.metrecalc(72);
     /// <summary>
     /// 枠の縦幅
     /// </summary>
-    public float FrameScaleY = 0.5f;
+    //public float FrameScaleY = 0.5f;
+    private float FrameScaleY = func.metrecalc(4);
     /// <summary>
-    /// ゲージの表示位置
+    /// ゲージの表示位置x座標
     /// </summary>
-    private readonly float CenterX = 0;
+    private readonly float CenterX = func.metrecalc(5);
+    /// <summary>
+    /// ゲージの表示位置y座標
+    /// </summary>
     private readonly float CenterY = func.metrecalc(142-70);
     /// <summary>
     /// 各色の値
@@ -76,9 +80,12 @@ public class BossGauge : MonoBehaviour
     /// </summary>
     public int maxhp;
     /// <summary>
-    /// ゲージの生成位置
+    /// ゲージの生成位置x座標
     /// </summary>
     private float StartX;
+    /// <summary>
+    /// ゲージの生成位置y座標
+    /// </summary>
     private float StartY;
     /// <summary>
     /// ゲージの中心位置

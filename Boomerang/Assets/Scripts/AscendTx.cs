@@ -5,6 +5,9 @@ using TMPro;
 
 public class AscendTx : MonoBehaviour
 {
+    /// <summary>
+    /// •\¦ó‘Ôˆê——
+    /// </summary>
     private enum State
     {
         Wait,
@@ -12,6 +15,9 @@ public class AscendTx : MonoBehaviour
         Process,
         FadeOut,
     }
+    /// <summary>
+    /// •\¦ó‘Ô
+    /// </summary>
     private State state;
     /// <summary>
     /// ŠÔ

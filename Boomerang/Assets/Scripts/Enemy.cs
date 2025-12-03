@@ -26,7 +26,7 @@ public class Enemy : MonoBehaviour
     /// <summary>
     /// 耐性属性へのダメージ倍率
     /// </summary>
-    private const float ResistRate = 1;
+    private const float ResistRate = 0.5f;
     /// <summary>
     /// 当たり判定の半径
     /// </summary>
@@ -35,6 +35,7 @@ public class Enemy : MonoBehaviour
     /// 画面外にいるときのy座標
     /// </summary>
     public const float ScreenOutY = func.camHeight*2 + 1.0f;
+    private readonly int[] PixelSize = new int[4] { 360, 240, 192, 120 };
     /// <summary>
     /// 属性一覧
     /// </summary>
@@ -280,7 +281,16 @@ public class Enemy : MonoBehaviour
     /// <param name="atk"></param>
     public void SetHit(int atk, Element element)
     {
-        int damage = (int)(atk * CalcDamageRate(element, this.element));
+        int damage;
+        float originalDamage = atk * CalcDamageRate(element, this.element);
+        if(atk % 2 == 0)
+        {
+            damage = (int)originalDamage;
+        }
+        else
+        {
+            damage = (int)originalDamage + 1;
+        }
         if(boss)
         {
             gauge.GetComponent<BossGauge>().SetDecrease(damage);
@@ -470,10 +480,12 @@ public class Enemy : MonoBehaviour
         GetComponent<SpriteRenderer>().maskInteraction = SpriteMaskInteraction.VisibleOutsideMask;
         for(int i = 1; i > -2; i -= 2)
         {
+            int pixelSize = PixelSize[sizePattern];
             GameObject mask = (GameObject)Resources.Load("EnemyMask");
             mask = Instantiate(mask);
-            mask.transform.position = new Vector2(transform.position.x+i*func.pxcalc((int)(1024*transform.localScale.x)), transform.position.y);
-            mask.transform.localScale = this.transform.localScale;
+            mask.transform.position = new Vector2(transform.position.x + i * func.pxcalc((int)(pixelSize * transform.localScale.x)), transform.position.y);
+            float maskScale = (float)pixelSize / 1024;
+            mask.transform.localScale = new Vector2(maskScale, maskScale);
             mask.GetComponent<EnemyMask>().SetDirection(i);
             mask.GetComponent<EnemyMask>().parent = this.gameObject;
         }
@@ -536,41 +548,52 @@ public class Enemy : MonoBehaviour
         {
         case 0:
             spriteList = new List<Sprite>();
-            if(element == Element.Fire)
-            {
-                spriteList.Add(Resources.Load<Sprite>("BossFireBlur1"));
-                spriteList.Add(Resources.Load<Sprite>("BossFireBlur2"));
-                spriteList.Add(Resources.Load<Sprite>("BossFireBlur3"));
-                spriteList.Add(Resources.Load<Sprite>("BossFireBlur4"));
-                spriteList.Add(Resources.Load<Sprite>("BossFireBlur5"));
-                spriteList.Add(Resources.Load<Sprite>("eA_fire"));
-            }
-            else if(element == Element.Aqua)
-            {
-                spriteList.Add(Resources.Load<Sprite>("BossAquaBlur1"));
-                spriteList.Add(Resources.Load<Sprite>("BossAquaBlur2"));
-                spriteList.Add(Resources.Load<Sprite>("BossAquaBlur3"));
-                spriteList.Add(Resources.Load<Sprite>("BossAquaBlur4"));
-                spriteList.Add(Resources.Load<Sprite>("BossAquaBlur5"));
-                spriteList.Add(Resources.Load<Sprite>("eA_aqua"));
-            }
-            else if(element == Element.Leaf)
-            {
-                spriteList.Add(Resources.Load<Sprite>("BossLeafBlur1"));
-                spriteList.Add(Resources.Load<Sprite>("BossLeafBlur2"));
-                spriteList.Add(Resources.Load<Sprite>("BossLeafBlur3"));
-                spriteList.Add(Resources.Load<Sprite>("BossLeafBlur4"));
-                spriteList.Add(Resources.Load<Sprite>("BossLeafBlur5"));
-                spriteList.Add(Resources.Load<Sprite>("eA_leaf"));
-            }
             if(boss)
             {
+                if(element == Element.Fire)
+                {
+                    spriteList.Add(Resources.Load<Sprite>("BossFireBlur1"));
+                    spriteList.Add(Resources.Load<Sprite>("BossFireBlur2"));
+                    spriteList.Add(Resources.Load<Sprite>("BossFireBlur3"));
+                    spriteList.Add(Resources.Load<Sprite>("BossFireBlur4"));
+                    spriteList.Add(Resources.Load<Sprite>("BossFireBlur5"));
+                    spriteList.Add(Resources.Load<Sprite>("boss_fire"));
+                }
+                else if(element == Element.Aqua)
+                {
+                    spriteList.Add(Resources.Load<Sprite>("BossAquaBlur1"));
+                    spriteList.Add(Resources.Load<Sprite>("BossAquaBlur2"));
+                    spriteList.Add(Resources.Load<Sprite>("BossAquaBlur3"));
+                    spriteList.Add(Resources.Load<Sprite>("BossAquaBlur4"));
+                    spriteList.Add(Resources.Load<Sprite>("BossAquaBlur5"));
+                    spriteList.Add(Resources.Load<Sprite>("boss_aqua"));
+                }
+                else if(element == Element.Leaf)
+                {
+                    spriteList.Add(Resources.Load<Sprite>("BossLeafBlur1"));
+                    spriteList.Add(Resources.Load<Sprite>("BossLeafBlur2"));
+                    spriteList.Add(Resources.Load<Sprite>("BossLeafBlur3"));
+                    spriteList.Add(Resources.Load<Sprite>("BossLeafBlur4"));
+                    spriteList.Add(Resources.Load<Sprite>("BossLeafBlur5"));
+                    spriteList.Add(Resources.Load<Sprite>("boss_leaf"));
+                }
                 sr.sprite = spriteList[spriteIndex];
                 sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0);
             }
             else
             {
-                sr.sprite = spriteList[5];
+                if(element == Element.Fire)
+                {
+                    sr.sprite = Resources.Load<Sprite>("eA_fire");
+                }
+                else if(element == Element.Aqua)
+                {
+                    sr.sprite = Resources.Load<Sprite>("eA_aqua");
+                }
+                else if(element == Element.Leaf)
+                {
+                    sr.sprite = Resources.Load<Sprite>("eA_leaf");
+                }
             }
             transform.position = new Vector2(startX, startY);
             break;
@@ -619,7 +642,7 @@ public class Enemy : MonoBehaviour
         default:
             break;
         }
-        standardScale = (collisionr * 2) / func.pxcalc(1024);
+        standardScale = 1;
         transform.localScale = new Vector3(standardScale, standardScale);
 
         manager = GameObject.Find("BattleManager");
@@ -635,6 +658,7 @@ public class Enemy : MonoBehaviour
             gauge.GetComponent<BossGauge>().hp = this.hp;
             gauge.GetComponent<BossGauge>().maxhp = this.hp;
             gauge.GetComponent<BossGauge>().SetGaugeNum(manager.GetComponent<BattleManager>().GetLastFloor() - manager.GetComponent<BattleManager>().GetFloor());
+            transform.localScale = new Vector2(360.0f / 1024.0f, 360.0f / 1024.0f);
         }
         else
         {
@@ -649,6 +673,12 @@ public class Enemy : MonoBehaviour
         turnCounter = (GameObject)Resources.Load("TurnCounter");
         turnCounter = Instantiate(turnCounter);
         turnCounter.GetComponent<TurnCounter>().parent = this;
+
+        if(func.DEBUG)
+        {
+            GameObject cc = Instantiate((GameObject)Resources.Load("CollisionCircle"));
+            cc.GetComponent<CollisionCircle>().Init(collisionr, gameObject);
+        }
     }
 
     // Update is called once per frame
@@ -682,6 +712,7 @@ public class Enemy : MonoBehaviour
                         if(spriteIndex == SpriteNum - 1)
                         {
                             time = 0;
+                            transform.localScale = new Vector2(1, 1);
                             gauge.GetComponent<BossGauge>().SetVisibility();
                             turnCounter.GetComponent<TurnCounter>().SetVisibility();
                             bossEffect = BossEffect.Gauge;

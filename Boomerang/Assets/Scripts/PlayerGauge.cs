@@ -34,11 +34,11 @@ public class PlayerGauge : MonoBehaviour
     /// <summary>
     /// max‚ÌxÀ•W
     /// </summary>
-    public const float DefaultX = 1.65f;
+    static public float DefaultX = func.metrecalc(27.5f);
     /// <summary>
     /// yÀ•W
     /// </summary>
-    public const float DefaultY = -4.5f;
+    static public float DefaultY = -4.5f;
     /// <summary>
     /// ‰¡•
     /// </summary>
@@ -46,7 +46,7 @@ public class PlayerGauge : MonoBehaviour
     /// <summary>
     /// c•
     /// </summary>
-    private readonly float ScaleY = 0.25f;
+    private readonly float ScaleY = func.metrecalc(1.5f);
     /// <summary>
     /// ˜g‚Ì‰¡•
     /// </summary>
@@ -54,7 +54,7 @@ public class PlayerGauge : MonoBehaviour
     /// <summary>
     /// ˜g‚Ìc•
     /// </summary>
-    private readonly float frameScaleY = 0.35f;
+    private readonly float frameScaleY = func.metrecalc(1.5f+2.0f);
     /// <summary>
     /// ƒqƒbƒgƒ|ƒCƒ“ƒgÅ‘å’l
     /// </summary>

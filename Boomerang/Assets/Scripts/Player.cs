@@ -62,7 +62,9 @@ public class Player : MonoBehaviour
     /// <summary>
     /// フリック速度のパターンリスト
     /// </summary>
-    private float[] FlickVelocity = new float[HeightPatternNum] { func.metrecalc(20), func.metrecalc(40), func.metrecalc(60) };
+    private int[] FlickVelocity = new int[HeightPatternNum] { 5, 10, 15 };
+    private float[] XBorder = new float[WidthPatternNum] { func.metrecalc(40), func.metrecalc(60), func.metrecalc(80), func.metrecalc(100) };
+    private float[] YBorder = new float[HeightPatternNum] { func.metrecalc(40), func.metrecalc(60), func.metrecalc(80) };
     /// <summary>
     /// 当たり判定の半径
     /// </summary>
@@ -84,7 +86,7 @@ public class Player : MonoBehaviour
     /// <summary>
     /// プレイヤーの状態
     /// </summary>
-    private State state;
+    [SerializeField]private State state;
     /// <summary>
     /// x座標
     /// </summary>
@@ -162,14 +164,38 @@ public class Player : MonoBehaviour
     /// 楕円軌道のパターンを求める
     /// </summary>
     /// <param name="angle">フリック角度</param>
-    /// <param name="distance">フリック距離</param>
+    /// <param name="velocity">フリック距離</param>
     /// <param name="speed">フリック速度</param>
     /// <returns>楕円軌道のパターン(横幅パターン, 縦幅パターン, 反転の有無)</returns>
-    private Vector3 orbitPattern(float angle, float distance, float speed)
+    private Vector3 orbitPattern(Vector2 start, Vector2 end, float speed)
     {
         int resultV = 0;
         int resultH = 0;
         int flip = 1;
+        float xdistance = end.x - start.x;
+        float ydistance = func.abs(end.y - start.y);
+        if(xdistance < 0)
+        {
+            flip = -1;
+            xdistance = -xdistance;
+        }
+        for(int i = 1; i < WidthPatternNum; i++)
+        {
+            if(xdistance < XBorder[i-1])
+            {
+                resultH = WidthPatternNum - i;
+                break;
+            }
+        }
+        for(int i = 1; i < HeightPatternNum; i++)
+        {
+            if(ydistance > YBorder[i-1])
+            {
+                resultV = i;
+            }
+        }
+
+        /*
         float judgeAngle = angle;
         if(angle > func.rad(90)) {
             judgeAngle = Mathf.PI - angle;
@@ -182,13 +208,19 @@ public class Player : MonoBehaviour
                 resultH = i-1;
             }
         }
-        for(int i = 0; i < HeightPatternNum; i++)
+        if(flickTime <= FlickVelocity[0])
         {
-            if(distance >= FlickDistance[i])
-            {
-                resultV = i;
-            }
+            resultV = 2;
         }
+        else if(flickTime <= FlickVelocity[1])
+        {
+            resultV = 1;
+        }
+        else
+        {
+            resultV = 0;
+        }
+        */
         return new Vector3(resultH, resultV, flip);
     }
     /// <summary>
@@ -407,20 +439,20 @@ public class Player : MonoBehaviour
                 AnglePattern[i] = fbuffer;
             }
         }
-        //flicklength
-        for(int i = 0; i < HeightPatternNum; i++)
+        //flicklength_horizontal
+        for(int i = 0; i < WidthPatternNum; i++)
         {
             if(int.TryParse(values[8][i+1], out nbuffer))
             {
-                FlickDistance[i] = func.metrecalc(nbuffer);
+                XBorder[i] = func.metrecalc(nbuffer);
             }
         }
-        //flickvelocity
+        //flicklength_vertical
         for(int i = 0; i < HeightPatternNum; i++)
         {
             if(int.TryParse(values[9][i+1], out nbuffer))
             {
-                FlickVelocity[i] = nbuffer;
+                YBorder[i] = func.metrecalc(nbuffer);
             }
         }
     }
@@ -457,6 +489,12 @@ public class Player : MonoBehaviour
         element = Enemy.Element.None;
         sustainTurn = -1;
         state = State.NoInput;
+
+        if(func.DEBUG)
+        {
+            GameObject cc = Instantiate((GameObject)Resources.Load("CollisionCircle"));
+            cc.GetComponent<CollisionCircle>().Init(Collisionr, this.gameObject);
+        }
     }
     // Update is called once per frame
     void Update()
@@ -496,11 +534,15 @@ public class Player : MonoBehaviour
                     releasedx = func.mouse().x;
                     releasedy = func.mouse().y;
 
-                    float flickDistance = func.dist(touchedx, touchedy, releasedx, releasedy);
-                    float flickAngle = func.getAngle(touchedx, touchedy, releasedx, releasedy);
-                    Debug.Log(flickAngle / Mathf.PI * 180);
+                    Vector2 start = new Vector2(touchedx, touchedy);
+                    Vector2 end = new Vector2(releasedx, releasedy);
+
+                    //float flickDistance = func.dist(touchedx, touchedy, releasedx, releasedy);
+                    //float flickAngle = func.getAngle(touchedx, touchedy, releasedx, releasedy);
+                    
+                    //Debug.Log(flickAngle / Mathf.PI * 180);
                     speed = InitialSpeed;
-                    orbit = orbitPattern(flickAngle, flickDistance, speed);
+                    orbit = orbitPattern(start, end, speed);
                     Debug.Log(orbit);
                     GameObject.Find("SoundManager").GetComponent<SoundManager>().PlaySound(SoundManager.Se.Flick);
                     state = State.Flying;

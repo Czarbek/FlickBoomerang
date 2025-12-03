@@ -38,7 +38,7 @@ public class HelpButton : TitleManager
     {
         manager = GameObject.Find("TitleManager");
         sp_help = Resources.Load<Sprite>("button_help");
-        sp_close = Resources.Load<Sprite>("button_closehelp");
+        sp_close = Resources.Load<Sprite>("button_close");
 
         transform.position = new Vector2(0, StageInfo.ycalc(10));
 
