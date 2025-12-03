@@ -99,6 +99,7 @@ public class ClearTx : MonoBehaviour
     {
         time = 0;
         state = State.FadeIn;
+        GameObject.Find("MusicManager").GetComponent<MusicManager>().PlayMusic(MusicManager.BGM.GameClear);
     }
     // Start is called before the first frame update
     void Start()

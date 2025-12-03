@@ -11,19 +11,23 @@ public class Fader : MonoBehaviour
     /// <summary>
     /// スプライトのx方向の拡大率
     /// </summary>
-    private const float Sizex = func.camWidth * 4;
+    private const float Sizex = func.camWidth * 6;
     /// <summary>
     /// スプライトのy方向の拡大率
     /// </summary>
-    private const float Sizey = func.camHeight * 4;
+    private const float Sizey = func.camHeight * 6;
     /// <summary>
     /// 状態一覧
     /// </summary>
     private enum State
     {
+        /// <summary>待機</summary>
         Wait,
+        /// <summary>フェードアウト</summary>
         FadeOut,
+        /// <summary>フェードアウト後待機</summary>
         FadeWait,
+        /// <summary>フェードイン</summary>
         FadeIn,
     };
     /// <summary>
@@ -148,5 +152,14 @@ public class Fader : MonoBehaviour
             break;
         }
         sr.color = new Color(r, g, b, alpha);
+
+        bool touch = Application.isEditor ? Input.GetMouseButtonDown(0) : Input.GetMouseButtonDown(0) || func.getTouch() == 1;
+        Vector2 touchLoc = func.mouse();
+        if(touch)
+        {
+            GameObject tapEffect = Instantiate((GameObject)Resources.Load("TapEffect"));
+            tapEffect.transform.position = touchLoc;
+            Debug.Log("touch");
+        }
     }
 }

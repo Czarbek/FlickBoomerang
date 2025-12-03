@@ -33,11 +33,11 @@ public class TurnCounter : MonoBehaviour
     /// <summary>
     /// ターンカウントの表示位置x座標
     /// </summary>
-    public float countOffsetX = 0.5f;
+    public float countOffsetX = 0.5f; //8m
     /// <summary>
     /// ターンカウントの表示位置y座標
     /// </summary>
-    public float countOffsetY = 0.6f;
+    public float countOffsetY = 0.6f; //9.6m
     /// <summary>
     /// フェードにかかる時間(ミリ秒)
     /// </summary>

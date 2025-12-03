@@ -32,19 +32,19 @@ public class EnemyGauge : MonoBehaviour
     /// <summary>
     /// 横幅
     /// </summary>
-    public float ScaleX = 1.6f;
+    private float ScaleX = func.metrecalc(15);
     /// <summary>
     /// 縦幅
     /// </summary>
-    public float ScaleY = 0.15f;
+    private float ScaleY = func.metrecalc(1);
     /// <summary>
     /// 枠の横幅
     /// </summary>
-    public float frameScaleX = 1.7f;
+    private float frameScaleX = func.metrecalc(16);
     /// <summary>
     /// 枠の縦幅
     /// </summary>
-    public float frameScaleY = 0.25f;
+    private float frameScaleY = func.metrecalc(2);
     /// <summary>
     /// 依存先
     /// </summary>
@@ -58,9 +58,12 @@ public class EnemyGauge : MonoBehaviour
     /// </summary>
     public int maxhp;
     /// <summary>
-    /// ゲージの中心位置
+    /// ゲージの中心位置x座標
     /// </summary>
     private float centerX;
+    /// <summary>
+    /// ゲージの中心位置y座標
+    /// </summary>
     private float centerY;
     /// <summary>
     /// フェードにかかる時間(ミリ秒)
@@ -95,6 +98,10 @@ public class EnemyGauge : MonoBehaviour
     /// </summary>
     GameObject frame;
     /// <summary>
+    /// 属性表示オブジェクト
+    /// </summary>
+    GameObject elem;
+    /// <summary>
     /// 減少線オブジェクト
     /// </summary>
     GameObject gaugeLine;
@@ -112,6 +119,11 @@ public class EnemyGauge : MonoBehaviour
         frame = Instantiate(frame);
         frame.transform.position = transform.position;
         frame.transform.localScale = new Vector2(frameScaleX, frameScaleY);
+        elem = (GameObject)Resources.Load("ElementDsp");
+        elem = Instantiate(elem);
+        elem.transform.position = new Vector2(centerX - frameScaleX / 2 - func.metrecalc(ElementDsp.MetreSize), centerY);
+        elem.GetComponent<ElementDsp>().SetElement(parent.element);
+        elem.GetComponent<ElementDsp>().SetExpand(1);
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
         Color col = sr.color;
         sr.color = new Color(col.r, col.g, col.b, 0);
@@ -140,6 +152,7 @@ public class EnemyGauge : MonoBehaviour
     public void Die()
     {
         state = State.FadeOut;
+        elem.GetComponent<ElementDsp>().Die();
         time = 0;
     }
     /// <summary>

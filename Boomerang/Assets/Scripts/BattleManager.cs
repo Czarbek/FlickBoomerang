@@ -56,6 +56,8 @@ public class BattleManager : MonoBehaviour
         BossAppear,
         /// <summary>ステージ進行中</summary>
         Process,
+        /// <summary>ターン切り替え待機</summary>
+        TurnWait,
         /// <summary>ステージ終了前待機</summary>
         EndWait,
         /// <summary>フロア切り替え</summary>
@@ -196,6 +198,20 @@ public class BattleManager : MonoBehaviour
         return lastFloor;
     }
     /// <summary>
+    /// 撃破演出などのための待機状態を設定する
+    /// </summary>
+    public void SetWait()
+    {
+        state = State.TurnWait;
+    }
+    /// <summary>
+    /// 待機状態を解除する
+    /// </summary>
+    public void EndWait()
+    {
+        state = nextState;
+    }
+    /// <summary>
     /// ターンを終了する
     /// </summary>
     /// <param name="currentTurn">現在のターン</param>
@@ -205,7 +221,8 @@ public class BattleManager : MonoBehaviour
         nextTurn = currentTurn == Turn.Player ? Turn.Enemy : Turn.Player;
         if(nextTurn == Turn.Player)
         {
-            GameObject.Find("Player").GetComponent<Player>().SetState(Player.State.Wait);
+            GameObject.Find("Player").GetComponent<Player>().ChangeTurn();
+            GameObject.Find("SoundManager").GetComponent<SoundManager>().PlaySound(SoundManager.Se.StartTurn);
             for(int i = 0; i < enemyCount; i++)
             {
                 enemy[i].GetComponent<Enemy>().EndTurn();
@@ -233,7 +250,18 @@ public class BattleManager : MonoBehaviour
                     }
                 }
             }
-            if(!doContinue) state = State.EndWait;
+            if(!doContinue)
+            {
+                if(floor == lastFloor)
+                {
+                    nextState = State.End;
+                }
+                else
+                {
+                    nextState = State.Change;
+                }
+                state = State.EndWait;
+            }
         }
         if(GameObject.Find("Player").GetComponent<Player>().isDead())
         {
@@ -247,6 +275,7 @@ public class BattleManager : MonoBehaviour
     /// </summary>
     public void EndBossAppear()
     {
+        GameObject.Find("Player").GetComponent<Player>().SetState(Player.State.Wait);
         state = State.Process;
     }
     /// <summary>
@@ -254,7 +283,15 @@ public class BattleManager : MonoBehaviour
     /// </summary>
     public void AllowChangeFloor()
     {
-        if(state == State.EndWait)
+        bool doContinue = false;
+        for(int i = 0; i < enemyCount; i++)
+        {
+            if(enemy[i].GetComponent<Enemy>().IsAlive())
+            {
+                doContinue = true;
+            }
+        }
+        if(state == State.EndWait && !doContinue)
         {
             if(floor < lastFloor)
             {
@@ -316,6 +353,10 @@ public class BattleManager : MonoBehaviour
             {
                 time = 0;
                 nextState = State.Process;
+                if(floor == InitialFloor)
+                {
+                    GameObject.Find("MusicManager").GetComponent<MusicManager>().PlayMusic(MusicManager.BGM.Stage);
+                }
                 if(!prepared)
                 {
                     StageInfo.ObjInfo info = stageInfo.GetComponent<StageInfo>().GetStageInfo(floor);
@@ -387,6 +428,7 @@ public class BattleManager : MonoBehaviour
                 enemyCount = enemy.Length;
                 itemCount = item.Length;
                 floorCount.GetComponent<FloorCount>().SetText(floor, lastFloor);
+                GameObject.Find("FloorDsp").GetComponent<FloorDsp>().SetText(floor, lastFloor);
                 state = State.StartWait;
             }
             break;
@@ -399,7 +441,10 @@ public class BattleManager : MonoBehaviour
                     alpha = 0;
                     time = 0;
                     floorCount.GetComponent<FloorCount>().DeleteText();
-                    GameObject.Find("Player").GetComponent<Player>().SetState(Player.State.Wait);
+                    if(nextState == State.Process)
+                    {
+                        GameObject.Find("Player").GetComponent<Player>().SetState(Player.State.Wait);
+                    }
                     state = nextState;
                 }
                 SpriteRenderer sr = GetComponent<SpriteRenderer>();
@@ -409,6 +454,7 @@ public class BattleManager : MonoBehaviour
         case State.BossAppear:
             break;
         case State.Process:
+            nextState = State.Process;
             if(turn == Turn.Player)
             {
 
@@ -438,6 +484,9 @@ public class BattleManager : MonoBehaviour
                 turn = nextTurn;
             }
             break;
+        case State.TurnWait:
+
+            break;
         case State.EndWait:
             //GameObject.Find("Player").GetComponent<Player>().SetState(Player.State.NoInput);
             break;
@@ -462,6 +511,7 @@ public class BattleManager : MonoBehaviour
                 }
                 prepared = false;
                 GameObject.Find("Player").GetComponent<Player>().MoveFloor();
+                GameObject.Find("SoundManager").GetComponent<SoundManager>().PlaySound(SoundManager.Se.MoveFloor);
             }
             break;
         case State.End:
@@ -476,6 +526,7 @@ public class BattleManager : MonoBehaviour
             else if(time == GOFadeOutTime)
             {
                 GameObject.Find("GameOverTx").GetComponent<GameOverTx>().SetText();
+                GameObject.Find("MusicManager").GetComponent<MusicManager>().PlayMusic(MusicManager.BGM.GameOver);
             }
             break;
         case State.StageClear:
