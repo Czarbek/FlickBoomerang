@@ -7,6 +7,7 @@ using UnityEngine;
 /// </summary>
 public class func
 {
+    static public bool DEBUG = true;
     /// <summary>
     /// フレームレート(/秒)
     /// </summary>

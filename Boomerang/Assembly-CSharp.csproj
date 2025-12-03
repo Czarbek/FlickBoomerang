@@ -70,6 +70,7 @@
     <Compile Include="Assets\Scripts\ClearTx.cs" />
     <Compile Include="Assets\Scripts\EnemyBullet.cs" />
     <Compile Include="Assets\Scripts\EnemyMask.cs" />
+    <Compile Include="Assets\Scripts\CollisionCircle.cs" />
     <Compile Include="Assets\Scripts\AscendTx.cs" />
     <Compile Include="Assets\Scripts\BattleManager.cs" />
     <Compile Include="Assets\Scripts\GameOverTx.cs" />

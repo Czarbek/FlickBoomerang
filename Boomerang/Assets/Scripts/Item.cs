@@ -258,6 +258,12 @@ public class Item : MonoBehaviour
         }
         time = 0;
         valid = true;
+
+        if(func.DEBUG)
+        {
+            GameObject cc = Instantiate((GameObject)Resources.Load("CollisionCircle"));
+            cc.GetComponent<CollisionCircle>().Init(CollisionRadius, this.gameObject);
+        }
     }
 
     // Update is called once per frame

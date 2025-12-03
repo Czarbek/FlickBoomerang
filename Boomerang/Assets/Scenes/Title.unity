@@ -615,7 +615,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8cd2007b8f7381e4bbb75fc81e0b9945, type: 3}
+  m_Sprite: {fileID: 4531127856655987640, guid: a243fec84973e4644aded11164ed0129, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -906,7 +906,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 43cc6c12d89ab6f4da970949a20eaf3e, type: 3}
+  m_Sprite: {fileID: 6384134426929563510, guid: a3c9de91b45dd50449c56c5069c1fd7c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1008,8 +1008,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u30B9\u30C6\u30FC\u30B8\u30BB\u30EC\u30AF\u30C8"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 546428d6fa9c78b459132e265a376397, type: 2}
-  m_sharedMaterial: {fileID: 8134982893737531906, guid: 546428d6fa9c78b459132e265a376397, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 28f1e550649479f4f848a6362850eb83, type: 2}
+  m_sharedMaterial: {fileID: 2320017645835371632, guid: 28f1e550649479f4f848a6362850eb83, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

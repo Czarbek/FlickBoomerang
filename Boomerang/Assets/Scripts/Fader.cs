@@ -11,19 +11,23 @@ public class Fader : MonoBehaviour
     /// <summary>
     /// スプライトのx方向の拡大率
     /// </summary>
-    private const float Sizex = func.camWidth * 4;
+    private const float Sizex = func.camWidth * 6;
     /// <summary>
     /// スプライトのy方向の拡大率
     /// </summary>
-    private const float Sizey = func.camHeight * 4;
+    private const float Sizey = func.camHeight * 6;
     /// <summary>
     /// 状態一覧
     /// </summary>
     private enum State
     {
+        /// <summary>待機</summary>
         Wait,
+        /// <summary>フェードアウト</summary>
         FadeOut,
+        /// <summary>フェードアウト後待機</summary>
         FadeWait,
+        /// <summary>フェードイン</summary>
         FadeIn,
     };
     /// <summary>

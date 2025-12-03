@@ -104,7 +104,7 @@ public class DiffButton : TitleManager
         sr.color = new Color(1, 1, 1, 0);
         if(index > 0 && index < 3)
         {
-            if(!ClearData.IsCleared(index - 1))
+            if(!ClearData.IsCleared(index - 1)&&!func.DEBUG)
             {
                 sr.sprite = sp_diff[index+3];
             }
@@ -186,7 +186,7 @@ public class DiffButton : TitleManager
                             break;
                         case 1:
                         case 2:
-                            if(ClearData.IsCleared(index - 1))
+                            if(ClearData.IsCleared(index - 1)||func.DEBUG)
                             {
                                 stageInfo.GetComponent<StageInfo>().LoadStageInfo(index);
                                 GameObject.Find("SoundManager").GetComponent<SoundManager>().PlaySound(SoundManager.Se.Button);
