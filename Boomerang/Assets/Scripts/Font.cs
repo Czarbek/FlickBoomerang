@@ -7,13 +7,32 @@ using UnityEngine;
 /// </summary>
 public class Font : MonoBehaviour
 {
+    /// <summary>
+    /// 取り扱う文字数
+    /// </summary>
     private const int FontNum = 10;
+    /// <summary>
+    /// 黒塗り数字画像リスト
+    /// </summary>
     static Sprite[] font = new Sprite[FontNum];
+    /// <summary>
+    /// 白抜き数字画像リスト
+    /// </summary>
     static Sprite[] fontW = new Sprite[FontNum];
+    /// <summary>
+    /// 数字画像を取得する
+    /// </summary>
+    /// <param name="index">数字</param>
+    /// <returns>Sprite</returns>
     static public Sprite GetFont(int index)
     {
         return font[index];
     }
+    /// <summary>
+    /// 白抜き数字画像を取得する
+    /// </summary>
+    /// <param name="index">数字</param>
+    /// <returns>Sprite</returns>
     static public Sprite GetFontW(int index)
     {
         return fontW[index];

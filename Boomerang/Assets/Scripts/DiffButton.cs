@@ -101,6 +101,7 @@ public class DiffButton : TitleManager
         sp_diff[4] = Resources.Load<Sprite>("button_stage02_locked");
         sp_diff[5] = Resources.Load<Sprite>("button_stage03_locked");
         sr.sprite = sp_diff[index];
+        sr.sortingOrder = 2;
         sr.color = new Color(1, 1, 1, 0);
         if(index > 0 && index < 3)
         {
@@ -206,6 +207,7 @@ public class DiffButton : TitleManager
                             GameObject.Find("TitleManager").GetComponent<TitleManager>().SetDspState(TitleManager.DspState.FadeIn2);
                             GameObject.Find("HelpButton").GetComponent<HelpButton>().SetDspState(TitleManager.DspState.FadeIn2);
                             GameObject.Find("SoundManager").GetComponent<SoundManager>().PlaySound(SoundManager.Se.Button);
+                            GameObject.Find("SelectBack").GetComponent<SelectBack>().SetFadeOut();
                             break;
                         }
                     }
@@ -217,6 +219,8 @@ public class DiffButton : TitleManager
                 transform.localScale = new Vector2(scale, scale);
                 if(time == FadeOutTime)
                 {
+                    time = 0;
+                    lagt = 0;
                     SetDspState(DspState.Invalid);
                 }
                 break;

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class HelpWindow : MonoBehaviour
 {
+    /// <summary>
+    /// •\¦ó‘Ô
+    /// </summary>
     public enum State
     {
         Invalid,

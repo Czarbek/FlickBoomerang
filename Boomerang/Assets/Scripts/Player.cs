@@ -158,7 +158,7 @@ public class Player : MonoBehaviour
     /// <summary>
     /// 属性の持続ターン
     /// </summary>
-    private int sustainTurn;
+    [SerializeField]private int sustainTurn;
     
     /// <summary>
     /// 楕円軌道のパターンを求める
@@ -344,6 +344,7 @@ public class Player : MonoBehaviour
             {
                 sustainTurn = NoElementSustainTurn;
                 SetElement(Enemy.Element.None);
+                ElementEffect.SetElement(element);
             }
         }
         SetState(State.Wait);
@@ -490,11 +491,13 @@ public class Player : MonoBehaviour
         sustainTurn = -1;
         state = State.NoInput;
 
+        /*
         if(func.DEBUG)
         {
             GameObject cc = Instantiate((GameObject)Resources.Load("CollisionCircle"));
             cc.GetComponent<CollisionCircle>().Init(Collisionr, this.gameObject);
         }
+        */
     }
     // Update is called once per frame
     void Update()
@@ -515,7 +518,7 @@ public class Player : MonoBehaviour
                     touchedx = Application.isEditor ? func.mouse().x : func.getTouchPosition().x;
                     touchedy = Application.isEditor ? func.mouse().y : func.getTouchPosition().y;
                     */
-                    touchedx = func.mouse().x;
+        touchedx = func.mouse().x;
                     touchedy = func.mouse().y;
 
                     flickTime = 0;
@@ -533,19 +536,26 @@ public class Player : MonoBehaviour
                     */
                     releasedx = func.mouse().x;
                     releasedy = func.mouse().y;
+                    if(releasedy - touchedy > 0)
+                    {
 
-                    Vector2 start = new Vector2(touchedx, touchedy);
-                    Vector2 end = new Vector2(releasedx, releasedy);
+                        Vector2 start = new Vector2(touchedx, touchedy);
+                        Vector2 end = new Vector2(releasedx, releasedy);
 
-                    //float flickDistance = func.dist(touchedx, touchedy, releasedx, releasedy);
-                    //float flickAngle = func.getAngle(touchedx, touchedy, releasedx, releasedy);
-                    
-                    //Debug.Log(flickAngle / Mathf.PI * 180);
-                    speed = InitialSpeed;
-                    orbit = orbitPattern(start, end, speed);
-                    Debug.Log(orbit);
-                    GameObject.Find("SoundManager").GetComponent<SoundManager>().PlaySound(SoundManager.Se.Flick);
-                    state = State.Flying;
+                        //float flickDistance = func.dist(touchedx, touchedy, releasedx, releasedy);
+                        //float flickAngle = func.getAngle(touchedx, touchedy, releasedx, releasedy);
+
+                        //Debug.Log(flickAngle / Mathf.PI * 180);
+                        speed = InitialSpeed;
+                        orbit = orbitPattern(start, end, speed);
+                        Debug.Log(orbit);
+                        GameObject.Find("SoundManager").GetComponent<SoundManager>().PlaySound(SoundManager.Se.Flick);
+                        state = State.Flying;
+                    }
+                    else
+                    {
+                        state = State.Wait;
+                    }
                 }
                 break;
             case State.Flying:

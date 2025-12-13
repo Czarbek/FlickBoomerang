@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// コンティニューボタン
+/// </summary>
 public class ContinueButton : MonoBehaviour
 {
     /// <summary>

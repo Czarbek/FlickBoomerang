@@ -11,16 +11,16 @@ public class SelectTx : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        transform.position = new Vector2(StageInfo.xcalc(-10), StageInfo.ycalc(140));
+        transform.position = new Vector2(0, StageInfo.ycalc(130));
 
         tmpro = GetComponent<TextMeshProUGUI>();
-        tmpro.color = new Color(1, 1, 1, 0);
+        tmpro.color = new Color(0, 0, 0, 0);
 
         titleManager = GameObject.Find("TitleManager");
 
         if(Initializer.GetRetry())
         {
-            tmpro.color = new Color(1, 1, 1, 1);
+            tmpro.color = new Color(0, 0, 0, 1);
         }
     }
 
@@ -30,13 +30,13 @@ public class SelectTx : MonoBehaviour
         switch(titleManager.GetComponent<TitleManager>().state)
         {
         case TitleManager.State.Title:
-            tmpro.color = new Color(1, 1, 1, 0);
+            tmpro.color = new Color(0, 0, 0, 0);
             break;
         case TitleManager.State.Help:
-            tmpro.color = new Color(1, 1, 1, 0);
+            tmpro.color = new Color(0, 0, 0, 0);
             break;
         case TitleManager.State.Select:
-            tmpro.color = new Color(1, 1, 1, 1);
+            tmpro.color = new Color(0, 0, 0, 1);
             break;
         }
     }

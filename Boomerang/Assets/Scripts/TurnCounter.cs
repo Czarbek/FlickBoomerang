@@ -33,11 +33,23 @@ public class TurnCounter : MonoBehaviour
     /// <summary>
     /// ターンカウントの表示位置x座標
     /// </summary>
-    public float countOffsetX = 0.5f; //8m
+    private readonly float CountOffsetX = func.metrecalc(-7.0f);
     /// <summary>
     /// ターンカウントの表示位置y座標
     /// </summary>
-    public float countOffsetY = 0.6f; //9.6m
+    private readonly float CountOffsetY = func.metrecalc(8.0f);
+    /// <summary>
+    /// ターンカウントの表示位置x座標
+    /// </summary>
+    private readonly float BossCountOffsetX = func.metrecalc(-12.0f);
+    /// <summary>
+    /// ターンカウントの表示位置y座標
+    /// </summary>
+    private readonly float BossCountOffsetY = func.metrecalc(14.0f);
+    /// <summary>
+    /// 拡大率
+    /// </summary>
+    private const float DefaultScale = 0.5f;
     /// <summary>
     /// フェードにかかる時間(ミリ秒)
     /// </summary>
@@ -62,13 +74,22 @@ public class TurnCounter : MonoBehaviour
     /// <summary>
     /// 表示を開始する
     /// </summary>
-    public void SetVisibility()
+    public void SetVisibility(bool boss)
     {
         state = State.FadeIn;
         sr = GetComponent<SpriteRenderer>();
         Color col = sr.color;
         sr.color = new Color(col.r, col.g, col.b, 0);
-        transform.position = new Vector2(parent.transform.position.x + countOffsetX, parent.transform.position.y + countOffsetY);
+        if(boss)
+        {
+            transform.position = new Vector2(parent.transform.position.x + BossCountOffsetX, parent.transform.position.y + BossCountOffsetY);
+            transform.localScale = new Vector2(DefaultScale, DefaultScale);
+        }
+        else
+        {
+            transform.position = new Vector2(parent.transform.position.x + CountOffsetX, parent.transform.position.y + CountOffsetY);
+            transform.localScale = new Vector2(DefaultScale, DefaultScale);
+        }
     }
     /// <summary>
     /// 非表示にする

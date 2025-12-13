@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+//using static UnityEditorInternal.ReorderableList;
 
 /// <summary>
 /// 通常敵のHPゲージ
@@ -106,6 +107,10 @@ public class EnemyGauge : MonoBehaviour
     /// </summary>
     GameObject gaugeLine;
     /// <summary>
+    /// 赤ゲージ
+    /// </summary>
+    GameObject redGauge;
+    /// <summary>
     /// 表示を開始する
     /// </summary>
     public void SetVisibility()
@@ -119,6 +124,10 @@ public class EnemyGauge : MonoBehaviour
         frame = Instantiate(frame);
         frame.transform.position = transform.position;
         frame.transform.localScale = new Vector2(frameScaleX, frameScaleY);
+        redGauge = (GameObject)Resources.Load("RedGauge");
+        redGauge = Instantiate(redGauge);
+        redGauge.transform.position = transform.position;
+        redGauge.transform.localScale = transform.localScale;
         elem = (GameObject)Resources.Load("ElementDsp");
         elem = Instantiate(elem);
         elem.transform.position = new Vector2(centerX - frameScaleX / 2 - func.metrecalc(ElementDsp.MetreSize), centerY);
@@ -229,7 +238,9 @@ public class EnemyGauge : MonoBehaviour
         float posy = centerY;
         float scalex = dspHP / maxhp * ScaleX;
 
-        transform.position = new Vector2(posx, posy);
-        transform.localScale = new Vector2(scalex, ScaleY);
+        transform.position = new Vector2((float)hp / maxhp * ScaleX / 2 + (centerX - ScaleX / 2), posy);
+        transform.localScale = new Vector2((float)hp / maxhp * ScaleX, ScaleY);
+        redGauge.transform.position = new Vector2(posx, posy);
+        redGauge.transform.localScale = new Vector2(scalex, ScaleY);
     }
 }

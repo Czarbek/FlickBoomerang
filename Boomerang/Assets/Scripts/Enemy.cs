@@ -674,11 +674,13 @@ public class Enemy : MonoBehaviour
         turnCounter = Instantiate(turnCounter);
         turnCounter.GetComponent<TurnCounter>().parent = this;
 
+        /*
         if(func.DEBUG)
         {
             GameObject cc = Instantiate((GameObject)Resources.Load("CollisionCircle"));
             cc.GetComponent<CollisionCircle>().Init(collisionr, gameObject);
         }
+        */
     }
 
     // Update is called once per frame
@@ -714,7 +716,7 @@ public class Enemy : MonoBehaviour
                             time = 0;
                             transform.localScale = new Vector2(1, 1);
                             gauge.GetComponent<BossGauge>().SetVisibility();
-                            turnCounter.GetComponent<TurnCounter>().SetVisibility();
+                            turnCounter.GetComponent<TurnCounter>().SetVisibility(boss);
                             bossEffect = BossEffect.Gauge;
                         }
                     }
@@ -871,7 +873,7 @@ public class Enemy : MonoBehaviour
                     if(time - 20 == BattleManager.SlideTime)
                     {
                         gauge.GetComponent<EnemyGauge>().SetVisibility();
-                        turnCounter.GetComponent<TurnCounter>().SetVisibility();
+                        turnCounter.GetComponent<TurnCounter>().SetVisibility(boss);
                     }
                 }
             }

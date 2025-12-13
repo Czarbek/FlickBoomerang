@@ -57,6 +57,10 @@ public class SoundManager : MonoBehaviour
     /// </summary>
     private List<AudioClip> seList;
 
+    /// <summary>
+    /// サウンドを再生する
+    /// </summary>
+    /// <param name="se">再生するサウンド</param>
     public void PlaySound(Se se)
     {
         Debug.Log((int)se);
