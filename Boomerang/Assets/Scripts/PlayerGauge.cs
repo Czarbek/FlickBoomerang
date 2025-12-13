@@ -86,7 +86,11 @@ public class PlayerGauge : MonoBehaviour
     /// <summary>
     /// 減少線オブジェクト
     /// </summary>
-    GameObject gaugeLine;
+    //GameObject gaugeLine;
+    /// <summary>
+    /// 赤ゲージ
+    /// </summary>
+    GameObject redGauge;
 
     /// <summary>
     /// 敵弾がヒットした場合、プレイヤーのHPを減らす
@@ -104,10 +108,12 @@ public class PlayerGauge : MonoBehaviour
     /// <param name="damage">ダメージ値</param>
     public void SetDecrease(int damage)
     {
+        /*
         if(gaugeLine != null)
         {
             Destroy(gaugeLine);
         }
+        */
         state = State.Decrease;
         dspMaxHP = hp;
         int dspMinHP = hp - damage;
@@ -117,8 +123,10 @@ public class PlayerGauge : MonoBehaviour
         }
         time = 0;
 
+        /*
         gaugeLine = Instantiate((GameObject)Resources.Load("GaugeLine"));
         gaugeLine.transform.position = new Vector2((float)dspMinHP / maxHP * ScaleX + gaugeLine.transform.localScale.x / 2 + (DefaultX - ScaleX / 2), DefaultY);
+        */
     }
     /// <summary>
     /// ゲージ減少状態にする
@@ -126,10 +134,12 @@ public class PlayerGauge : MonoBehaviour
     /// <param name="damage">ダメージ値</param>
     public void SetIncrease(int cure)
     {
+        /*
         if(gaugeLine != null)
         {
             Destroy(gaugeLine);
         }
+        */
         state = State.Increase;
         dspMaxHP = hp;
         int dspMinHP = hp + cure;
@@ -139,8 +149,10 @@ public class PlayerGauge : MonoBehaviour
         }
         time = 0;
 
+        /*
         gaugeLine = Instantiate((GameObject)Resources.Load("GaugeLine"));
         gaugeLine.transform.position = new Vector2((float)dspMinHP / maxHP * ScaleX - gaugeLine.transform.localScale.x / 2 + (DefaultX - ScaleX / 2), DefaultY);
+        */
     }
     // Start is called before the first frame update
     void Start()
@@ -157,6 +169,11 @@ public class PlayerGauge : MonoBehaviour
         frame = Instantiate(frame);
         frame.transform.position = transform.position;
         frame.transform.localScale = new Vector2(frameScaleX, frameScaleY);
+
+        redGauge = (GameObject)Resources.Load("RedGauge");
+        redGauge = Instantiate(redGauge);
+        redGauge.transform.position = transform.position;
+        redGauge.transform.localScale = transform.localScale;
     }
 
     // Update is called once per frame
@@ -175,7 +192,7 @@ public class PlayerGauge : MonoBehaviour
             dspHP = hp + (float)(dspMaxHP - hp) / DecTime * (DecTime - time);
             if(time == DecTime)
             {
-                Destroy(gaugeLine);
+                //Destroy(gaugeLine);
                 state = State.Process;
             }
             break;
@@ -184,7 +201,7 @@ public class PlayerGauge : MonoBehaviour
             dspHP = hp + (float)(hp - dspMaxHP) / DecTime * (DecTime - time);
             if(time == DecTime)
             {
-                Destroy(gaugeLine);
+                //Destroy(gaugeLine);
                 state = State.Process;
             }
             break;
@@ -194,7 +211,9 @@ public class PlayerGauge : MonoBehaviour
         float posy = DefaultY;
         float scalex = dspHP / maxHP * ScaleX;
 
-        transform.position = new Vector2(posx, posy);
-        transform.localScale = new Vector2(scalex, ScaleY);
+        transform.position = new Vector2((float)hp / maxHP * ScaleX / 2 + (DefaultX - ScaleX / 2), posy);
+        transform.localScale = new Vector2((float)hp / maxHP * ScaleX, ScaleY);
+        redGauge.transform.position = new Vector2(posx, posy);
+        redGauge.transform.localScale = new Vector2(scalex, ScaleY);
     }
 }

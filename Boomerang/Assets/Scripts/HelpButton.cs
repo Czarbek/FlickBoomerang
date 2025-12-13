@@ -47,6 +47,7 @@ public class HelpButton : TitleManager
 
         sr = GetComponent<SpriteRenderer>();
         sr.color = new Color(1, 1, 1, 0);
+        sr.sortingOrder = 2;
 
         time = 0;
         state = State.Title;

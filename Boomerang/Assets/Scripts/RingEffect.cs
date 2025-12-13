@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// リング取得時エフェクト
+/// </summary>
 public class RingEffect : MonoBehaviour
 {
     /// <summary>

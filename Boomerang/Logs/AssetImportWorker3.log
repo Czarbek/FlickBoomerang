@@ -1,9 +1,9 @@
 [Licensing::Module] Trying to connect to existing licensing client channel...
 Built from '6000.2/respin/6000.2.8f1-e4064264ae96' branch; Version is '6000.2.8f1 (c9992ac36c34) revision 13211946'; Using compiler version '194234433'; Build Type 'Release'
-[Licensing::IpcConnector] Successfully connected to: "LicenseClient-Czarbek" at "2025-12-03T04:11:57.5019708Z"
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-Czarbek" at "2025-12-12T14:16:09.9244574Z"
 OS: 'Windows 11  (10.0.26200) 64bit Core' Language: 'ja' Physical Memory: 15752 MB
 BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1
-Date: 2025-12-03T04:11:57Z
+Date: 2025-12-12T14:16:09Z
 
 COMMAND LINE ARGUMENTS:
 C:\Program Files\Unity\Hub\Editor\6000.2.8f1\Editor\Unity.exe
@@ -17,7 +17,7 @@ C:/Users/Czarbek/Desktop/Boomerang
 -logFile
 Logs/AssetImportWorker3.log
 -srvPort
-57702
+53872
 -licensingIpc
 LicenseClient-Czarbek
 -job-worker-count
@@ -65,35 +65,35 @@ C:/Users/Czarbek/Desktop/Boomerang
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gfx=262144"
-Player connection [24060]  Target information:
+Player connection [12600]  Target information:
 
-Player connection [24060]  * "[IP] 10.64.3.91 [Port] 0 [Flags] 2 [Guid] 4109950762 [EditorId] 4109950762 [Version] 1048832 [Id] WindowsEditor(7,スラブツァーリズム) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+Player connection [12600]  * "[IP] 192.168.1.5 [Port] 0 [Flags] 2 [Guid] 4134907791 [EditorId] 4134907791 [Version] 1048832 [Id] WindowsEditor(7,スラブツァーリズム) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
 
-Player connection [24060] Host joined multi-casting on [225.0.0.222:54997]...
-Player connection [24060] Host joined alternative multi-casting on [225.0.0.222:34997]...
+Player connection [12600] Host joined multi-casting on [225.0.0.222:54997]...
+Player connection [12600] Host joined alternative multi-casting on [225.0.0.222:34997]...
 JobSystem: Creating JobQueue using job-worker-count value 7
 Input System module state changed to: Initialized.
 [Physics::Module] Initialized fallback backend.
 [Physics::Module] Id: 0xdecafbad
-[Licensing::Client] Code 10 while verifying Licensing Client signature (process Id: 7080, path: "C:/Program Files/Unity Hub/UnityLicensingClient_V1/Unity.Licensing.Client.exe")
+[Licensing::Client] Code 10 while verifying Licensing Client signature (process Id: 6204, path: "C:/Program Files/Unity Hub/UnityLicensingClient_V1/Unity.Licensing.Client.exe")
 [Licensing::Module] LicensingClient has failed validation; ignoring
 [Licensing::Client] Error: HandshakeResponse reported an error:
 	ResponseCode: 505
 	ResponseStatus: Unsupported protocol version '1.17.2'.
 [Licensing::Module] Error: Failed to handshake to channel: "LicenseClient-Czarbek"
 [Licensing::IpcConnector] LicenseClient-Czarbek channel disconnected successfully.
-[Licensing::IpcConnector] Successfully connected to: "LicenseClient-Czarbek-6000.2.8" at "2025-12-03T04:11:57.5940422Z"
-[Licensing::Client] Code 10 while verifying Licensing Client signature (process Id: 25604, path: "C:/Program Files/Unity/Hub/Editor/6000.2.8f1/Editor/Data/Resources/Licensing/Client/Unity.Licensing.Client.exe")
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-Czarbek-6000.2.8" at "2025-12-12T14:16:10.0259335Z"
+[Licensing::Client] Code 10 while verifying Licensing Client signature (process Id: 6816, path: "C:/Program Files/Unity/Hub/Editor/6000.2.8f1/Editor/Data/Resources/Licensing/Client/Unity.Licensing.Client.exe")
 [Licensing::Module] LicensingClient has failed validation; ignoring
 [Licensing::Client] Handshaking with LicensingClient:
   Version:                 1.17.2+ff71f16
-  Session Id:              dcf66d57a8494178947a23b0f37b7405
-  Correlation Id:          152bc65df5dc00b5b626962411eabe9f
-  External correlation Id: 8688557769855973744
+  Session Id:              d5d1f538706a4871b1a86771cd678bad
+  Correlation Id:          259cd55acd9b07c39ed594e4ff5545e7
+  External correlation Id: 3546260897692427999
   Machine Id:              OmeqQOdQg21sbgpP65UuT/g5NKQ=
 [Licensing::Module] Successfully connected to LicensingClient on channel: "LicenseClient-Czarbek-6000.2.8" (connect: 0.00s, validation: 0.00s, handshake: 0.01s)
-[Licensing::IpcConnector] Successfully connected to: "LicenseClient-Czarbek-6000.2.8-notifications" at "2025-12-03T04:11:57.6108567Z"
-[Licensing::Module] Licensing Background thread has ended after 0.11s
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-Czarbek-6000.2.8-notifications" at "2025-12-12T14:16:10.0411181Z"
+[Licensing::Module] Licensing Background thread has ended after 0.12s
 Library Redirect Path: Library/
 [Physics::Module] Selected backend.
 [Physics::Module] Name: PhysX
@@ -112,7 +112,7 @@ Library Redirect Path: Library/
   Product: Unity Personal
   Type: Assigned
   Expiration: Unlimited
-Refreshing native plugins compatible for Editor in 11.38 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 7.45 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 6000.2.8f1 (c9992ac36c34)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/6000.2.8f1/Editor/Data/Resources/UnitySubsystems
@@ -128,46 +128,46 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/6000.2.8f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/6000.2.8f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/6000.2.8f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56848
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56756
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/6000.2.8f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
 Register platform support module: C:/Program Files/Unity/Hub/Editor/6000.2.8f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll
-Registered in 0.008482 seconds.
-- Loaded All Assemblies, in  1.648 seconds
+Registered in 0.003860 seconds.
+- Loaded All Assemblies, in  0.972 seconds
 Native extension for Android target not found
-Android Extension - Scanning For ADB Devices 1720 ms
+Android Extension - Scanning For ADB Devices 538 ms
 Native extension for WindowsStandalone target not found
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  2.772 seconds
-Domain Reload Profiling: 4414ms
-	BeginReloadAssembly (294ms)
+- Finished resetting the current domain, in  1.469 seconds
+Domain Reload Profiling: 2435ms
+	BeginReloadAssembly (313ms)
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (0ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
 		CreateAndSetChildDomain (2ms)
-	RebuildCommonClasses (87ms)
-	RebuildNativeTypeToScriptingClass (28ms)
-	initialDomainReloadingComplete (213ms)
-	LoadAllAssembliesAndSetupDomain (1020ms)
-		LoadAssemblies (291ms)
+	RebuildCommonClasses (78ms)
+	RebuildNativeTypeToScriptingClass (27ms)
+	initialDomainReloadingComplete (105ms)
+	LoadAllAssembliesAndSetupDomain (443ms)
+		LoadAssemblies (308ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (1009ms)
-			TypeCache.Refresh (1004ms)
-				TypeCache.ScanAssembly (919ms)
-			BuildScriptInfoCaches (1ms)
+		AnalyzeDomain (434ms)
+			TypeCache.Refresh (431ms)
+				TypeCache.ScanAssembly (404ms)
+			BuildScriptInfoCaches (0ms)
 			ResolveRequiredComponents (1ms)
-	FinalizeReload (2772ms)
+	FinalizeReload (1470ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (2651ms)
+		SetupLoadedEditorAssemblies (1358ms)
 			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (2170ms)
-			SetLoadedEditorAssemblies (9ms)
-			BeforeProcessingInitializeOnLoad (143ms)
-			ProcessInitializeOnLoadAttributes (228ms)
-			ProcessInitializeOnLoadMethodAttributes (101ms)
+			InitializePlatformSupportModulesInManaged (782ms)
+			SetLoadedEditorAssemblies (8ms)
+			BeforeProcessingInitializeOnLoad (157ms)
+			ProcessInitializeOnLoadAttributes (280ms)
+			ProcessInitializeOnLoadMethodAttributes (130ms)
 			AfterProcessingInitializeOnLoad (0ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
@@ -187,8 +187,8 @@ Begin MonoManager ReloadAssembly
   Product: Unity Personal
   Type: Assigned
   Expiration: Unlimited
-- Loaded All Assemblies, in  1.283 seconds
-Refreshing native plugins compatible for Editor in 2.50 ms, found 4 plugins.
+- Loaded All Assemblies, in  1.699 seconds
+Refreshing native plugins compatible for Editor in 4.43 ms, found 4 plugins.
 Native extension for Android target not found
 Native extension for WindowsStandalone target not found
 Package Manager log level set to [2]
@@ -196,151 +196,121 @@ Package Manager log level set to [2]
 [Package Manager] Unable to send message (not connected to server process).
 [Package Manager] Cannot connect to Unity Package Manager local server
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  1.027 seconds
-Domain Reload Profiling: 2306ms
-	BeginReloadAssembly (343ms)
+- Finished resetting the current domain, in  1.300 seconds
+Domain Reload Profiling: 2992ms
+	BeginReloadAssembly (433ms)
 		ExecutionOrderSort (0ms)
-		DisableScriptedObjects (15ms)
+		DisableScriptedObjects (16ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (58ms)
-	RebuildCommonClasses (76ms)
-	RebuildNativeTypeToScriptingClass (31ms)
-	initialDomainReloadingComplete (87ms)
-	LoadAllAssembliesAndSetupDomain (741ms)
-		LoadAssemblies (618ms)
+		CreateAndSetChildDomain (68ms)
+	RebuildCommonClasses (93ms)
+	RebuildNativeTypeToScriptingClass (28ms)
+	initialDomainReloadingComplete (97ms)
+	LoadAllAssembliesAndSetupDomain (1040ms)
+		LoadAssemblies (821ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (314ms)
-			TypeCache.Refresh (249ms)
-				TypeCache.ScanAssembly (227ms)
-			BuildScriptInfoCaches (53ms)
-			ResolveRequiredComponents (7ms)
-	FinalizeReload (1028ms)
+		AnalyzeDomain (468ms)
+			TypeCache.Refresh (357ms)
+				TypeCache.ScanAssembly (328ms)
+			BuildScriptInfoCaches (92ms)
+			ResolveRequiredComponents (14ms)
+	FinalizeReload (1301ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (817ms)
+		SetupLoadedEditorAssemblies (1014ms)
 			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (18ms)
-			SetLoadedEditorAssemblies (4ms)
-			BeforeProcessingInitializeOnLoad (206ms)
-			ProcessInitializeOnLoadAttributes (491ms)
-			ProcessInitializeOnLoadMethodAttributes (90ms)
-			AfterProcessingInitializeOnLoad (7ms)
-			EditorAssembliesLoaded (0ms)
-		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (9ms)
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.02 seconds
-Refreshing native plugins compatible for Editor in 3.14 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 0 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 4537 unused Assets / (1.3 MB). Loaded Objects now: 5043.
-Memory consumption went from 87.9 MB to 86.6 MB.
-Total: 9.526400 ms (FindLiveObjects: 0.763900 ms CreateObjectMapping: 0.724500 ms MarkObjects: 6.214000 ms  DeleteObjects: 1.819900 ms)
-
-========================================================================
-Received Prepare
-Begin MonoManager ReloadAssembly
-- Loaded All Assemblies, in  1.414 seconds
-Refreshing native plugins compatible for Editor in 3.49 ms, found 4 plugins.
-Native extension for Android target not found
-Native extension for WindowsStandalone target not found
-[Package Manager] Failed to launch server process. Reason: Unity was launched with the -noUpm command-line argument
-[Package Manager] Unable to send message (not connected to server process).
-[Package Manager] Cannot connect to Unity Package Manager local server
-[Licensing::Client] Successfully resolved entitlement details
-[Licensing::Module] License group:
-  Id: F4-4ZQ3-P8RZ-UC5X-CAZP-XXXX
-  Product: Unity Personal
-  Type: ULF
-  Expiration: Unlimited
-[Licensing::Module] License group:
-  Id: 15668189399079-UnityPersXXXX
-  Product: Unity Personal
-  Type: Assigned
-  Expiration: Unlimited
-Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  1.299 seconds
-Domain Reload Profiling: 2712ms
-	BeginReloadAssembly (415ms)
-		ExecutionOrderSort (0ms)
-		DisableScriptedObjects (25ms)
-		BackupInstance (0ms)
-		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (95ms)
-	RebuildCommonClasses (83ms)
-	RebuildNativeTypeToScriptingClass (29ms)
-	initialDomainReloadingComplete (72ms)
-	LoadAllAssembliesAndSetupDomain (813ms)
-		LoadAssemblies (705ms)
-		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (322ms)
-			TypeCache.Refresh (10ms)
-				TypeCache.ScanAssembly (0ms)
-			BuildScriptInfoCaches (293ms)
-			ResolveRequiredComponents (11ms)
-	FinalizeReload (1300ms)
-		ReleaseScriptCaches (0ms)
-		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (1013ms)
-			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (23ms)
+			InitializePlatformSupportModulesInManaged (19ms)
 			SetLoadedEditorAssemblies (5ms)
-			BeforeProcessingInitializeOnLoad (293ms)
-			ProcessInitializeOnLoadAttributes (590ms)
-			ProcessInitializeOnLoadMethodAttributes (89ms)
-			AfterProcessingInitializeOnLoad (12ms)
+			BeforeProcessingInitializeOnLoad (307ms)
+			ProcessInitializeOnLoadAttributes (572ms)
+			ProcessInitializeOnLoadMethodAttributes (97ms)
+			AfterProcessingInitializeOnLoad (13ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (12ms)
-Refreshing native plugins compatible for Editor in 3.46 ms, found 4 plugins.
+		AwakeInstancesAfterBackupRestoration (15ms)
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.04 seconds
+Refreshing native plugins compatible for Editor in 5.98 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 0 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 4536 unused Assets / (1.4 MB). Loaded Objects now: 5046.
-Memory consumption went from 88.6 MB to 87.2 MB.
-Total: 11.699600 ms (FindLiveObjects: 0.809300 ms CreateObjectMapping: 0.515000 ms MarkObjects: 7.795100 ms  DeleteObjects: 2.577000 ms)
+Unloading 4538 unused Assets / (1.4 MB). Loaded Objects now: 5044.
+Memory consumption went from 87.6 MB to 86.3 MB.
+Total: 15.392400 ms (FindLiveObjects: 1.341000 ms CreateObjectMapping: 1.636600 ms MarkObjects: 9.910500 ms  DeleteObjects: 2.499200 ms)
 
-Prepare: number of updated asset objects reloaded= 0
 ========================================================================
 Received Import Request.
-  Time since last request: 963359.444681 seconds.
-  path: Assets/Resources/button_old/button_closehelp.png
-  artifactKey: Guid(39e1b0568e461724ba6d0e6a646079c9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/button_old/button_closehelp.png using Guid(39e1b0568e461724ba6d0e6a646079c9) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '8849dc7a53ff52d304b8f41e08ccd965') in 0.3348064 seconds
+  Time since last request: 2386.377589 seconds.
+  path: Assets/Resources/attack_fire.png
+  artifactKey: Guid(dd9159e1fb078f447bd0b7eefe5e2b02) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/attack_fire.png using Guid(dd9159e1fb078f447bd0b7eefe5e2b02) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'c745e895db0b7b76e84acc24805bec4c') in 0.2763567 seconds
 Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000059 seconds.
+  path: Assets/Resources/BossFireBlur4.png
+  artifactKey: Guid(473a79af19a2fea428c50d73135cc868) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/BossFireBlur4.png using Guid(473a79af19a2fea428c50d73135cc868) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '996f604ee0472f5ab434afe06cf3cf47') in 0.0470041 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000048 seconds.
+  path: Assets/Resources/bgm_02ogg.ogg
+  artifactKey: Guid(4c324935110048f4981d8a131f55227e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/bgm_02ogg.ogg using Guid(4c324935110048f4981d8a131f55227e) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'bd768bcef425acf92fa99e54ee12521c') in 0.1022819 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 2
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000065 seconds.
+  path: Assets/Resources/BossFireBlur2.png
+  artifactKey: Guid(e1915a16f17d82547979fda922f4f122) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/BossFireBlur2.png using Guid(e1915a16f17d82547979fda922f4f122) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '2919a6cb2f3ea641df3a183d595bc3e0') in 0.0522099 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000033 seconds.
+  path: Assets/Resources/bgm_03.mp3
+  artifactKey: Guid(7256ead22898e404d80cb16fb753059a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/bgm_03.mp3 using Guid(7256ead22898e404d80cb16fb753059a) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '2fecbc211eb4c0eb816e1ccc86373e33') in 0.0314843 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 2
 
 ========================================================================
 Received Import Request.
   Time since last request: 0.000076 seconds.
-  path: Assets/Resources/button_old/button_start.png
-  artifactKey: Guid(8cd2007b8f7381e4bbb75fc81e0b9945) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/button_old/button_start.png using Guid(8cd2007b8f7381e4bbb75fc81e0b9945) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '8cb1b424a3e3f1cc67c9b5508028ad22') in 0.0346531 seconds
+  path: Assets/Resources/ArrowEffect.prefab
+  artifactKey: Guid(b3387ca7d642c1f46b2c483fcdb320a3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/ArrowEffect.prefab using Guid(b3387ca7d642c1f46b2c483fcdb320a3) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '9deb234b1726b1e6d88630fdf875e5a5') in 0.0716166 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 8
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000028 seconds.
+  path: Assets/Resources/BossAquaBlur2.png
+  artifactKey: Guid(3ded73153ef91cb4693ac97bc9d90a56) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/BossAquaBlur2.png using Guid(3ded73153ef91cb4693ac97bc9d90a56) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'bcd0e4c0ac64e1064560939cb09709ac') in 0.0459644 seconds
 Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000097 seconds.
-  path: Assets/Resources/button_old/button_stage03.png
-  artifactKey: Guid(5c683d0164b9c4046aab9839e71960fa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/button_old/button_stage03.png using Guid(5c683d0164b9c4046aab9839e71960fa) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'd887b90f5c21cbd4b2c26231f35b369a') in 0.0385426 seconds
+  Time since last request: 0.000045 seconds.
+  path: Assets/Resources/BossFireBlur5.png
+  artifactKey: Guid(4d04c73227964fc45849436232616934) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/BossFireBlur5.png using Guid(4d04c73227964fc45849436232616934) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '47abd41276751078ad31eee04a072e28') in 0.0450643 seconds
 Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000039 seconds.
-  path: Assets/Resources/button_old/button_next.png
-  artifactKey: Guid(c47908c8f80f33e40b46878f18277fe4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/button_old/button_next.png using Guid(c47908c8f80f33e40b46878f18277fe4) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '077ce32736a886b838a25b3f41f4796f') in 0.0362016 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000070 seconds.
-  path: Assets/Resources/button_old/button_yes.png
-  artifactKey: Guid(1bbd4823d547c1747b2430addbf43ac7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/button_old/button_yes.png using Guid(1bbd4823d547c1747b2430addbf43ac7) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'b5d10adcaca609577c491ac5f6dbcf52') in 0.0357052 seconds
+  Time since last request: 0.000026 seconds.
+  path: Assets/Resources/Boss_attack_aqua.png
+  artifactKey: Guid(c26075629afa30f488ac419d6be36de2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Boss_attack_aqua.png using Guid(c26075629afa30f488ac419d6be36de2) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '887d1e23e1c331652b210e6560e55deb') in 0.0377699 seconds
 Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
 
 Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file
 AssetImportWorker is now disconnected from the server
 Process exiting
 Exiting without the bug reporter. Application will terminate with return code 0

@@ -111,6 +111,10 @@ public class Item : MonoBehaviour
     /// </summary>
     private const int CrystalSustainTurn = 2;
     /// <summary>
+    /// 黄金の果実復活回数
+    /// </summary>
+    private const int FruitValidationNum = 2;
+    /// <summary>
     /// フェードインにかかる時間(フレーム)
     /// </summary>
     private const int FadeTime = (int)(300.0f / func.FRAMETIME);
@@ -118,6 +122,10 @@ public class Item : MonoBehaviour
     /// フェード時の時間カウント(フレーム)
     /// </summary>
     private int time;
+    /// <summary>
+    /// 復活回数
+    /// </summary>
+    private int validationNum;
     /// <summary>
     /// <summary>
     /// 取得可能かどうか
@@ -174,17 +182,26 @@ public class Item : MonoBehaviour
         }
         else
         {
-            turnCount++;
-            if(turnCount == validationTurn)
+
+            if(sort == ItemSort.Fruit && validationNum == FruitValidationNum)
             {
-                power = 1;
-                if(sort == ItemSort.Ring)
+            }
+            else
+            {
+
+                turnCount++;
+                if(turnCount == validationTurn)
                 {
-                    sr.sprite = Initializer.GetRingImg(power);
+                    power = 1;
+                    if(sort == ItemSort.Ring)
+                    {
+                        sr.sprite = Initializer.GetRingImg(power);
+                    }
+                    turnCount = 0;
+                    validationNum++;
+                    valid = true;
+                    state = State.FadeIn;
                 }
-                turnCount = 0;
-                valid = true;
-                state = State.FadeIn;
             }
         }
     }
@@ -211,6 +228,7 @@ public class Item : MonoBehaviour
 
         power = InitialPower;
         turnCount = 0;
+        validationNum = 0;
         switch(sort)
         {
         case ItemSort.Ring:
@@ -259,11 +277,13 @@ public class Item : MonoBehaviour
         time = 0;
         valid = true;
 
+        /*
         if(func.DEBUG)
         {
             GameObject cc = Instantiate((GameObject)Resources.Load("CollisionCircle"));
             cc.GetComponent<CollisionCircle>().Init(CollisionRadius, this.gameObject);
         }
+        */
     }
 
     // Update is called once per frame
