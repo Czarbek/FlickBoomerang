@@ -518,7 +518,7 @@ public class Player : MonoBehaviour
                     touchedx = Application.isEditor ? func.mouse().x : func.getTouchPosition().x;
                     touchedy = Application.isEditor ? func.mouse().y : func.getTouchPosition().y;
                     */
-                    touchedx = func.mouse().x;
+        touchedx = func.mouse().x;
                     touchedy = func.mouse().y;
 
                     flickTime = 0;
