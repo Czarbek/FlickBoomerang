@@ -79,6 +79,7 @@
     <Compile Include="Assets\Scripts\HelpButton.cs" />
     <Compile Include="Assets\Scripts\FloorCount.cs" />
     <Compile Include="Assets\Scripts\ContinueButton.cs" />
+    <Compile Include="Assets\Scripts\SelectBack.cs" />
     <Compile Include="Assets\Scripts\MusicManager.cs" />
     <Compile Include="Assets\Scripts\ClearData.cs" />
     <Compile Include="Assets\Scripts\TitleManager.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="Assets\Scripts\Background.cs" />
     <Compile Include="Assets\Scripts\Fader.cs" />
     <Compile Include="Assets\Scripts\FloorDsp.cs" />
+    <Compile Include="Assets\Scripts\NextFloor.cs" />
     <Compile Include="Assets\Scripts\TurnCounter.cs" />
     <Compile Include="Assets\Scripts\TapEffect.cs" />
     <Compile Include="Assets\Scripts\ArrowEffect.cs" />

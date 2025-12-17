@@ -105,12 +105,17 @@ public class TitleManager : MonoBehaviour
     /// SpriteRenderer
     /// </summary>
     private SpriteRenderer sr;
+    /// <summary>
+    /// ステージ選択ボタン
+    /// </summary>
+    private GameObject[] button = new GameObject[4];
 
     // Start is called before the first frame update
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
         sr.color = new Color(1, 1, 1, 0);
+        sr.sortingOrder = 2;
         transform.position = new Vector2(0, StageInfo.ycalc(50));
         BSizeX = func.pxcalc(ButtonPxSizeX) / 2;
         BSizeY = func.pxcalc(ButtonPxSizeY) / 2;
@@ -226,14 +231,22 @@ public class TitleManager : MonoBehaviour
                     {
                         for(int i = 0; i < 4; i++)
                         {
-                            GameObject button = (GameObject)Resources.Load("DiffButton");
-                            button = Instantiate(button);
-                            button.transform.position = new Vector2(0, DiffButtonY[i]);
-                            button.GetComponent<DiffButton>().SetSprite(i);
+                            button[i] = (GameObject)Resources.Load("DiffButton");
+                            button[i] = Instantiate(button[i]);
+                            button[i].transform.position = new Vector2(0, DiffButtonY[i]);
+                            button[i].GetComponent<DiffButton>().SetSprite(i);
                         }
                         selected = true;
                     }
+                    else
+                    {
+                        for(int i = 0; i < 4; i++)
+                        {
+                            button[i].GetComponent<DiffButton>().SetDspState(DspState.FadeIn);
+                        }
+                    }
                     state = State.Select;
+                    GameObject.Find("SelectBack").GetComponent<SelectBack>().SetFadeIn();
                     SetDspState(DspState.Invalid);
                 }
                 break;

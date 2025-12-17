@@ -453,6 +453,22 @@ public class Enemy : MonoBehaviour
         return alive;
     }
     /// <summary>
+    /// デバッグ用機能　死亡処理へ移行する
+    /// </summary>
+    public void SetDie_debug()
+    {
+        if(boss)
+        {
+            gauge.GetComponent<BossGauge>().Die();
+        }
+        else
+        {
+            gauge.GetComponent<EnemyGauge>().Die();
+        }
+        turnCounter.GetComponent<TurnCounter>().Die();
+        Destroy(gameObject);
+    }
+    /// <summary>
     /// 死亡処理への移行をセットする
     /// </summary>
     public void SetDie()
@@ -674,11 +690,13 @@ public class Enemy : MonoBehaviour
         turnCounter = Instantiate(turnCounter);
         turnCounter.GetComponent<TurnCounter>().parent = this;
 
+        /*
         if(func.DEBUG)
         {
             GameObject cc = Instantiate((GameObject)Resources.Load("CollisionCircle"));
             cc.GetComponent<CollisionCircle>().Init(collisionr, gameObject);
         }
+        */
     }
 
     // Update is called once per frame
@@ -714,7 +732,7 @@ public class Enemy : MonoBehaviour
                             time = 0;
                             transform.localScale = new Vector2(1, 1);
                             gauge.GetComponent<BossGauge>().SetVisibility();
-                            turnCounter.GetComponent<TurnCounter>().SetVisibility();
+                            turnCounter.GetComponent<TurnCounter>().SetVisibility(boss);
                             bossEffect = BossEffect.Gauge;
                         }
                     }
@@ -871,7 +889,7 @@ public class Enemy : MonoBehaviour
                     if(time - 20 == BattleManager.SlideTime)
                     {
                         gauge.GetComponent<EnemyGauge>().SetVisibility();
-                        turnCounter.GetComponent<TurnCounter>().SetVisibility();
+                        turnCounter.GetComponent<TurnCounter>().SetVisibility(boss);
                     }
                 }
             }

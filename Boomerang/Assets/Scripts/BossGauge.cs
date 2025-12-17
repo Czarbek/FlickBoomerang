@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 using static Enemy;
 
 /// <summary>
@@ -33,24 +34,24 @@ public class BossGauge : MonoBehaviour
     /// <summary>
     /// â°ïù
     /// </summary>
-    private float MaxScaleX = func.metrecalc(70);
+    private float MaxScaleX = func.metrecalc(76);
     /// <summary>
     /// ècïù
     /// </summary>
-    private float MaxScaleY = func.metrecalc(2);
+    private float MaxScaleY = func.metrecalc(2.1f);
     /// <summary>
     /// ògÇÃâ°ïù
     /// </summary>
-    private float FrameScaleX = func.metrecalc(72);
+    private float FrameScaleX = 1;
     /// <summary>
     /// ògÇÃècïù
     /// </summary>
     //public float FrameScaleY = 0.5f;
-    private float FrameScaleY = func.metrecalc(4);
+    private float FrameScaleY = 1;
     /// <summary>
     /// ÉQÅ[ÉWÇÃï\é¶à íuxç¿ïW
     /// </summary>
-    private readonly float CenterX = func.metrecalc(5);
+    private readonly float CenterX = func.metrecalc(-1.5f);
     /// <summary>
     /// ÉQÅ[ÉWÇÃï\é¶à íuyç¿ïW
     /// </summary>
@@ -150,9 +151,13 @@ public class BossGauge : MonoBehaviour
     /// </summary>
     GameObject gaugeLine;
     /// <summary>
+    /// ê‘ÉQÅ[ÉW
+    /// </summary>
+    GameObject redGauge;
+    /// <summary>
     /// ElementDsp
     /// </summary>
-    GameObject elem;
+    //GameObject elem;
     /// <summary>
     /// SpriteRenderer
     /// </summary>
@@ -206,10 +211,30 @@ public class BossGauge : MonoBehaviour
         angle = 0;
         time = 0;
         transform.localScale = new Vector2(scaleX, scaleY);
+        Sprite frameSprite = null;
+        switch(parent.GetComponent<Enemy>().element)
+        {
+        case Enemy.Element.Fire:
+            frameSprite = Resources.Load<Sprite>("bosshp_fire");
+            break;
+        case Enemy.Element.Aqua:
+            frameSprite = Resources.Load<Sprite>("bosshp_fire");
+            break;
+        case Enemy.Element.Leaf:
+            frameSprite = Resources.Load<Sprite>("bosshp_fire");
+            break;
+        }
         frame = (GameObject)Resources.Load("GaugeFrame");
         frame = Instantiate(frame);
-        frame.transform.position = transform.position;
+        frame.transform.position = new Vector2(0, transform.position.y);
         frame.transform.localScale = new Vector2(0, 0);
+        frame.GetComponent<SpriteRenderer>().sprite = frameSprite;
+        frame.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
+        frame.GetComponent<SpriteRenderer>().sortingOrder = sr.sortingOrder + 1;
+        redGauge = (GameObject)Resources.Load("RedGauge");
+        redGauge = Instantiate(redGauge);
+        redGauge.transform.position = transform.position;
+        redGauge.transform.localScale = transform.localScale;
     }
     /// <summary>
     /// ÉQÅ[ÉWå∏è≠èÛë‘Ç…Ç∑ÇÈ
@@ -235,7 +260,7 @@ public class BossGauge : MonoBehaviour
     public void Die()
     {
         state = State.FadeOut;
-        elem.GetComponent<ElementDsp>().Die();
+        //elem.GetComponent<ElementDsp>().Die();
         time = 0;
     }
     /// <summary>
@@ -279,7 +304,7 @@ public class BossGauge : MonoBehaviour
             centerX = StartX + (CenterX - StartX) * time / FadeTime;
             centerY = StartY + (CenterY - StartY) * time / FadeTime;
             transform.position = new Vector2(centerX, centerY);
-            frame.transform.position = new Vector2(centerX, centerY);
+            frame.transform.position = new Vector2(centerX-CenterX, centerY);
             float generalScale = (float)time / FadeTime;
             scaleX = generalScale * MaxScaleX;
             scaleY = generalScale * MaxScaleY;
@@ -293,11 +318,13 @@ public class BossGauge : MonoBehaviour
                 transform.eulerAngles = new Vector3(angle, 0, 0);
                 frame.transform.eulerAngles = new Vector3(angle, 0, 0);
 
+                /*
                 elem = (GameObject)Resources.Load("ElementDsp");
                 elem = Instantiate(elem);
                 elem.transform.position = new Vector2(centerX - frameScaleX / 2 - func.metrecalc(ElementDsp.MetreSize), centerY);
                 elem.GetComponent<ElementDsp>().SetElement(parent.element);
                 elem.GetComponent<ElementDsp>().SetExpand(2);
+                */
 
                 parent.GetComponent<Enemy>().EndGauge();
                 state = State.Process;
@@ -336,6 +363,7 @@ public class BossGauge : MonoBehaviour
         case State.FadeOut:
             time++;
             sr.color = new Color(col.r, col.g, col.b, 1.0f - (float)time / FadeTime);
+            redGauge.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 1.0f - (float)time / FadeTime);
             framecol = frame.GetComponent<SpriteRenderer>().color;
             frame.GetComponent<SpriteRenderer>().color = new Color(framecol.r, framecol.g, framecol.b, 1.0f - (float)time / FadeTime);
             if(underGauge != null)
@@ -347,6 +375,7 @@ public class BossGauge : MonoBehaviour
             {
                 parent.GetComponent<Enemy>().Inactivate();
                 Destroy(frame);
+                Destroy(redGauge);
                 if(underGauge != null) Destroy(underGauge);
                 Destroy(gameObject);
             }
@@ -360,8 +389,10 @@ public class BossGauge : MonoBehaviour
             float posy = centerY;
             float scalex = (float)(dspHP / maxhp) * MaxScaleX;
 
-            transform.position = new Vector2(posx, posy);
-            transform.localScale = new Vector2(scalex, MaxScaleY);
+            transform.position = new Vector2((float)hp / maxhp * MaxScaleX / 2 + (centerX - MaxScaleX / 2), posy);
+            transform.localScale = new Vector2((float)hp / maxhp * MaxScaleX, MaxScaleY);
+            redGauge.transform.position = new Vector2(posx, posy);
+            redGauge.transform.localScale = new Vector2(scalex, MaxScaleY);
         }
     }
 }
