@@ -212,6 +212,18 @@ public class BattleManager : MonoBehaviour
     public void EndWait()
     {
         state = nextState;
+        if(floor == lastFloor)
+        {
+            for(int i = 0; i < enemyCount; i++)
+            {
+                if(enemy[i].GetComponent<Enemy>().IsAlive())
+                {
+                    enemy[i].GetComponent<Enemy>().SetDie();
+                }
+            }
+            GameObject.Find("ClearTx").GetComponent<ClearTx>().SetText();
+            state = State.StageClear;
+        }
     }
     /// <summary>
     /// É^Å[ÉìÇèIóπÇ∑ÇÈ
@@ -313,7 +325,7 @@ public class BattleManager : MonoBehaviour
     public void MoveFloor_debug(bool toNext)
     {
         bool canMove = false;
-        if(state == State.Process && turn == Turn.Player)
+        if(state == State.Process && turn == Turn.Player && GameObject.Find("Player").GetComponent<Player>().GetState() == Player.State.Touched)
         {
             if(toNext)
             {
@@ -334,6 +346,7 @@ public class BattleManager : MonoBehaviour
         }
         if(canMove)
         {
+            GameObject.Find("Player").GetComponent<Player>().SetState(Player.State.NoInput);
             state = State.Change_debug;
         }
     }

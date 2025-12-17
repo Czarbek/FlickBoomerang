@@ -103,10 +103,6 @@ public class EnemyGauge : MonoBehaviour
     /// </summary>
     GameObject elem;
     /// <summary>
-    /// 減少線オブジェクト
-    /// </summary>
-    GameObject gaugeLine;
-    /// <summary>
     /// 赤ゲージ
     /// </summary>
     GameObject redGauge;
@@ -151,9 +147,6 @@ public class EnemyGauge : MonoBehaviour
             dspMinHP = 0;
         }
         time = 0;
-
-        gaugeLine = Instantiate((GameObject)Resources.Load("GaugeLine"));
-        gaugeLine.transform.position = new Vector2((float)dspMinHP / maxhp * ScaleX + (centerX - ScaleX / 2), centerY);
     }
     /// <summary>
     /// 非表示にする
@@ -163,6 +156,16 @@ public class EnemyGauge : MonoBehaviour
         state = State.FadeOut;
         elem.GetComponent<ElementDsp>().Die();
         time = 0;
+    }
+    /// <summary>
+    /// デバッグ用機能　全て消去
+    /// </summary>
+    public void Die_debug()
+    {
+        Destroy(elem);
+        Destroy(frame);
+        Destroy(redGauge);
+        Destroy(gameObject);
     }
     /// <summary>
     /// 演出中でないかを判定する
@@ -215,7 +218,6 @@ public class EnemyGauge : MonoBehaviour
             time++;
             if(time == DecTime)
             {
-                Destroy(gaugeLine);
                 state = State.Process;
             }
             break;
@@ -242,7 +244,10 @@ public class EnemyGauge : MonoBehaviour
 
         transform.position = new Vector2((float)hp / maxhp * ScaleX / 2 + (centerX - ScaleX / 2), posy);
         transform.localScale = new Vector2((float)hp / maxhp * ScaleX, ScaleY);
-        redGauge.transform.position = new Vector2(posx, posy);
-        redGauge.transform.localScale = new Vector2(scalex, ScaleY);
+        if(state != State.Invalid)
+        {
+            redGauge.transform.position = new Vector2(posx, posy);
+            redGauge.transform.localScale = new Vector2(scalex, ScaleY);
+        }
     }
 }

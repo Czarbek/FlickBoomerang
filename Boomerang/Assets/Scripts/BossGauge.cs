@@ -38,7 +38,7 @@ public class BossGauge : MonoBehaviour
     /// <summary>
     /// 縦幅
     /// </summary>
-    private float MaxScaleY = func.metrecalc(2.1f);
+    private float MaxScaleY = func.metrecalc(2.7f);
     /// <summary>
     /// 枠の横幅
     /// </summary>
@@ -147,10 +147,6 @@ public class BossGauge : MonoBehaviour
     /// </summary>
     GameObject underGauge;
     /// <summary>
-    /// 減少線オブジェクト
-    /// </summary>
-    GameObject gaugeLine;
-    /// <summary>
     /// 赤ゲージ
     /// </summary>
     GameObject redGauge;
@@ -218,10 +214,10 @@ public class BossGauge : MonoBehaviour
             frameSprite = Resources.Load<Sprite>("bosshp_fire");
             break;
         case Enemy.Element.Aqua:
-            frameSprite = Resources.Load<Sprite>("bosshp_fire");
+            frameSprite = Resources.Load<Sprite>("bosshp_aqua");
             break;
         case Enemy.Element.Leaf:
-            frameSprite = Resources.Load<Sprite>("bosshp_fire");
+            frameSprite = Resources.Load<Sprite>("bosshp_leaf");
             break;
         }
         frame = (GameObject)Resources.Load("GaugeFrame");
@@ -250,9 +246,6 @@ public class BossGauge : MonoBehaviour
             dspMinHP = 0;
         }
         time = 0;
-
-        gaugeLine = Instantiate((GameObject)Resources.Load("GaugeLine"));
-        gaugeLine.transform.position = new Vector2((float)dspMinHP / maxhp * MaxScaleX + (CenterX - MaxScaleX / 2), CenterY);
     }
     /// <summary>
     /// 非表示にする
@@ -262,6 +255,16 @@ public class BossGauge : MonoBehaviour
         state = State.FadeOut;
         //elem.GetComponent<ElementDsp>().Die();
         time = 0;
+    }
+    /// <summary>
+    /// デバッグ用機能　全て消去
+    /// </summary>
+    public void Die_debug()
+    {
+        Destroy(frame);
+        Destroy(redGauge);
+        Destroy(underGauge);
+        Destroy(gameObject);
     }
     /// <summary>
     /// 演出中でないかを判定する
@@ -330,7 +333,7 @@ public class BossGauge : MonoBehaviour
                 state = State.Process;
                 sr.color = new Color(col.r, col.g, col.b, 1);
 
-                if(gaugeNum > 0)
+                if(gaugeNum >= 0)
                 {
                     underGauge = Instantiate((GameObject)Resources.Load("UnderGauge"));
                     underGauge.transform.position = transform.position;
@@ -344,6 +347,9 @@ public class BossGauge : MonoBehaviour
                 case 1:
                     underGauge.GetComponent<SpriteRenderer>().color = new Color((float)YellowColr / 255, (float)YellowColg / 255, (float)YellowColb / 255);
                     break;
+                case 0:
+                    underGauge.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0);
+                    break;
                 default:
                     break;
                 }
@@ -356,7 +362,6 @@ public class BossGauge : MonoBehaviour
             time++;
             if(time == DecTime)
             {
-                Destroy(gaugeLine);
                 state = State.Process;
             }
             break;

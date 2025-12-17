@@ -457,15 +457,26 @@ public class Enemy : MonoBehaviour
     /// </summary>
     public void SetDie_debug()
     {
+        goDying = false;
+        dying = false;
         if(boss)
         {
-            gauge.GetComponent<BossGauge>().Die();
+            if(gauge != null)
+            {
+                gauge.GetComponent<BossGauge>().Die_debug();
+            }
         }
         else
         {
-            gauge.GetComponent<EnemyGauge>().Die();
+            if(gauge != null)
+            {
+                gauge.GetComponent<EnemyGauge>().Die_debug();
+            }
         }
-        turnCounter.GetComponent<TurnCounter>().Die();
+        if(turnCounter != null)
+        {
+            Destroy(turnCounter);
+        }
         Destroy(gameObject);
     }
     /// <summary>
