@@ -62,6 +62,8 @@ public class BattleManager : MonoBehaviour
         EndWait,
         /// <summary>フロア切り替え</summary>
         Change,
+        /// <summary>デバッグ用フロア切り替え</summary>
+        Change_debug,
         /// <summary>ステージ終了</summary>
         End,
         /// <summary>ゲームオーバー</summary>
@@ -305,6 +307,37 @@ public class BattleManager : MonoBehaviour
         }
     }
     /// <summary>
+    /// デバッグ用機能　隣接するフロアに移行する
+    /// </summary>
+    /// <param name="toNext">進むかどうか</param>
+    public void MoveFloor_debug(bool toNext)
+    {
+        bool canMove = false;
+        if(state == State.Process && turn == Turn.Player)
+        {
+            if(toNext)
+            {
+                if(floor < lastFloor)
+                {
+                    floor++;
+                    canMove = true;
+                }
+            }
+            else
+            {
+                if(floor > InitialFloor)
+                {
+                    floor--;
+                    canMove = true;
+                }
+            }
+        }
+        if(canMove)
+        {
+            state = State.Change_debug;
+        }
+    }
+    /// <summary>
     /// 敵の数を取得する
     /// </summary>
     /// <returns></returns>
@@ -513,6 +546,26 @@ public class BattleManager : MonoBehaviour
                 GameObject.Find("Player").GetComponent<Player>().MoveFloor();
                 GameObject.Find("SoundManager").GetComponent<SoundManager>().PlaySound(SoundManager.Se.MoveFloor);
             }
+            break;
+        case State.Change_debug:
+            Fader.SetFader(20);
+            time = 0;
+            alpha = InitialAlpha;
+            GetComponent<SpriteRenderer>().color = new Color(r, g, b, alpha);
+            state = State.Load;
+            turn = Turn.Player;
+            //ここにフロア遷移時のリセット処理
+            for(int i = 0; i < enemyCount; i++)
+            {
+                enemy[i].GetComponent<Enemy>().SetDie_debug();
+            }
+            for(int i = 0; i < itemCount; i++)
+            {
+                Destroy(item[i]);
+            }
+            prepared = false;
+            GameObject.Find("Player").GetComponent<Player>().MoveFloor();
+            GameObject.Find("SoundManager").GetComponent<SoundManager>().PlaySound(SoundManager.Se.MoveFloor);
             break;
         case State.End:
             break;

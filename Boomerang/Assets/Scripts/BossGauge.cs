@@ -363,6 +363,7 @@ public class BossGauge : MonoBehaviour
         case State.FadeOut:
             time++;
             sr.color = new Color(col.r, col.g, col.b, 1.0f - (float)time / FadeTime);
+            redGauge.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 1.0f - (float)time / FadeTime);
             framecol = frame.GetComponent<SpriteRenderer>().color;
             frame.GetComponent<SpriteRenderer>().color = new Color(framecol.r, framecol.g, framecol.b, 1.0f - (float)time / FadeTime);
             if(underGauge != null)
@@ -374,6 +375,7 @@ public class BossGauge : MonoBehaviour
             {
                 parent.GetComponent<Enemy>().Inactivate();
                 Destroy(frame);
+                Destroy(redGauge);
                 if(underGauge != null) Destroy(underGauge);
                 Destroy(gameObject);
             }

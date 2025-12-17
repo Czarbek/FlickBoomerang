@@ -453,6 +453,22 @@ public class Enemy : MonoBehaviour
         return alive;
     }
     /// <summary>
+    /// デバッグ用機能　死亡処理へ移行する
+    /// </summary>
+    public void SetDie_debug()
+    {
+        if(boss)
+        {
+            gauge.GetComponent<BossGauge>().Die();
+        }
+        else
+        {
+            gauge.GetComponent<EnemyGauge>().Die();
+        }
+        turnCounter.GetComponent<TurnCounter>().Die();
+        Destroy(gameObject);
+    }
+    /// <summary>
     /// 死亡処理への移行をセットする
     /// </summary>
     public void SetDie()
