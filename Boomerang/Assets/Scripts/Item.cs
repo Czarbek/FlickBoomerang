@@ -41,7 +41,7 @@ public class Item : MonoBehaviour
     /// <summary>
     /// リングの画像のピクセル単位の縦幅
     /// </summary>
-    private const int RingPx = 363;
+    private const int RingPx = 264;
     /// <summary>
     /// クリスタルのの画像のピクセル単位の縦幅
     /// </summary>

@@ -350,6 +350,14 @@ public class Player : MonoBehaviour
         SetState(State.Wait);
     }
     /// <summary>
+    /// ó‘Ô‚ğæ“¾‚·‚é
+    /// </summary>
+    /// <returns>ó‘Ô</returns>
+    public State GetState()
+    {
+        return state;
+    }
+    /// <summary>
     /// ó‘Ô‚ğ‘‚«Š·‚¦‚é
     /// </summary>
     /// <param name="newstate">•ÏXæ‚Ìó‘Ô</param>
@@ -518,7 +526,7 @@ public class Player : MonoBehaviour
                     touchedx = Application.isEditor ? func.mouse().x : func.getTouchPosition().x;
                     touchedy = Application.isEditor ? func.mouse().y : func.getTouchPosition().y;
                     */
-        touchedx = func.mouse().x;
+                    touchedx = func.mouse().x;
                     touchedy = func.mouse().y;
 
                     flickTime = 0;
