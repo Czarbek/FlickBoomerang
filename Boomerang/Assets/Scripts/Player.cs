@@ -268,6 +268,10 @@ public class Player : MonoBehaviour
             {
                 if(func.CircleCollision(transform.position, Collisionr, enemy[i].transform.position, enemy[i].GetComponent<Enemy>().GetCollision())){
                     enemy[i].GetComponent<Enemy>().SetHit(power, element);
+                    float hitAngle = func.deg(func.getAngle(transform.position.x, transform.position.y, enemy[i].transform.position.x, enemy[i].transform.position.y));
+                    GameObject hitEffect = Instantiate((GameObject)Resources.Load("HitEffect"));
+                    hitEffect.transform.position = enemy[i].transform.position;
+                    hitEffect.transform.rotation = Quaternion.Euler(0, 0, hitAngle + 90.0f);
                 }
             }
         }

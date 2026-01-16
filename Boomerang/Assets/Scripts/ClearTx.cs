@@ -4,6 +4,9 @@ using UnityEngine;
 using TMPro;
 using System;
 
+/// <summary>
+/// ゲームクリア時テキスト
+/// </summary>
 public class ClearTx : MonoBehaviour
 {
     /// <summary>

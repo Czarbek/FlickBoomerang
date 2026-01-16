@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Œø‰Ê‰¹ŠÇ—
+/// </summary>
 public class SoundManager : MonoBehaviour
 {
     /// <summary>

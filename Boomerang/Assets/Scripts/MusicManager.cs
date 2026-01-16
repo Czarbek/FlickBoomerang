@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// BGM管理
+/// </summary>
 public class MusicManager : MonoBehaviour
 {
     /// <summary>
@@ -42,6 +45,9 @@ public class MusicManager : MonoBehaviour
     /// 演奏中のBGM番号
     /// </summary>
     private int playing;
+    /// <summary>
+    /// audioSourceコンポーネント
+    /// </summary>
     private AudioSource audioSource;
 
     /// <summary>
@@ -82,7 +88,7 @@ public class MusicManager : MonoBehaviour
         };
         LoopEnd = new List<int>
         {
-            26292222,
+            2629222,
             4324816,
             0,
             0,

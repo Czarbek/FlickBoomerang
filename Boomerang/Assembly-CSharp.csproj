@@ -68,6 +68,7 @@
     <Compile Include="Assets\Scripts\BossGauge.cs" />
     <Compile Include="Assets\Scripts\EnemyGauge.cs" />
     <Compile Include="Assets\Scripts\ClearTx.cs" />
+    <Compile Include="Assets\Scripts\HitEffect.cs" />
     <Compile Include="Assets\Scripts\EnemyBullet.cs" />
     <Compile Include="Assets\Scripts\EnemyMask.cs" />
     <Compile Include="Assets\Scripts\CollisionCircle.cs" />
@@ -101,11 +102,13 @@
     <Compile Include="Assets\Scripts\BossAppearEffect.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\RingEffect.cs" />
+    <Compile Include="Assets\Scripts\EnemyTurnTx.cs" />
     <Compile Include="Assets\Scripts\DiffButton.cs" />
     <Compile Include="Assets\Scripts\PowerCounter2.cs" />
     <Compile Include="Assets\Scripts\Item.cs" />
     <Compile Include="Assets\Scripts\func.cs" />
     <Compile Include="Assets\Scripts\Initializer.cs" />
+    <Compile Include="Assets\Scripts\EnemyTurnFader.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

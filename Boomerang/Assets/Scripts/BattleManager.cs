@@ -517,12 +517,16 @@ public class BattleManager : MonoBehaviour
                     if(!enemy[i].GetComponent<Enemy>().CanChangeTurn())
                     {
                         change = false;
+                        //GameObject.Find("EnemyTurnTx").GetComponent<EnemyTurnTx>().SetVisibility(true);
+                        //GameObject.Find("EnemyTurnFader").GetComponent<EnemyTurnFader>().SetVisibility(true);
                         break;
                     }
                 }
                 if(change)
                 {
                     EndTurn(turn);
+                    //GameObject.Find("EnemyTurnTx").GetComponent<EnemyTurnTx>().SetVisibility(false);
+                    //GameObject.Find("EnemyTurnFader").GetComponent<EnemyTurnFader>().SetVisibility(false);
                 }
             }
             else if(turn == Turn.Change)
