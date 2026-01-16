@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public class func
 {
-    static public bool DEBUG = true;
+    static public bool DEBUG = false;
     /// <summary>
     /// フレームレート(/秒)
     /// </summary>
@@ -286,7 +286,7 @@ public class func
     /// </summary>
     /// <param name="angle">角度(ラジアン)</param>
     /// <returns>角度(度数)</returns>
-    private static float deg(float angle)
+    public static float deg(float angle)
     {
         return 180 / Mathf.PI * angle;
     }
