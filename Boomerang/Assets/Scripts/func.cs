@@ -320,6 +320,10 @@ public class func
     {
         return Mathf.Sqrt((dx - sx) * (dx - sx) + (dy - sy) * (dy - sy));
     }
+    static public float dist(Vector2 origin, Vector2 destination)
+    {
+        return Mathf.Sqrt((destination.x - origin.x) * (destination.x - origin.x) + (destination.y - origin.y) * (destination.y - origin.y));
+    }
     /// <summary>
     /// “ñ“_ŠÔ‚ğŒ‹‚Ô’¼ü‚Æx=0‚Æ‚Ì‚È‚·Šp‚ğ‹‚ß‚é
     /// </summary>
@@ -342,6 +346,30 @@ public class func
                 result = rad(90);
             }
             else if(ty < y)
+            {
+                result = rad(-90);
+            }
+            else
+            {
+                result = rad(90);
+            }
+        }
+        return result;
+    }
+    static public float getAngle(Vector2 origin, Vector2 destination)
+    {
+        float result;
+        if(destination.x - origin.x != 0)
+        {
+            result = Mathf.Atan2(destination.y - origin.y, destination.x - origin.x);
+        }
+        else
+        {
+            if(destination.y > origin.y)
+            {
+                result = rad(90);
+            }
+            else if(destination.y < origin.y)
             {
                 result = rad(-90);
             }

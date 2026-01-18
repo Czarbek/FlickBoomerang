@@ -562,6 +562,11 @@ public class Player : MonoBehaviour
                         orbit = orbitPattern(start, end, speed);
                         Debug.Log(orbit);
                         GameObject.Find("SoundManager").GetComponent<SoundManager>().PlaySound(SoundManager.Se.Flick);
+                        GameObject arrow = GameObject.FindGameObjectWithTag("Tutorial");
+                        if(arrow != null)
+                        {
+                            Destroy(arrow);
+                        }
                         state = State.Flying;
                     }
                     else

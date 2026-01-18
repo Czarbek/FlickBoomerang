@@ -160,6 +160,10 @@ public class BattleManager : MonoBehaviour
     /// </summary>
     private bool prepared;
     /// <summary>
+    /// 初級ステージであるか
+    /// </summary>
+    private bool isFirstStage;
+    /// <summary>
     /// 現在の状態を取得する
     /// </summary>
     /// <returns>状態</returns>
@@ -226,6 +230,35 @@ public class BattleManager : MonoBehaviour
         }
     }
     /// <summary>
+    /// チュートリアル用矢印を表示する
+    /// </summary>
+    private void DisplayGuideArrow()
+    {
+        float minDistance = 1000.0f;
+        float angle = 0;
+        Vector2 playerPosition = GameObject.Find("Player").GetComponent<Player>().transform.position;
+        GameObject nearEnemy = null;
+        for(int i = 0; i < enemyCount; i++)
+        {
+            if(enemy[i].GetComponent<Enemy>().GetHP() > 0)
+            {
+                float distance = func.dist(playerPosition, enemy[i].transform.position);
+                if(distance < minDistance)
+                {
+                    minDistance = distance;
+                    angle = func.deg(func.getAngle(playerPosition, enemy[i].transform.position));
+                    nearEnemy = enemy[i];
+                }
+            }
+        }
+        if(nearEnemy != null && stageInfo.GetComponent<StageInfo>().GetStageNumber() == 0)
+        {
+            GameObject guideArrow = Instantiate((GameObject)Resources.Load("GuideArrow"));
+            guideArrow.transform.position = new Vector2(playerPosition.x + 1.0f * func.cos(angle), playerPosition.y + 1.0f * func.sin(angle));
+            guideArrow.GetComponent<GuideArrow>().SetAngle(angle - 90);
+        }
+    }
+    /// <summary>
     /// ターンを終了する
     /// </summary>
     /// <param name="currentTurn">現在のターン</param>
@@ -245,6 +278,7 @@ public class BattleManager : MonoBehaviour
             {
                 item[i].GetComponent<Item>().EndTurn();
             }
+            DisplayGuideArrow();
         }
         else if(nextTurn == Turn.Enemy)
         {
@@ -289,6 +323,7 @@ public class BattleManager : MonoBehaviour
     /// </summary>
     public void EndBossAppear()
     {
+        DisplayGuideArrow();
         GameObject.Find("Player").GetComponent<Player>().SetState(Player.State.Wait);
         state = State.Process;
     }
@@ -489,6 +524,7 @@ public class BattleManager : MonoBehaviour
                     floorCount.GetComponent<FloorCount>().DeleteText();
                     if(nextState == State.Process)
                     {
+                        DisplayGuideArrow();
                         GameObject.Find("Player").GetComponent<Player>().SetState(Player.State.Wait);
                     }
                     state = nextState;

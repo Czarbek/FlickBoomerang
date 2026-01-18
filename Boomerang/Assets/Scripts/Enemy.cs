@@ -452,6 +452,10 @@ public class Enemy : MonoBehaviour
     {
         return alive;
     }
+    public int GetHP()
+    {
+        return hp;
+    }
     /// <summary>
     /// デバッグ用機能　死亡処理へ移行する
     /// </summary>

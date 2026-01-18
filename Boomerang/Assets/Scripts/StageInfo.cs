@@ -377,6 +377,14 @@ public class StageInfo : MonoBehaviour
         return lastFloor;
     }
     /// <summary>
+    /// 該当ステージの番号を取得する
+    /// </summary>
+    /// <returns>読み込んだステージの番号</returns>
+    public int GetStageNumber()
+    {
+        return stage;
+    }
+    /// <summary>
     /// 読み込んだオブジェクト情報を破棄する
     /// </summary>
     public void DeleteInfo()
