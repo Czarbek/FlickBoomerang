@@ -387,6 +387,9 @@ public class Player : MonoBehaviour
     {
         return hp <= 0;
     }
+    /// <summary>
+    /// プレイヤーのパラメータを読み込む
+    /// </summary>
     private async void LoadParameter()
     {
         string path = Application.streamingAssetsPath;

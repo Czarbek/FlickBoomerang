@@ -9,6 +9,8 @@ public class Item : MonoBehaviour
 {
     public enum State
     {
+        /// <summary>出現時フェードイン</summary>
+        FirstFadeIn,
         /// <summary>フェードイン</summary>
         FadeIn,
         /// <summary>表示中</summary>
@@ -117,7 +119,7 @@ public class Item : MonoBehaviour
     /// <summary>
     /// フェードインにかかる時間(フレーム)
     /// </summary>
-    private const int FadeTime = (int)(300.0f / func.FRAMETIME);
+    static public int FadeTime = (int)(300.0f / func.FRAMETIME);
     /// <summary>
     /// フェード時の時間カウント(フレーム)
     /// </summary>
@@ -221,9 +223,15 @@ public class Item : MonoBehaviour
     {
         return valid;
     }
+    public void SetFadeIn()
+    {
+        time = 0;
+        state= State.FadeIn;
+    }
     // Start is called before the first frame update
     void Start()
     {
+        state = State.FirstFadeIn;
         sr = GetComponent<SpriteRenderer>();
 
         power = InitialPower;
@@ -274,6 +282,7 @@ public class Item : MonoBehaviour
             sr.sprite = Resources.Load<Sprite>("Fruit");
             break;
         }
+        sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0);
         time = 0;
         valid = true;
 
@@ -291,6 +300,10 @@ public class Item : MonoBehaviour
     {
         switch(state)
         {
+        case State.FirstFadeIn:
+            time++;
+            sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0);
+            break;
         case State.FadeIn:
             time++;
             sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, (float)time / FadeTime);

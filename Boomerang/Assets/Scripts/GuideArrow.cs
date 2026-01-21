@@ -5,6 +5,11 @@ using UnityEngine;
 /// </summary>
 public class GuideArrow : MonoBehaviour
 {
+    enum State
+    {
+        Wait,
+        Blink,
+    };
     /// <summary>
     /// 不透明度最大値
     /// </summary>
@@ -16,15 +21,19 @@ public class GuideArrow : MonoBehaviour
     /// <summary>
     /// 点滅周期
     /// </summary>
-    private readonly float Frequency = 2.0f;
+    [SerializeField]private float Frequency;
     /// <summary>
-    /// 持続時間(ミリ秒)
+    /// 待機時間(ミリ秒)
     /// </summary>
-    private int SustainTimeMiliSec = 5000;
+    [SerializeField]private int WaitTimeMiliSec;
     /// <summary>
-    /// 持続時間(フレーム数)
+    /// 待機時間(フレーム数)
     /// </summary>
-    private int SustainTime;
+    [SerializeField] private int WaitTime;
+    /// <summary>
+    /// 状態
+    /// </summary>
+    private State state;
     /// <summary>
     /// 処理時間
     /// </summary>
@@ -42,23 +51,60 @@ public class GuideArrow : MonoBehaviour
     {
         transform.rotation = Quaternion.Euler(0, 0, angle);
     }
+    private async void LoadParameter()
+    {
+        string path = Application.streamingAssetsPath;
+        // 読み込みたいCSVファイルのパスを指定して開く
+        path = "ArrowData.csv";
+        string[][] values = await CsvReader.LoadCsvData(path);
+
+        //データがNULLなら処理やめる
+        if(values == null)
+        {
+            return;
+        }
+
+        int nbuffer;
+        //WaitTimeMiliSec
+        if(int.TryParse(values[0][1], out nbuffer))
+        {
+            WaitTimeMiliSec = nbuffer;
+            WaitTime = (int)(WaitTimeMiliSec / func.FRAMETIME);
+        }
+        //Frequency
+        if(int.TryParse(values[1][1], out nbuffer))
+        {
+            int freq = nbuffer;
+            Frequency = 360.0f / func.FRAMERATE * 1000.0f / freq;
+        }
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        state=State.Wait;
         time = 0;
         sr = GetComponent<SpriteRenderer>();
-        SustainTime = (int)(SustainTimeMiliSec / func.FRAMETIME);
+        LoadParameter();
+        sr.color = new Color(1, 1, 1, 0);
     }
 
     // Update is called once per frame
     void Update()
     {
         time++;
-        sr.color = new Color(1, 1, 1, MinAlpha+(MaxAlpha-MinAlpha)*(func.sin(time*Frequency)+1.0f) / 2.0f);
-        if(time == SustainTime)
+        switch(state)
         {
-            Destroy(gameObject);
+        case State.Wait:
+            if(time == WaitTime)
+            {
+                time = 0;
+                state = State.Blink;
+            }
+            break;
+        case State.Blink:
+            sr.color = new Color(1, 1, 1, MinAlpha + (MaxAlpha - MinAlpha) * (-func.cos(time * Frequency) + 1.0f) / 2.0f);
+            break;
         }
     }
 }
