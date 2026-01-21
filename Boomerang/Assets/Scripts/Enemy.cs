@@ -55,6 +55,8 @@ public class Enemy : MonoBehaviour
     /// </summary>
     public enum BossEffect
     {
+        /// <summary>出現前待機</summary>
+        Wait,
         /// <summary>波紋</summary>
         Wave,
         /// <summary>ぼかし解除</summary>
@@ -552,6 +554,14 @@ public class Enemy : MonoBehaviour
         time = 0;
         bossEffect = BossEffect.End;
     }
+    /// <summary>
+    /// 待機状態を解除する
+    /// </summary>
+    public void EndWait()
+    {
+        time = 0;
+        bossEffect = BossEffect.Wave;
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -724,6 +734,8 @@ public class Enemy : MonoBehaviour
                 time++;
                 switch(bossEffect)
                 {
+                case BossEffect.Wait:
+                    break;
                 case BossEffect.Wave:
                     if(time % WaveGapTime == 0 && time <= WaveGapTime * WaveNum)
                     {

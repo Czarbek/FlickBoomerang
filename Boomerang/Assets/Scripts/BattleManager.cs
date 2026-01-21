@@ -54,6 +54,8 @@ public class BattleManager : MonoBehaviour
         StartWait,
         /// <summary>ボス登場演出</summary>
         BossAppear,
+        /// <summary>アイテム出現</summary>
+        ItemWait,
         /// <summary>ステージ進行中</summary>
         Process,
         /// <summary>ターン切り替え待機</summary>
@@ -325,6 +327,7 @@ public class BattleManager : MonoBehaviour
     {
         DisplayGuideArrow();
         GameObject.Find("Player").GetComponent<Player>().SetState(Player.State.Wait);
+        time = 0;
         state = State.Process;
     }
     /// <summary>
@@ -381,6 +384,11 @@ public class BattleManager : MonoBehaviour
         }
         if(canMove)
         {
+            GameObject arrow = GameObject.FindGameObjectWithTag("Tutorial");
+            if(arrow != null)
+            {
+                Destroy(arrow);
+            }
             GameObject.Find("Player").GetComponent<Player>().SetState(Player.State.NoInput);
             state = State.Change_debug;
         }
@@ -522,18 +530,44 @@ public class BattleManager : MonoBehaviour
                     alpha = 0;
                     time = 0;
                     floorCount.GetComponent<FloorCount>().DeleteText();
-                    if(nextState == State.Process)
-                    {
-                        DisplayGuideArrow();
-                        GameObject.Find("Player").GetComponent<Player>().SetState(Player.State.Wait);
-                    }
-                    state = nextState;
+                    state = State.ItemWait;
                 }
                 SpriteRenderer sr = GetComponent<SpriteRenderer>();
                 sr.color = new Color(r, g, b, alpha);
             }
             break;
         case State.BossAppear:
+            if(time == 1)
+            {
+                enemy = GameObject.FindGameObjectsWithTag("Enemy");
+                for(int i = 0; i < enemy.Length; i++)
+                {
+                    if(enemy[i].GetComponent<Enemy>().boss)
+                    {
+                        enemy[i].GetComponent<Enemy>().EndWait();
+                    }
+                }
+            }
+            break;
+        case State.ItemWait:
+            if(time == 1)
+            {
+                item = GameObject.FindGameObjectsWithTag("Item");
+                for(int i = 0; i < item.Length; i++)
+                {
+                    item[i].GetComponent<Item>().SetFadeIn();
+                }
+            }
+            if(time == Item.FadeTime)
+            {
+                time = 0;
+                state = nextState;
+                if(nextState == State.Process)
+                {
+                    DisplayGuideArrow();
+                    GameObject.Find("Player").GetComponent<Player>().SetState(Player.State.Wait);
+                }
+            }
             break;
         case State.Process:
             nextState = State.Process;
