@@ -64,7 +64,7 @@ public class EnemyTurnFader : MonoBehaviour
         time = 0;
         alpha = 0;
         sr = GetComponent<SpriteRenderer>();
-        sr.color = new Color(0, 0, 0, alpha);
+        sr.color = new Color(1, 0, 0, alpha);
     }
 
     // Update is called once per frame
@@ -89,6 +89,7 @@ public class EnemyTurnFader : MonoBehaviour
         case State.Wait:
             time = 0;
             alpha = MaxAlpha;
+            state = State.FadeOut;
             break;
         case State.FadeOut:
             time++;
@@ -101,6 +102,6 @@ public class EnemyTurnFader : MonoBehaviour
             }
             break;
         }
-        sr.color = new Color(0, 0, 0, alpha);
+        sr.color = new Color(1, 0, 0, alpha);
     }
 }

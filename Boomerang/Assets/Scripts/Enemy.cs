@@ -137,6 +137,14 @@ public class Enemy : MonoBehaviour
     /// </summary>
     private bool hit;
     /// <summary>
+    /// 攻撃を開始してよいか
+    /// </summary>
+    private bool canAttack;
+    /// <summary>
+    /// 点滅を開始したか
+    /// </summary>
+    private bool blink;
+    /// <summary>
     /// 行動終了したか
     /// </summary>
     private bool changeTurn;
@@ -389,12 +397,10 @@ public class Enemy : MonoBehaviour
                     }
                     else
                     {
-                        GameObject bullet = (GameObject)Resources.Load("EnemyBullet");
-                        bullet = Instantiate(bullet);
-                        bullet.transform.position = this.transform.position;
-                        bullet.GetComponent<EnemyBullet>().atk = atk;
-                        bullet.GetComponent<EnemyBullet>().parent = this.gameObject;
-                        GameObject.Find("SoundManager").GetComponent<SoundManager>().PlaySound(SoundManager.Se.EnemyAttack);
+                        if(!canAttack)
+                        {
+                            turnCounter.GetComponent<TurnCounter>().StartBlink();
+                        }
                     }
                 }
                 else
@@ -407,6 +413,19 @@ public class Enemy : MonoBehaviour
                 changeTurn = true;
             }
         }
+        else
+        {
+            if(canAttack)
+            {
+                GameObject bullet = (GameObject)Resources.Load("EnemyBullet");
+                bullet = Instantiate(bullet);
+                bullet.transform.position = this.transform.position;
+                bullet.GetComponent<EnemyBullet>().atk = atk;
+                bullet.GetComponent<EnemyBullet>().parent = this.gameObject;
+                GameObject.Find("SoundManager").GetComponent<SoundManager>().PlaySound(SoundManager.Se.EnemyAttack);
+                canAttack = false;
+            }
+        }
     }
     /// <summary>
     /// 敵ターン終了時処理
@@ -415,6 +434,15 @@ public class Enemy : MonoBehaviour
     {
         changeTurn = false;
         turnProcess = false;
+        canAttack = false;
+        blink = false;
+    }
+    /// <summary>
+    /// 攻撃を開始する
+    /// </summary>
+    public void AllowAttack()
+    {
+        canAttack = true;
     }
     /// <summary>
     /// ターンカウントをリセットする

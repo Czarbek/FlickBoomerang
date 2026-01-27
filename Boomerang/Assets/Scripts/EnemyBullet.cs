@@ -87,6 +87,7 @@ public class EnemyBullet : MonoBehaviour
 
         if(func.CircleCollision(transform.position, Collisionr, targetPoint, PlayerGauge.Collisionr))
         {
+            GameObject.Find("EnemyTurnFader").GetComponent<EnemyTurnFader>().SetVisibility(true);
             gauge.GetComponent<PlayerGauge>().Hit(atk);
             parent.GetComponent<Enemy>().SetChange();
             parent.GetComponent<Enemy>().ResetTurn();

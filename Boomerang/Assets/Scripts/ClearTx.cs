@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 using System;
 
 /// <summary>
@@ -88,6 +87,10 @@ public class ClearTx : MonoBehaviour
     /// </summary>
     private float standardy;
     /// <summary>
+    /// SpriteRendererコンポーネント
+    /// </summary>
+    private SpriteRenderer sr;
+    /// <summary>
     /// ステージ番号をセットする
     /// </summary>
     /// <param name="stage">ステージ</param>
@@ -113,12 +116,12 @@ public class ClearTx : MonoBehaviour
         alpha = 0;
         standardx = transform.position.x;
         standardy = transform.position.y;
-        TextMeshProUGUI tmpro = GetComponent<TextMeshProUGUI>();
-        Color col = tmpro.color;
+        sr = GetComponent<SpriteRenderer>();
+        Color col = sr.color;
         r = col.r;
         g = col.g;
         b = col.b;
-        tmpro.color = new Color(r, g, b, alpha);
+        sr.color = new Color(r, g, b, alpha);
     }
 
     // Update is called once per frame
@@ -131,10 +134,10 @@ public class ClearTx : MonoBehaviour
             break;
         case State.FadeIn:
             alpha = 1.0f * time / FadeInTime;
-            GetComponent<TextMeshProUGUI>().color = new Color(r, g, b, alpha);
+            sr.color = new Color(r, g, b, alpha);
             if(time == FadeInTime)
             {
-                GetComponent<TextMeshProUGUI>().color = new Color(r, g, b, 1.0f);
+                sr.color = new Color(r, g, b, 1.0f);
                 time = 0;
                 state = State.Jump;
             }

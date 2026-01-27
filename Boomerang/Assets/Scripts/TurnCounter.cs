@@ -21,6 +21,8 @@ public class TurnCounter : MonoBehaviour
         FadeIn,
         /// <summary>表示中</summary>
         Process,
+        /// <summary>点滅</summary>
+        Blink,
         /// <summary>フェードアウト</summary>
         FadeOut,
         /// <summary>非アクティブ</summary>
@@ -50,6 +52,14 @@ public class TurnCounter : MonoBehaviour
     /// 拡大率
     /// </summary>
     private const float DefaultScale = 0.5f;
+    /// <summary>
+    /// 点滅時間
+    /// </summary>
+    private const int BlinkTime = (int)(400.0f / func.FRAMETIME);
+    /// <summary>
+    /// 点滅回数
+    /// </summary>
+    private const int BlinkNum = 3;
     /// <summary>
     /// フェードにかかる時間(ミリ秒)
     /// </summary>
@@ -92,6 +102,14 @@ public class TurnCounter : MonoBehaviour
         }
     }
     /// <summary>
+    /// 点滅を開始する
+    /// </summary>
+    public void StartBlink()
+    {
+        state = State.Blink;
+        time = 0;
+    }
+    /// <summary>
     /// 非表示にする
     /// </summary>
     public void Die()
@@ -124,7 +142,18 @@ public class TurnCounter : MonoBehaviour
             }
             break;
         case State.Process:
+            time = 0;
             sr.color = new Color(col.r, col.g, col.b, 1);
+            break;
+        case State.Blink:
+            time++;
+            sr.color = new Color(col.r, col.g, col.b, func.cos(time*360.0f/BlinkTime));
+            if(time == BlinkTime * BlinkNum)
+            {
+                time = 0;
+                state = State.Process;
+                parent.GetComponent<Enemy>().AllowAttack();
+            }
             break;
         case State.FadeOut:
             time++;
