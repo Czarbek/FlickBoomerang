@@ -88,7 +88,7 @@ public class BattleManager : MonoBehaviour
     /// <summary>
     /// 状態
     /// </summary>
-    public State state;
+    [SerializeField]private State state;
     /// <summary>
     /// 次の状態
     /// </summary>
@@ -140,7 +140,7 @@ public class BattleManager : MonoBehaviour
     /// <summary>
     /// 経過時間
     /// </summary>
-    private int time;
+    [SerializeField] private int time;
     /// <summary>
     /// 矩形の色のR値
     /// </summary>
@@ -227,7 +227,7 @@ public class BattleManager : MonoBehaviour
                     enemy[i].GetComponent<Enemy>().SetDie();
                 }
             }
-            GameObject.Find("ClearTx").GetComponent<ClearTx>().SetText();
+            time = 0;
             state = State.StageClear;
         }
     }
@@ -351,7 +351,7 @@ public class BattleManager : MonoBehaviour
             }
             else
             {
-                GameObject.Find("ClearTx").GetComponent<ClearTx>().SetText();
+                time = 0;
                 state = State.StageClear;
             }
         }
@@ -588,7 +588,7 @@ public class BattleManager : MonoBehaviour
                     {
                         change = false;
                         //GameObject.Find("EnemyTurnTx").GetComponent<EnemyTurnTx>().SetVisibility(true);
-                        //GameObject.Find("EnemyTurnFader").GetComponent<EnemyTurnFader>().SetVisibility(true);
+                        GameObject.Find("PlayerDamage").GetComponent<PlayerDamage>().SetVisibility(true);
                         break;
                     }
                 }
@@ -596,7 +596,7 @@ public class BattleManager : MonoBehaviour
                 {
                     EndTurn(turn);
                     //GameObject.Find("EnemyTurnTx").GetComponent<EnemyTurnTx>().SetVisibility(false);
-                    //GameObject.Find("EnemyTurnFader").GetComponent<EnemyTurnFader>().SetVisibility(false);
+                    GameObject.Find("PlayerDamage").GetComponent<PlayerDamage>().SetVisibility(false);
                 }
             }
             else if(turn == Turn.Change)
@@ -670,7 +670,17 @@ public class BattleManager : MonoBehaviour
             }
             break;
         case State.StageClear:
-
+            
+            if(time < GOFadeOutTime)
+            {
+                alpha += InitialAlpha / FadeInTime;
+                SpriteRenderer sr = GetComponent<SpriteRenderer>();
+                sr.color = new Color(r, g, b, alpha);
+            }
+            else if(time == GOFadeOutTime)
+            {
+                GameObject.Find("ClearTx").GetComponent<ClearTx>().SetText();
+            }
             break;
         }
     }
