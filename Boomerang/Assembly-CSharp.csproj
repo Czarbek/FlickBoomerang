@@ -76,6 +76,7 @@
     <Compile Include="Assets\Scripts\PlayerDamage.cs" />
     <Compile Include="Assets\Scripts\BattleManager.cs" />
     <Compile Include="Assets\Scripts\GameOverTx.cs" />
+    <Compile Include="Assets\Scripts\Star.cs" />
     <Compile Include="Assets\Scripts\HelpWindow.cs" />
     <Compile Include="Assets\Scripts\SoundManager.cs" />
     <Compile Include="Assets\Scripts\HelpButton.cs" />

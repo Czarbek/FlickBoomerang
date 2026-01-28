@@ -272,6 +272,7 @@ public class Player : MonoBehaviour
                     GameObject hitEffect = Instantiate((GameObject)Resources.Load("HitEffect"));
                     hitEffect.transform.position = enemy[i].transform.position;
                     hitEffect.transform.rotation = Quaternion.Euler(0, 0, hitAngle + 90.0f);
+                    hitEffect.GetComponent<HitEffect>().SetElement(element);
                 }
             }
         }

@@ -127,6 +127,8 @@ public class ClearTx : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        int pointNum = 3;
+        int starNum = 15;
         time++;
         switch(state)
         {
@@ -140,6 +142,17 @@ public class ClearTx : MonoBehaviour
                 sr.color = new Color(r, g, b, 1.0f);
                 time = 0;
                 state = State.Jump;
+                /*
+                for(int i = 0; i <= pointNum; i++)
+                {
+                    float genX = -func.camWidth * 2.5f + func.camWidth * 5 * i / pointNum;
+                    for(int j = 0; j < starNum; j++)
+                    {
+                        GameObject star = Instantiate((GameObject)Resources.Load("Star"));
+                        star.transform.position = new Vector2(genX, -func.camHeight * 2 + UnityEngine.Random.Range(-0.75f, 0.33f));
+                    }
+                }
+                */
             }
             break;
         case State.Jump:
@@ -147,6 +160,10 @@ public class ClearTx : MonoBehaviour
             {
                 float y = standardy + func.sin((float)time / JumpTime * 180.0f) * JumpHeight;
                 transform.position = new Vector2(standardx, y);
+                GameObject star = Instantiate((GameObject)Resources.Load("Star"));
+                star.transform.position = new Vector2(1.0f, -func.camHeight * 2 + UnityEngine.Random.Range(-0.75f, 0.33f));
+                GameObject star2 = Instantiate((GameObject)Resources.Load("Star"));
+                star2.transform.position = new Vector2(-1.0f, -func.camHeight * 2 + UnityEngine.Random.Range(-0.75f, 0.33f));
             }
             else if(time == JumpTime + JumpGapTime)
             {
