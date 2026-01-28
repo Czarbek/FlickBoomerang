@@ -37,7 +37,7 @@ public class TitleLogo : MonoBehaviour
     /// <summary>
     /// yç¿ïW
     /// </summary>
-    private readonly float CenterY = StageInfo.ycalc(120);
+    private readonly float CenterY = StageInfo.ycalc(100);
     /// <summary>
     /// èoåªÇ…Ç©Ç©ÇÈéûä‘
     /// </summary>
@@ -77,9 +77,9 @@ public class TitleLogo : MonoBehaviour
     void Start()
     {
         //float scale = (float)func.SCW / 2048;
-        float scale = 0.4f;
+        float scale = 0.8f;
         sr = GetComponent<SpriteRenderer>();
-        sr.sprite = Resources.Load<Sprite>("title");
+        sr.sprite = Resources.Load<Sprite>("titlelogo");
         transform.position = new Vector2(StartX, CenterY);
         transform.localScale = new Vector2(scale, scale);
 

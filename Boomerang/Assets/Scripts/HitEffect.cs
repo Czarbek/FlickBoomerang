@@ -71,6 +71,7 @@ public class HitEffect : MonoBehaviour
     /// y•ûŒüŠg‘å—¦
     /// </summary>
     private float scaleY;
+    SpriteRenderer sr;
 
     /// <summary>
     /// •\¦ó‘Ô‚ğ•ÏX‚·‚é
@@ -80,6 +81,25 @@ public class HitEffect : MonoBehaviour
     {
         state = nextState;
         time = 0;
+    }
+    public void SetElement(Enemy.Element elem)
+    {
+        sr = GetComponent<SpriteRenderer>();
+        switch(elem)
+        {
+        case Enemy.Element.None:
+            sr.sprite = Resources.Load<Sprite>("hit_plane");
+            break;
+        case Enemy.Element.Fire:
+            sr.sprite = Resources.Load<Sprite>("hit_fire");
+            break;
+        case Enemy.Element.Aqua:
+            sr.sprite = Resources.Load<Sprite>("hit_aqua");
+            break;
+        case Enemy.Element.Leaf:
+            sr.sprite = Resources.Load<Sprite>("hit_leaf");
+            break;
+        }
     }
     void Start()
     {
