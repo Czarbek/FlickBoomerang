@@ -1,0 +1,702 @@
+fileFormatVersion: 2
+guid: 840b8b23a4ce16341a1417f67445b4b3
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8262544040727358572
+    second: helpexp_01_0
+  - first:
+      213: -1186039100058778356
+    second: helpexp_01_1
+  - first:
+      213: 1703218031408001687
+    second: helpexp_01_2
+  - first:
+      213: -8256789613457298571
+    second: helpexp_01_3
+  - first:
+      213: -5137824033771978560
+    second: helpexp_01_4
+  - first:
+      213: -3238156461964281584
+    second: helpexp_01_5
+  - first:
+      213: -3139549548833434896
+    second: helpexp_01_6
+  - first:
+      213: 5216832920132680951
+    second: helpexp_01_7
+  - first:
+      213: 5039121245807326518
+    second: helpexp_01_8
+  - first:
+      213: 5972782381396798121
+    second: helpexp_01_9
+  - first:
+      213: -2339559842890326291
+    second: helpexp_01_10
+  - first:
+      213: -876364621441717280
+    second: helpexp_01_11
+  - first:
+      213: -7939305370779559857
+    second: helpexp_01_12
+  - first:
+      213: -2157812870445358385
+    second: helpexp_01_13
+  - first:
+      213: -3475270350792073414
+    second: helpexp_01_14
+  - first:
+      213: -1397587414066768149
+    second: helpexp_01_15
+  - first:
+      213: -6334296378894639295
+    second: helpexp_01_16
+  - first:
+      213: -4024296861533237791
+    second: helpexp_01_17
+  - first:
+      213: 1971560338258660243
+    second: helpexp_01_18
+  - first:
+      213: 4327444875706232794
+    second: helpexp_01_19
+  - first:
+      213: 8456947834973529997
+    second: helpexp_01_20
+  - first:
+      213: -3816229716613265426
+    second: helpexp_01_21
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 4
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 192
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: helpexp_01_0
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 63
+        width: 53
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6c239837047aa270800000000000000
+      internalID: 8262544040727358572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: helpexp_01_1
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 42
+        width: 55
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c05c54fe8b75a8fe0800000000000000
+      internalID: -1186039100058778356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: helpexp_01_2
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 43
+        width: 48
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7923d1986cb03a710800000000000000
+      internalID: 1703218031408001687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: helpexp_01_3
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 42
+        width: 55
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 57b2eb8c79df96d80800000000000000
+      internalID: -8256789613457298571
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: helpexp_01_4
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 45
+        width: 42
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c08e8c3348c2b8b0800000000000000
+      internalID: -5137824033771978560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: helpexp_01_5
+      rect:
+        serializedVersion: 2
+        x: 312
+        y: 44
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 019bb75bad1cf03d0800000000000000
+      internalID: -3238156461964281584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: helpexp_01_6
+      rect:
+        serializedVersion: 2
+        x: 367
+        y: 44
+        width: 53
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f29b03c1541e64d0800000000000000
+      internalID: -3139549548833434896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: helpexp_01_7
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 42
+        width: 44
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7fc7211a6e9e56840800000000000000
+      internalID: 5216832920132680951
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: helpexp_01_8
+      rect:
+        serializedVersion: 2
+        x: 537
+        y: 79
+        width: 39
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 635387c131e8ee540800000000000000
+      internalID: 5039121245807326518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: helpexp_01_9
+      rect:
+        serializedVersion: 2
+        x: 588
+        y: 73
+        width: 26
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9aa2ed34ee593e250800000000000000
+      internalID: 5972782381396798121
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: helpexp_01_10
+      rect:
+        serializedVersion: 2
+        x: 589
+        y: 44
+        width: 48
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: deed0c9e7b6388fd0800000000000000
+      internalID: -2339559842890326291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: helpexp_01_11
+      rect:
+        serializedVersion: 2
+        x: 642
+        y: 43
+        width: 48
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0eb2f3d150786d3f0800000000000000
+      internalID: -876364621441717280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: helpexp_01_12
+      rect:
+        serializedVersion: 2
+        x: 698
+        y: 44
+        width: 49
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f48555b54dbe1d190800000000000000
+      internalID: -7939305370779559857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: helpexp_01_13
+      rect:
+        serializedVersion: 2
+        x: 757
+        y: 61
+        width: 12
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc2a65d70a8ed02e0800000000000000
+      internalID: -2157812870445358385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: helpexp_01_14
+      rect:
+        serializedVersion: 2
+        x: 772
+        y: 43
+        width: 24
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3f579a570c55cfc0800000000000000
+      internalID: -3475270350792073414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: helpexp_01_15
+      rect:
+        serializedVersion: 2
+        x: 811
+        y: 63
+        width: 14
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be65ef1d6a5ca9ce0800000000000000
+      internalID: -1397587414066768149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: helpexp_01_16
+      rect:
+        serializedVersion: 2
+        x: 824
+        y: 64
+        width: 12
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14f11f1010f0818a0800000000000000
+      internalID: -6334296378894639295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: helpexp_01_17
+      rect:
+        serializedVersion: 2
+        x: 824
+        y: 46
+        width: 29
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ed87997353d628c0800000000000000
+      internalID: -4024296861533237791
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: helpexp_01_18
+      rect:
+        serializedVersion: 2
+        x: 861
+        y: 44
+        width: 51
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 39b082f8ea36c5b10800000000000000
+      internalID: 1971560338258660243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: helpexp_01_19
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 43
+        width: 53
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: adfed89cf2c2e0c30800000000000000
+      internalID: 4327444875706232794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: helpexp_01_20
+      rect:
+        serializedVersion: 2
+        x: 422
+        y: 63
+        width: 49
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d872b93cf3d1d5570800000000000000
+      internalID: 8456947834973529997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: helpexp_01_21
+      rect:
+        serializedVersion: 2
+        x: 532
+        y: 44
+        width: 49
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee70affba470a0bc0800000000000000
+      internalID: -3816229716613265426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      helpexp_01_0: 8262544040727358572
+      helpexp_01_1: -1186039100058778356
+      helpexp_01_10: -2339559842890326291
+      helpexp_01_11: -876364621441717280
+      helpexp_01_12: -7939305370779559857
+      helpexp_01_13: -2157812870445358385
+      helpexp_01_14: -3475270350792073414
+      helpexp_01_15: -1397587414066768149
+      helpexp_01_16: -6334296378894639295
+      helpexp_01_17: -4024296861533237791
+      helpexp_01_18: 1971560338258660243
+      helpexp_01_19: 4327444875706232794
+      helpexp_01_2: 1703218031408001687
+      helpexp_01_20: 8456947834973529997
+      helpexp_01_21: -3816229716613265426
+      helpexp_01_3: -8256789613457298571
+      helpexp_01_4: -5137824033771978560
+      helpexp_01_5: -3238156461964281584
+      helpexp_01_6: -3139549548833434896
+      helpexp_01_7: 5216832920132680951
+      helpexp_01_8: 5039121245807326518
+      helpexp_01_9: 5972782381396798121
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

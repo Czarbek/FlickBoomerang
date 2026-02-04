@@ -2,7 +2,7 @@
 EndOfHeader,,,,,,,,
 1,enemy,6,fire,3,5,-25,120,D
 1,enemy,10,aqua,3,5,22,90,C
-1,enemy,6,leaf,3,5,35,10,D
+1,enemy,6,leaf,3,5,37,20,D
 2,enemy,9,fire,3,3,8,120,D
 2,enemy,15,aqua,3,3,-5,30,C
 2,enemy,22,leaf,5,5,-30,80,B
