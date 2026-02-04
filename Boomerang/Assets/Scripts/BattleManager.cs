@@ -256,7 +256,8 @@ public class BattleManager : MonoBehaviour
         if(nearEnemy != null && stageInfo.GetComponent<StageInfo>().GetStageNumber() == 0)
         {
             GameObject guideArrow = Instantiate((GameObject)Resources.Load("GuideArrow"));
-            guideArrow.transform.position = new Vector2(playerPosition.x + 1.0f * func.cos(angle), playerPosition.y + 1.0f * func.sin(angle));
+            guideArrow.transform.position = new Vector2(playerPosition.x + 0.5f * func.cos(angle), playerPosition.y + 0.5f * func.sin(angle));
+            guideArrow.transform.localScale = new Vector2(1, minDistance / func.pxcalc(440) /1.25f);
             guideArrow.GetComponent<GuideArrow>().SetAngle(angle - 90);
         }
     }

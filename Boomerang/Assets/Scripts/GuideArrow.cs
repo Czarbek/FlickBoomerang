@@ -51,6 +51,14 @@ public class GuideArrow : MonoBehaviour
     {
         transform.rotation = Quaternion.Euler(0, 0, angle);
     }
+    /// <summary>
+    /// c‚ÌŠg‘å—¦‚ğ•ÏX‚·‚é
+    /// </summary>
+    /// <param name="scale"></param>
+    public void SetScale(float scale)
+    {
+        transform.localScale = new Vector2(1, scale);
+    }
     private async void LoadParameter()
     {
         string path = Application.streamingAssetsPath;
